@@ -1,10 +1,8 @@
-import { AsyncResource } from 'async_hooks';
 import fs from 'fs';
 
 class ProductManager{
     constructor(){
         this.path = 'products.json'
-        // this.products = []
         this.index = 0
     }
     
@@ -44,9 +42,7 @@ class ProductManager{
 
     async updateProduct(id, title, description, price, thumbnail, code, stock){
         const products = await this.getProducts();
-    
-        const index = products.findIndex(product => product.id === id )
-            
+        const index = products.findIndex(product => product.id === id )     
         if(index !== -1){
             const updatedProduct = {
                 id,
@@ -66,19 +62,17 @@ class ProductManager{
         }
     }
     
-    async deleteProduct(id){
-        const products = await this.getProducts();
-        const index = products.findIndex(product => product.id === id )
-        let productDeleted;
-        if(index !== -1){
-            productDeleted = products.splice(index, 1)[0];
-        }
-        await fs.promises.writeFile(this.path, JSON.stringify(products));
-        console.log(`Se eliminó el producto con id: ${id}`);
-    }
-
+     async deleteProduct(id){
+         const products = await this.getProducts();
+         const index = products.findIndex(product => product.id === id )
+         let productDeleted;
+         if(index !== -1){
+             productDeleted = products.splice(index, 1)[0];
+         }
+         await fs.promises.writeFile(this.path, JSON.stringify(products));
+         console.log(`Se eliminó el producto con id: ${id}`);
+     }
 }
-
 
 
 // TESTEO DE FUNCIONAMIENTO
