@@ -2,7 +2,7 @@
 
 ## Instalación
 
-Para poder ejecutar el proyecto, debes tener instalado [Node.js](https://nodejs.org/).
+Para poder ejecutar el proyecto, debes tener instalado [Node.js](https://nodejs.org/) y [Express](https://expressjs.com/es/) .
 
 1. Clonar el repositorio con el comando:
 
