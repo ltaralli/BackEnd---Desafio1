@@ -27,9 +27,10 @@ app.get('/products', async (req, res) => {
 app.get('/products/:id', async (req, res) => {
     let id = req.params.id;
     let product = await manager.getProductById(id)
+    if (!product) {
+        return res.status(400).send({status: "error", error: "Producto inexistente"})
+    }
     res.send(product)
-    console.log(product)
 })
-
 
 const server = app.listen(8080, () => console.log('Corriendo en el puerto: 8080'))

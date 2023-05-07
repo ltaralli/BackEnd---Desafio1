@@ -64,19 +64,16 @@ class ProductManager{
             console.log(`Se han guardado los cambios del producto con id: ${id}`);
             return products[index];
         } else {
-            console.log(`No se encontró ningún producto con el id: ${id}`)
+           
+            return console.log(`No se encontró ningún producto con el id: ${id}`)
         }
     }
     
      async deleteProduct(id){
          const products = await this.getProducts();
-         const index = products.findIndex(product => product.id === id )
-         let productDeleted;
-         if(index !== -1){
-             productDeleted = products.splice(index, 1)[0];
-         }
-         await fs.promises.writeFile(this.path, JSON.stringify(products));
-         console.log(`Se eliminó el producto con id: ${id}`);
+         const index = products.filter(product => product.id !== id )
+         await fs.promises.writeFile(this.path, JSON.stringify(index));
+        return index
      }
 }
 
