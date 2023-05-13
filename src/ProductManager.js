@@ -4,7 +4,7 @@ import express  from 'express';
 
 class ProductManager{
     constructor(){
-        this.path = 'products.json'
+        this.path = 'src/products.json'
         this.index = 0
     }
     

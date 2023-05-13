@@ -1,36 +1,16 @@
 import express from "express";
-import ProductManager from "./ProductManager.js";
+
+import productsRouter from "./routes/products.routes.js";
+import cartRouter from "./routes/cart.routes.js";
 const app = express();
 
+app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(express.static('public'));
 
-const manager = new ProductManager()
 
 
-app.get('/products', async (req, res) => {
-    try {
-        let limit = req.query.limit;
-        let products = await manager.getProducts()
-    
-        if (limit) {
-            let limitQuery = products.slice(0, limit);
-            return res.send(limitQuery);
-        }
-        res.send(products);
-    } catch (error) {
-        console.log(error)
-    }
-    
-
-})
-
-app.get('/products/:id', async (req, res) => {
-    let id = req.params.id;
-    let product = await manager.getProductById(id)
-    if (!product) {
-        return res.status(400).send({status: "error", error: "Producto inexistente"})
-    }
-    res.send(product)
-})
+app.use('/api/products', productsRouter);
+app.use('/api/cart', cartRouter)
 
 const server = app.listen(8080, () => console.log('Corriendo en el puerto: 8080'))
