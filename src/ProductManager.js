@@ -1,11 +1,8 @@
 import fs from 'fs';
-import express  from 'express';
-
 
 class ProductManager{
     constructor(){
         this.path = 'src/products.json'
-        this.index = 0
     }
     
 
@@ -26,55 +23,64 @@ class ProductManager{
     }
 
 
-    async addProduct(title, description, price, thumbnail, code, stock){
-        // SE GENERA EL ID
-        this.index++
-        const id = this.index
-        // OBJETO LITERAL
-        const product = {id, title, description, price, thumbnail, code, stock}
-        // SE OBTIENEN LOS PRODUCTOS
-        const products = await this.getProducts();
-        const siExiste = products.some(product => product.code === code)
-        // VALIDACIONES
-        if (siExiste) return console.log("El código ya fue ingresado, por favor ingresa otro diferente")
-        if (!title || !description || !price || !thumbnail || !code || !stock) return console.log("Por favor, completa todos los datos")
-        // PUSHEO
-        products.push(product)
-        await fs.promises.writeFile(this.path, JSON.stringify(products))
+    async addProduct(product) {
+       try {
+            const products = await this.getProducts();
+
+            const existingProduct = products.find(p => p.code === product.code);
+            if (existingProduct) {
+                throw new Error('El código ya fue ingresado, por favor ingresa otro diferente');
+            }
+
+            products.push(product);
+            await fs.promises.writeFile(this.path, JSON.stringify(products));
+       } catch (error) {
+            throw error;
+       }
     }
    
-
-
-
-    async updateProduct(id, title, description, price, thumbnail, code, stock){
-        const products = await this.getProducts();
-        const index = products.findIndex(product => product.id === id )     
-        if(index !== -1){
-            const updatedProduct = {
-                id,
-                title: title || products[index].title, 
-                description: description || products[index].description, 
-                price: price || products[index].price, 
-                thumbnail: thumbnail || products[index].thumbnail, 
-                code: code || products[index].code, 
-                stock: stock || products[index].stock
-            }
-            products[index] = updatedProduct;
-            await fs.promises.writeFile(this.path, JSON.stringify(products));
-            console.log(`Se han guardado los cambios del producto con id: ${id}`);
-            return products[index];
-        } else {
-           
-            return console.log(`No se encontró ningún producto con el id: ${id}`)
-        }
+    getNextId(){
+        return Date.now();
     }
-    
-     async deleteProduct(id){
-         const products = await this.getProducts();
-         const index = products.filter(product => product.id !== id )
-         await fs.promises.writeFile(this.path, JSON.stringify(index));
-        return index
-     }
-}
 
+
+    async updateProduct(pid, fields){
+        let product = null;
+        try {
+            const products = await this.getProducts();
+            const index = products.findIndex(product => product.id == pid)     
+            if(index == -1){
+                return product;
+            }
+
+            if (fields.title) products[index].title = fields.title;
+            if (fields.description) products[index].description = fields.description;
+            if (fields.price) products[index].price = fields.price;
+            if (fields.thumbnail) products[index].thumbnail = fields.thumbnail;
+            if (fields.code) products[index].code = fields.code;
+            if (fields.stock) products[index].stock = fields.stock;
+            if (fields.category) products[index].category = fields.category;
+            if (fields.status) products[index].status = fields.status;
+            
+            product = { ...products[index] };
+            await fs.writeFileSync(this.path, JSON.stringify(products));
+            console.log('product after:', products[index]);
+        } catch (error) {
+            throw error;
+        }
+        return product;
+      }
+      
+      async deleteProduct(id) {
+        let deletedProduct = null;
+        const products = await this.getProducts();
+        const index = products.findIndex(product => product.id === parseInt(id));
+        if (index !== -1) {
+          deletedProduct = products.splice(index, 1)[0];
+          await fs.promises.writeFile(this.path, JSON.stringify(products));
+        }
+        return deletedProduct;
+      }
+
+}
 export default ProductManager;
