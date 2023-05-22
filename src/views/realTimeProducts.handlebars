@@ -1,0 +1,78 @@
+<div>
+    <h1 class="text-center mt-4" >Real Time Products</h1>
+</div>
+
+<form class="p-5" method="POST">
+  <div class="mb-6">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="title" name="title" required>
+  </div>
+  <div class="mb-6">
+    <label for="description" class="form-label">Description</label>
+    <input type="text" class="form-control" id="description" name="description" required>
+  </div>
+  <div class="mb-6">
+    <label for="price" class="form-label">Price</label>
+    <input type="number" class="form-control" id="price" name="price" required>
+  </div>
+  <div class="mb-6">
+    <label for="thumbnails" class="form-label">Thumbnails</label>
+    <input type="text" class="form-control" id="thumbnails" name="thumbnails" required>
+  </div>
+  <div class="mb-6">
+    <label for="code" class="form-label">Code</label>
+    <input type="text" class="form-control" id="code" name="code" required>
+  </div>
+  <div class="mb-6">
+    <label for="stock" class="form-label">Stock</label>
+    <input type="number" class="form-control" id="stock" name="stock" required>
+  </div>
+  <div class="mb-6">
+    <label for="category" class="form-label">Category</label>
+    <input type="text" class="form-control" id="category" name="category" required>
+  </div>
+  <div class="pt-3">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+
+
+<div>
+    <h1 class="text-center mt-4">Lista de Productos</h1>
+    <section class="p-5">
+     <table class="table table-hover">
+            <thead >
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Code</th>
+                    <th>Stock</th>
+                    <th>Status</th>
+                    <th>Thumbnails</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                    <td>{{this.id}}</td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.description}}</td>
+                    <td>{{this.category}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.code}}</td>
+                    <td>{{this.stock}}</td>
+                    <td>{{this.status}}</td>
+                    <td>{{this.thumbnails}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </section>
+</div>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/index.js"></script>

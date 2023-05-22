@@ -15,6 +15,7 @@ productsRouter.get('/', async (req, res) => {
             let limitQuery = products.reverse().slice(0, limit);
             return res.send(limitQuery);
         }
+        res.render('index', products)
         res.send(products);
     } catch (error) {
         throw error;
