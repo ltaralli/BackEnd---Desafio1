@@ -5,6 +5,7 @@ import handlebars from 'express-handlebars';
 import homeRouter from "./routes/home.routes.js";
 import { Server } from "socket.io";
 import realTimeRoutes from "./routes/realTime.routes.js";
+import ProductManager from "./ProductManager.js";
 
 const app = express();
 
@@ -21,11 +22,27 @@ app.use('/', homeRouter)
 app.use('/realtimeproducts', realTimeRoutes)
 
 const server = app.listen(8080, () => console.log('Corriendo en el puerto: 8080'));
+
 const io = new Server(server);
+const manager = new ProductManager()
 
-io.on('connection', socket =>{
-    console.log("nuevo cliente conectado")
+io.on('connection', async socket =>{
+    console.log("Nuevo usuario conectado")
+    const products = await manager.getProducts()
+    io.emit("productList", products)
+    socket.on("message", data =>{
+        io.emit("log", data)
+    })
+    socket.on("product", async newProd =>{
+        let newProduct = await manager.addProduct(newProd)
+        const products = await manager.getProducts()
+        io.emit("productList", products)
+    })
+    socket.on("productDelete", async deletedProduct =>{
+        console.log(deletedProduct)
+        let pid = await manager.deleteProduct(deletedProduct)
+        const products = await manager.getProducts()
+        io.emit("productList", products)
+
+    })
 })
-
-
-export { io };

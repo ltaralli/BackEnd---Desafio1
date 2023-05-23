@@ -42,7 +42,6 @@ productsRouter.post('/', async (req, res) => {
         product.status = true
         try {
             await manager.addProduct(product);
-            res.send({ status: 'successful', msg: 'Producto agregado correctamente'})
         } catch (error) {
             res.status(400).send({status: 'error', msg: `El código ${product.code} ya fue ingresado, por favor ingresa otro diferente`})
         }

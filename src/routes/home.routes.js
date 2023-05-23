@@ -7,7 +7,6 @@ homeRouter.get('/', async (req, res) => {
   try {
     let limit = req.query.limit;
     let products = await manager.getProducts();
-
     if (limit) {
       let limitedProducts = products.slice(0, limit);
       res.render('index', { products: limitedProducts });
