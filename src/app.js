@@ -34,8 +34,11 @@ io.on('connection', async socket =>{
         io.emit("log", data)
     })
     socket.on("product", async newProd =>{
+        console.log(`LO QUE LLEGA DEL SOCKET: ${newProd.title} ${newProd.code}`)
         let newProduct = await manager.addProduct(newProd)
+        console.log(`LO QUE se almacena del addProducts: ${newProduct}`)
         const products = await manager.getProducts()
+        console.log(`LO QUE SE OBTIERNE DE GETPRODUCTS: ${products}`)
         io.emit("productList", products)
     })
     socket.on("productDelete", async deletedProduct =>{

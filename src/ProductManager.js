@@ -1,10 +1,14 @@
 import fs from 'fs';
 
+
 class ProductManager{
     constructor(){
         this.path = 'src/products.json'
     }
     
+    getNextId(){
+        return Date.now();
+    }
 
     async getProducts() {
        const content = await fs.promises.readFile(this.path)
@@ -24,24 +28,24 @@ class ProductManager{
 
 
     async addProduct(product) {
+        const genID = Date.now() 
        try {
             const products = await this.getProducts();
-
             const existingProduct = products.find(p => p.code === product.code);
             if (existingProduct) {
                 throw new Error('El código ya fue ingresado, por favor ingresa otro diferente');
             }
-
+            product.id = genID
+            product.status = true
             products.push(product);
+
             await fs.promises.writeFile(this.path, JSON.stringify(products));
        } catch (error) {
             throw error;
        }
     }
    
-    getNextId(){
-        return Date.now();
-    }
+
 
 
     async updateProduct(pid, fields){
@@ -56,7 +60,7 @@ class ProductManager{
             if (fields.title) products[index].title = fields.title;
             if (fields.description) products[index].description = fields.description;
             if (fields.price) products[index].price = fields.price;
-            if (fields.thumbnail) products[index].thumbnail = fields.thumbnail;
+            if (fields.thumbnails) products[index].thumbnails = fields.thumbnails;
             if (fields.code) products[index].code = fields.code;
             if (fields.stock) products[index].stock = fields.stock;
             if (fields.category) products[index].category = fields.category;
@@ -72,14 +76,20 @@ class ProductManager{
       }
       
       async deleteProduct(id) {
-        let deletedProduct = null;
-        const products = await this.getProducts();
-        const index = products.findIndex(product => product.id === parseInt(id));
-        if (index !== -1) {
-          deletedProduct = products.splice(index, 1)[0];
-          await fs.promises.writeFile(this.path, JSON.stringify(products));
+        try {
+            let deletedProduct = null;
+            const products = await this.getProducts();
+            const index = products.findIndex(product => product.id === parseInt(id));
+            console.log(index)
+            if (index == -1) {
+                throw new Error(`No existe un producto con el ID: ${id}`);
+            }
+            deletedProduct = products.splice(index, 1)[0];
+            await fs.promises.writeFile(this.path, JSON.stringify(products));
+        } catch (error) {
+            throw error
         }
-        return deletedProduct;
+
       }
 
 }

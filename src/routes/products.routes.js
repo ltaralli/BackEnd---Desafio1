@@ -6,6 +6,7 @@ const productsRouter = Router();
 const manager = new ProductManager()
 
 
+
 productsRouter.get('/', async (req, res) => {
     try {
         let limit = req.query.limit;
@@ -35,18 +36,18 @@ productsRouter.get('/:pid', async (req, res) => {
 
 productsRouter.post('/', async (req, res) => {
     let product = req.body;
-    if(!validateAddProduct(product)){
-        res.status(400).send({status: 'error', msg: 'Por favor, completá todos los datos'})
+    if (!validateAddProduct(product)) {
+        res.status(400).send({ status: 'error', msg: 'Por favor, completá todos los datos' });
     } else {
-        product.id = manager.getNextId()
-        product.status = true
         try {
             await manager.addProduct(product);
+            res.status(200).send({ status: 'success', msg: 'Producto agregado exitosamente' });
         } catch (error) {
-            res.status(400).send({status: 'error', msg: `El código ${product.code} ya fue ingresado, por favor ingresa otro diferente`})
+            res.status(400).send({ status: 'error', msg: `El código ${product.code} ya fue ingresado, por favor ingresa otro diferente` });
         }
     }
-})
+});
+
 
 
 productsRouter.put('/:pid', async (req, res) => {
@@ -74,5 +75,6 @@ productsRouter.put('/:pid', async (req, res) => {
     }
   });
   
+ 
 
 export default productsRouter;
