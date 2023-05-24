@@ -30,15 +30,16 @@ class ProductManager {
       const products = await this.getProducts();
       const existingProduct = products.find((p) => p.code === product.code);
       if (existingProduct) {
-        throw new Error(
-          "El código ya fue ingresado, por favor ingresa otro diferente"
-        );
+        return {
+          error: "El código ya fue ingresado, por favor ingresa otro diferente",
+        };
       }
       product.id = genID;
       product.status = true;
       products.push(product);
 
       await fs.promises.writeFile(this.path, JSON.stringify(products));
+      return { success: "Producto agregado exitosamente" };
     } catch (error) {
       throw error;
     }
@@ -78,12 +79,13 @@ class ProductManager {
       const index = products.findIndex(
         (product) => product.id === parseInt(id)
       );
-      console.log(index);
       if (index == -1) {
         throw new Error(`No existe un producto con el ID: ${id}`);
       }
+
       deletedProduct = products.splice(index, 1)[0];
       await fs.promises.writeFile(this.path, JSON.stringify(products));
+      return deletedProduct;
     } catch (error) {
       throw error;
     }

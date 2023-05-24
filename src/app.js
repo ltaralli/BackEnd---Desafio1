@@ -35,14 +35,25 @@ io.on("connection", async (socket) => {
     io.emit("log", data);
   });
   socket.on("product", async (newProd) => {
-    let newProduct = await manager.addProduct(newProd);
-    const products = await manager.getProducts();
-    io.emit("productList", products);
+    const result = await manager.addProduct(newProd);
+    if (result.error) {
+      // Si hay un error, envía el mensaje de error al cliente
+      socket.emit("productAddError", result.error);
+    } else {
+      // Si no hay error, obtén la lista actualizada de productos y envíala al cliente
+      const products = await manager.getProducts();
+      io.emit("productList", products);
+      socket.emit("productAddSuccess"); // Envía una señal de éxito al cliente
+    }
   });
+
   socket.on("productDelete", async (deletedProduct) => {
-    console.log(deletedProduct);
-    let pid = await manager.deleteProduct(deletedProduct);
-    const products = await manager.getProducts();
-    io.emit("productList", products);
+    try {
+      let pid = await manager.deleteProduct(deletedProduct);
+      const products = await manager.getProducts();
+      io.emit("productList", products);
+    } catch (error) {
+      socket.emit("productDeleteError", error.message); // Enviar mensaje de error al cliente
+    }
   });
 });
