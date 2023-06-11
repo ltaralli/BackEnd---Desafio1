@@ -50,8 +50,8 @@ const deletProduct = document.getElementById("deletProduct");
 deletProduct.addEventListener("click", (e) => {
   e.preventDefault();
   if (e) {
-    const deletedProduct = document.getElementById("pid").value;
-    socket.emit("productDelete", deletedProduct);
+    const delProduct = document.getElementById("pid").value;
+    socket.emit("productDelete", delProduct);
   }
   document.getElementById("pid").value = "";
 });
@@ -69,7 +69,7 @@ socket.on("productList", (products) => {
   products.forEach((prod) => {
     productListHTML += `
         <tr>
-          <td>${prod.id}</td>
+          <td>${prod._id}</td>
           <td>${prod.title}</td>
           <td>${prod.description}</td>
           <td>${prod.category}</td>
