@@ -14,7 +14,15 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.engine("handlebars", handlebars.engine());
+app.engine(
+  "handlebars",
+  handlebars.engine({
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+      allowProtoMethodsByDefault: true,
+    },
+  })
+);
 app.set("views", "./src/views");
 app.set("view engine", "handlebars");
 
@@ -22,7 +30,7 @@ app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
 app.use("/", homeRouter);
 app.use("/realtimeproducts", realTimeRoutes);
-app.use("/messages", messagesRouter);
+app.use("/chat", messagesRouter);
 
 const server = app.listen(8080, () =>
   console.log("Corriendo en el puerto: 8080")
