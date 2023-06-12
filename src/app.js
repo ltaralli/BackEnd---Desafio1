@@ -1,13 +1,14 @@
 import express from "express";
 import handlebars from "express-handlebars";
+import mongoose from "mongoose";
+import { Server } from "socket.io";
 import ProductManager from "./DAO/productsDAO.js";
-import productsRouter from "./routes/products.routes.js";
+import MessagesManager from "./DAO/messagesDAO.js";
 import cartRouter from "./routes/cart.routes.js";
 import homeRouter from "./routes/home.routes.js";
+import productsRouter from "./routes/products.routes.js";
 import realTimeRoutes from "./routes/realTime.routes.js";
 import messagesRouter from "./routes/messages.routes.js";
-import { Server } from "socket.io";
-import mongoose from "mongoose";
 
 const app = express();
 
@@ -54,24 +55,15 @@ db.once("open", () => {
   console.log("Conexión exitosa a la base de datos.");
 });
 
-// ...
-
-// Verificar el estado de la conexión
-if (mongoose.connection.readyState === 1) {
-  console.log("Estás conectado a la base de datos.");
-} else {
-  console.log("No estás conectado a la base de datos.");
-}
-
 const io = new Server(server);
 const manager = new ProductManager();
+const managerMsg = new MessagesManager();
+const message = [];
 
 io.on("connection", async (socket) => {
+  console.log("nuevo cliente conectado");
   const products = await manager.getProducts();
   io.emit("productList", products);
-  socket.on("message", (data) => {
-    io.emit("log", data);
-  });
   socket.on("product", async (newProd) => {
     const result = await manager.addProduct(newProd);
     if (result.error) {
@@ -90,6 +82,18 @@ io.on("connection", async (socket) => {
       io.emit("productList", products);
     } catch (error) {
       socket.emit("productDeleteError", error.message);
+    }
+  });
+
+  socket.on("messages", async (data) => {
+    let msgSend;
+    try {
+      msgSend = await managerMsg.addMessage(data);
+      message.push(data);
+      io.emit("messageLogs", message);
+      console.log(message);
+    } catch (error) {
+      throw error;
     }
   });
 });

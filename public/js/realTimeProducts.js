@@ -65,7 +65,6 @@ socket.on("productDeleteError", (errorMessage) => {
 });
 
 socket.on("productList", (products) => {
-  console.log(products);
   let productListHTML = "";
   products.forEach((prod) => {
     productListHTML += `
