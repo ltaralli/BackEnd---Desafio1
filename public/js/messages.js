@@ -19,15 +19,15 @@ socket.on("messageLogs", (data) => {
   let messages = "";
 
   if (Array.isArray(data)) {
-    data.forEach((message) => {
+    for (let i = data.length - 1; i >= 0; i--) {
+      const message = data[i];
       messages += `${message.user}: ${message.message} <br>`;
-    });
+    }
   } else {
     console.error("El objeto data no es un array");
   }
 
   log.innerHTML = messages;
-  console.log(messages);
 });
 
 chatBox.addEventListener("keyup", (evt) => {

@@ -26,7 +26,6 @@ app.engine(
 );
 app.set("views", "./src/views");
 app.set("view engine", "handlebars");
-
 app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
 app.use("/", homeRouter);
@@ -89,9 +88,8 @@ io.on("connection", async (socket) => {
     let msgSend;
     try {
       msgSend = await managerMsg.addMessage(data);
-      message.push(data);
+      message.unshift(data);
       io.emit("messageLogs", message);
-      console.log(message);
     } catch (error) {
       throw error;
     }
