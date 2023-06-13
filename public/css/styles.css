@@ -1,0 +1,35 @@
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .chat-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 400px; /* Altura fija del contenedor */
+  }
+  
+  .chat-messages {
+    flex-grow: 1;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+  }
+  
+  .chat-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  #chatBox {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  
+  #sendButton {
+    width: 100px;
+  }
+  

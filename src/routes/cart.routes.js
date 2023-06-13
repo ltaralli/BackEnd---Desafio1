@@ -1,5 +1,5 @@
 import { Router } from "express";
-import CartManager from "../DAO/FileSystem/CartManager.js";
+import CartManager from "../DAO/cartsDAO.js";
 
 const cartRouter = Router();
 const manager = new CartManager();
@@ -12,7 +12,17 @@ cartRouter.get("/:cid", async (req, res) => {
       .status(404)
       .send({ status: "error", msg: "El carrito no existe" });
   }
-  res.send({ status: "successful", products: cart.products });
+  res.send({ status: "successful", products: cart });
+});
+
+cartRouter.get("/", async (req, res) => {
+  let cart = await manager.getCarts();
+  if (!cart) {
+    return res
+      .status(404)
+      .send({ status: "error", msg: "El carrito no existe" });
+  }
+  res.send({ status: "successful", products: cart });
 });
 
 cartRouter.post("/", async (req, res) => {

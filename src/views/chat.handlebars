@@ -1,11 +1,15 @@
 <h2>Chat</h2>
-<div>
-  <input id="chatBox" />
+<div class="container">
+  <div class="chat-container">
+    <div class="chat-messages" id="messageLogs">
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatBox" placeholder="Escribe un mensaje..." />
+      <button id="sendButton" class="btn btn-primary">Enviar</button>
+    </div>
+  </div>
 </div>
-<div>
-  <p id="messageLogs">
-  </p>
-</div>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/messages.js"></script>

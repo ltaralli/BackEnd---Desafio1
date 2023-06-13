@@ -21,7 +21,9 @@ socket.on("messageLogs", (data) => {
   if (Array.isArray(data)) {
     for (let i = data.length - 1; i >= 0; i--) {
       const message = data[i];
-      messages += `${message.user}: ${message.message} <br>`;
+      messages += `<b>${message.user.toUpperCase()}</b>: ${
+        message.message
+      } <br>`;
     }
   } else {
     console.error("El objeto data no es un array");
