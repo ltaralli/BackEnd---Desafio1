@@ -25,6 +25,16 @@ class ProductManager {
     return products;
   }
 
+  async getProductsAPI() {
+    let products;
+    try {
+      products = await this.model.paginate();
+    } catch (error) {
+      console.log(error);
+    }
+    return products;
+  }
+
   async getProductById(id) {
     let product;
     try {
@@ -81,6 +91,39 @@ class ProductManager {
     } catch (error) {
       console.error("Error al obtener las categorías:", error);
       throw error;
+    }
+  }
+
+  async deleteProductFromCart(pid, cid) {
+    try {
+      const filter = { _id: cid };
+      const update = {
+        $pull: {
+          products: { id: pid },
+        },
+      };
+
+      const updatedCart = await this.model.updateOne(filter, update);
+
+      if (updatedCart.modifiedCount === 0) {
+        return {
+          success: false,
+          message: "Carrito no encontrado",
+        };
+      }
+
+      const cart = await this.model.findById(cid);
+      return {
+        success: true,
+        message: "Producto eliminado del carrito",
+        cart,
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        success: false,
+        message: "Error al eliminar el producto del carrito",
+      };
     }
   }
 }

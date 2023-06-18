@@ -6,10 +6,18 @@ const productsRouter = Router();
 const manager = new ProductManager();
 
 productsRouter.get("/", async (req, res) => {
+  const pageBody = req.query.page || 1;
+  const limit = req.query.limit || 10;
+  const cat = req.query.category;
+  const sort = req.query.sort || "asc";
   try {
-    let pageBody = parseInt(req.query.page);
-    if (!pageBody) pageBody = 1;
-    let result = await manager.getProducts();
+    let categories = await manager.getCategories();
+    categories = categories.map((category) => ({
+      name: category,
+      selected: category === cat,
+    }));
+    let result = await manager.getProducts(pageBody, limit, cat, sort);
+
     const data = {
       products: result.docs,
       hasPrevPage: result.hasPrevPage,
@@ -20,6 +28,7 @@ productsRouter.get("/", async (req, res) => {
       prevLink: result.hasPrevPage ? `/products?page=${result.prevPage}` : null,
       nextLink: result.hasNextPage ? `/products?page=${result.nextPage}` : null,
     };
+    console.log(data);
     res.send(data);
   } catch (error) {
     console.error(error);
