@@ -88,23 +88,21 @@ class CartManager {
 
   async deleteProductFromCart(pid, cid) {
     try {
-      const filter = { _id: cid };
-      const update = {
-        $pull: {
-          products: { id: pid },
-        },
-      };
+      const cart = await this.model.findById(cid);
 
-      const updatedCart = await this.model.updateOne(filter, update);
-
-      if (updatedCart.modifiedCount === 0) {
+      if (!cart) {
         return {
           success: false,
-          message: "Carrito no encontrado",
+          message: "El carrito no existe",
         };
       }
 
-      const cart = await this.model.findById(cid);
+      cart.products = cart.products.filter(
+        (product) => product._id.toString() !== pid
+      );
+
+      await cart.save();
+
       return {
         success: true,
         message: "Producto eliminado del carrito",
