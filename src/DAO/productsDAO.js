@@ -5,10 +5,20 @@ class ProductManager {
     this.model = productsModel;
   }
 
-  async getProducts() {
+  async getProducts(pageBody, limit, cat, sort) {
     let products;
+    const options = {
+      page: pageBody,
+      limit: limit,
+      sort: { price: sort === "desc" ? -1 : 1 },
+    };
+    let query = {};
+    if (cat) {
+      query.category = cat;
+    }
+
     try {
-      products = await this.model.find();
+      products = await this.model.paginate(query, options);
     } catch (error) {
       console.log(error);
     }
@@ -62,6 +72,16 @@ class ProductManager {
       console.log(error);
     }
     return deletedProduct;
+  }
+
+  async getCategories() {
+    try {
+      const categories = await this.model.distinct("category");
+      return categories;
+    } catch (error) {
+      console.error("Error al obtener las categorías:", error);
+      throw error;
+    }
   }
 }
 

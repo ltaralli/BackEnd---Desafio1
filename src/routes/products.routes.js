@@ -7,16 +7,23 @@ const manager = new ProductManager();
 
 productsRouter.get("/", async (req, res) => {
   try {
-    let limit = req.query.limit;
-    let products = await manager.getProducts();
-
-    if (limit) {
-      let limitQuery = products.reverse().slice(0, limit);
-      return res.send(limitQuery);
-    }
-    res.send(products);
+    let pageBody = parseInt(req.query.page);
+    if (!pageBody) pageBody = 1;
+    let result = await manager.getProducts();
+    const data = {
+      products: result.docs,
+      hasPrevPage: result.hasPrevPage,
+      prevPage: result.prevPage,
+      hasNextPage: result.hasNextPage,
+      nextPage: result.nextPage,
+      page: result.page,
+      prevLink: result.hasPrevPage ? `/products?page=${result.prevPage}` : null,
+      nextLink: result.hasNextPage ? `/products?page=${result.nextPage}` : null,
+    };
+    res.send(data);
   } catch (error) {
-    throw error;
+    console.error(error);
+    res.status(500).send("Error interno del servidor");
   }
 });
 

@@ -64,8 +64,9 @@ socket.on("productDeleteError", (errorMessage) => {
   });
 });
 
-socket.on("productList", (products) => {
+socket.on("productList", (data) => {
   let productListHTML = "";
+  let products = data.products;
   products.forEach((prod) => {
     productListHTML += `
         <tr>
@@ -79,9 +80,9 @@ socket.on("productList", (products) => {
           <td>${prod.status}</td>
           <td>${prod.thumbnails}</td>
         </tr>
+
         `;
   });
-
   const productListContainer = document.getElementById("productList");
   productListContainer.innerHTML = productListHTML;
 });
