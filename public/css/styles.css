@@ -1,3 +1,5 @@
+/* CHAT */
+
 .container {
     max-width: 500px;
     margin: 0 auto;
@@ -33,6 +35,8 @@
     width: 100px;
   }
   
+  /* PRODUCTS */
+
   .product-card {
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
@@ -103,4 +107,22 @@
   .mt-4 {
     margin-bottom: 2rem;
   } */
+  
+
+  .pagination-container {
+    margin-top: 20px;
+  }
+  
+  .pagination {
+    margin: 0;
+  }
+  
+  .pagination .page-item .page-link {
+    border-radius: 0;
+  }
+  
+  .pagination .page-item.disabled .page-link {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
   
