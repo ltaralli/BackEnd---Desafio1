@@ -1,7 +1,9 @@
 import { Router } from "express";
 import ProductManager from "../DAO/productsDAO.js";
+import CartManager from "../DAO/cartsDAO.js";
 const viewsRouter = Router();
 const manager = new ProductManager();
+const managerCart = new CartManager();
 
 viewsRouter.get("/", async (req, res) => {
   try {
@@ -69,4 +71,16 @@ viewsRouter.get("/products", async (req, res) => {
   }
 });
 
+viewsRouter.get("/carts/:cid", async (req, res) => {
+  const cid = req.params.cid;
+  let cart;
+  try {
+    cart = await managerCart.getCart(cid);
+
+    res.render("cart", cart);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error interno del servidor");
+  }
+});
 export default viewsRouter;

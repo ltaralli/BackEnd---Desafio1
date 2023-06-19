@@ -125,4 +125,83 @@
     cursor: not-allowed;
     opacity: 0.6;
   }
+
+  /* CARRITO */
+  #cart-container .container-cart {
+    margin: 20px auto;
+    max-width: 800px;
+  }
+  
+  #cart-container .cart-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+
+#prueba{
+  font-size: 5rem;
+}
+  .cart-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .cart-table__header {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .cart-table__image {
+    text-align: center;
+    width: 150px;
+  }
+  
+  .cart-table__title {
+    text-align: left;
+    padding: 10px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .cart-table__price,
+  .cart-table__quantity,
+  .cart-table__subtotal,
+  .cart-table__total {
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .cart-table__image img {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .cart-table__total {
+    font-weight: bold;
+  }
+  
+  .cart-buttons {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .cart-buttons button {
+    margin-right: 10px;
+  }
+  
+  .cart-buttons button.btn-primary {
+    background-color: #2196f3;
+    color: white;
+  }
+  
+  .cart-buttons button.btn-secondary {
+    background-color: #e0e0e0;
+    color: black;
+  }
+  
   

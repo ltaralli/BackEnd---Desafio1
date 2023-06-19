@@ -1,0 +1,43 @@
+<div id="cart-container" class="container container-cart">
+  <h1 class="cart-title" id="prueba">Carrito de compras</h1>
+  <table class="cart-table">
+    <thead>
+      <tr>
+        <th class="cart-table__header">Imagen</th>
+        <th class="cart-table__header">Título</th>
+        <th class="cart-table__header">Precio</th>
+        <th class="cart-table__header">Cantidad</th>
+        <th class="cart-table__header">Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each products}}
+        <tr>
+          <td class="cart-table__image">
+            <img
+              src="{{this._id.thumbnails}}"
+              alt="{{this._id.title}}"
+              width="100"
+            />
+          </td>
+          <td class="cart-table__title">{{this._id.title}}</td>
+          <td class="cart-table__price">${{this._id.price}}</td>
+          <td class="cart-table__quantity">{{this.quantity}}u.</td>
+          <td class="cart-table__subtotal">${{multiply
+              this._id.price
+              this.quantity
+            }}</td>
+        </tr>
+      {{/each}}
+      <tr>
+        <td colspan="4"></td>
+        <td class="cart-table__total">Total: ${{calculateTotal products}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="cart-buttons">
+    <button class="btn btn-secondary">Regresar</button>
+    <button class="btn btn-primary">Continuar compra</button>
+  </div>
+</div>

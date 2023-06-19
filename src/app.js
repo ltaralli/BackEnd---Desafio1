@@ -1,13 +1,14 @@
 import express from "express";
 import handlebars from "express-handlebars";
 import ifEqHelper from "../src/helpers/handlebars-helpers.js";
+import { multiplyHelper, calculateTotal } from "./helpers/cartHelper.js";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
 import ProductManager from "./DAO/productsDAO.js";
 import MessagesManager from "./DAO/messagesDAO.js";
 import cartRouter from "./routes/cart.routes.js";
 import productsRouter from "./routes/products.routes.js";
-import messagesRouter from "./routes/messages.routes.js";
+import chatRouter from "./routes/chat.routes.js";
 import viewsRouter from "./routes/views.routes.js";
 
 const app = express();
@@ -24,6 +25,8 @@ app.engine(
     },
     helpers: {
       if_eq: ifEqHelper,
+      multiply: multiplyHelper,
+      calculateTotal: calculateTotal,
     },
   })
 );
@@ -33,8 +36,8 @@ app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
 app.use("/", viewsRouter);
 app.use("/realtimeproducts", viewsRouter);
-app.use("/chat", messagesRouter);
-
+app.use("/carts", viewsRouter);
+app.use("/chat", chatRouter);
 const server = app.listen(8080, () =>
   console.log("Corriendo en el puerto: 8080")
 );
