@@ -1,5 +1,5 @@
 <div id="cart-container" class="container container-cart">
-  <h1 class="cart-title" id="prueba">Carrito de compras</h1>
+  <h1 class="cart-title">Carrito de compras</h1>
   <table class="cart-table">
     <thead>
       <tr>
@@ -8,6 +8,7 @@
         <th class="cart-table__header">Precio</th>
         <th class="cart-table__header">Cantidad</th>
         <th class="cart-table__header">Subtotal</th>
+        <th class="cart-table__header"></th>
       </tr>
     </thead>
     <tbody>
@@ -27,10 +28,15 @@
               this._id.price
               this.quantity
             }}</td>
+          <td class="cart-table__actions">
+            <button class="btn btn-danger btn-sm">
+              <i class="bi bi-trash">X</i>
+            </button>
+          </td>
         </tr>
       {{/each}}
       <tr>
-        <td colspan="4"></td>
+        <td colspan="5"></td>
         <td class="cart-table__total">Total: ${{calculateTotal products}}</td>
       </tr>
     </tbody>

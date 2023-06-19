@@ -127,6 +127,7 @@
   }
 
   /* CARRITO */
+
   #cart-container .container-cart {
     margin: 20px auto;
     max-width: 800px;
@@ -137,10 +138,7 @@
     margin-bottom: 20px;
   }
   
-
-#prueba{
-  font-size: 5rem;
-}
+  
   .cart-table {
     width: 100%;
     border-collapse: collapse;
@@ -203,5 +201,3 @@
     background-color: #e0e0e0;
     color: black;
   }
-  
-  
