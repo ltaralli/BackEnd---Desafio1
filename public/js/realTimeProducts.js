@@ -66,7 +66,7 @@ socket.on("productDeleteError", (errorMessage) => {
 
 socket.on("productList", (data) => {
   let productListHTML = "";
-  let products = data.products;
+  let products = data;
   products.forEach((prod) => {
     productListHTML += `
         <tr>

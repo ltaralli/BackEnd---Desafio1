@@ -4,6 +4,37 @@ const viewsRouter = Router();
 const manager = new ProductManager();
 
 viewsRouter.get("/", async (req, res) => {
+  try {
+    let result = await manager.getProducts();
+    res.render("index", { products: result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error interno del servidor");
+  }
+});
+
+viewsRouter.get("/realtimeproducts", async (req, res) => {
+  let pageBody = parseInt(req.query.page);
+  if (!pageBody) pageBody = 1;
+  try {
+    let limit = req.query.limit;
+    let result = await manager.getProducts(pageBody);
+    const data = {
+      products: result.docs,
+      hasPrevPage: result.hasPrevPage,
+      hasNextPage: result.hasNextPage,
+      prevPage: result.prevPage,
+      nextPage: result.nextPage,
+      page: result.page,
+    };
+    res.render("realtimeproducts", data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error interno del servidor");
+  }
+});
+
+viewsRouter.get("/products", async (req, res) => {
   const pageBody = req.query.page || 1;
   const limit = req.query.limit || 10;
   const cat = req.query.category;
@@ -32,27 +63,6 @@ viewsRouter.get("/", async (req, res) => {
     };
 
     res.render("products", data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Error interno del servidor");
-  }
-});
-
-viewsRouter.get("/realtimeproducts", async (req, res) => {
-  let pageBody = parseInt(req.query.page);
-  if (!pageBody) pageBody = 1;
-  try {
-    let limit = req.query.limit;
-    let result = await manager.getProducts(pageBody);
-    const data = {
-      products: result.docs,
-      hasPrevPage: result.hasPrevPage,
-      hasNextPage: result.hasNextPage,
-      prevPage: result.prevPage,
-      nextPage: result.nextPage,
-      page: result.page,
-    };
-    res.render("realtimeproducts", data);
   } catch (error) {
     console.error(error);
     res.status(500).send("Error interno del servidor");

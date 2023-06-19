@@ -13,25 +13,23 @@ class ProductManager {
       sort: { price: sort === "desc" ? -1 : 1 },
     };
     let query = {};
+
     if (cat) {
       query.category = cat;
     }
 
-    try {
-      products = await this.model.paginate(query, options);
-    } catch (error) {
-      console.log(error);
-    }
-    return products;
-  }
+    const noFiltersProvided = !pageBody && !limit && !cat && !sort;
 
-  async getProductsAPI() {
-    let products;
     try {
-      products = await this.model.paginate();
+      if (noFiltersProvided) {
+        products = await this.model.find();
+      } else {
+        products = await this.model.paginate(query, options);
+      }
     } catch (error) {
       console.log(error);
     }
+
     return products;
   }
 

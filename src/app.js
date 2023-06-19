@@ -31,7 +31,7 @@ app.set("views", "./src/views");
 app.set("view engine", "handlebars");
 app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
-app.use("/products", viewsRouter);
+app.use("/", viewsRouter);
 app.use("/realtimeproducts", viewsRouter);
 app.use("/chat", messagesRouter);
 
@@ -64,17 +64,8 @@ const message = [];
 
 io.on("connection", async (socket) => {
   console.log("nuevo cliente conectado");
-  const resultGet = await manager.getProducts();
-  const data = {
-    products: resultGet.docs,
-    hasPrevPage: resultGet.hasPrevPage,
-    prevPage: resultGet.prevPage,
-    hasNextPage: resultGet.hasNextPage,
-    nextPage: resultGet.nextPage,
-    page: resultGet.page,
-  };
-  console.log(`Console en apps.js: ${data.products}`);
-  io.emit("productList", data);
+  const products = await manager.getProducts();
+  io.emit("productList", products);
   socket.on("product", async (newProd) => {
     const resultAdd = await manager.addProduct(newProd);
     if (resultAdd.error) {
