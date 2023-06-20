@@ -78,8 +78,14 @@ socket.on("productList", (data) => {
           <td>${prod.code}</td>
           <td>${prod.stock}</td>
           <td>${prod.status}</td>
-          <td>${prod.thumbnails}</td>
-        </tr>
+          <td>
+            <img
+              width="100px"
+              src="${prod.thumbnails}"
+              alt="${prod.title}"
+            /></td>
+          </tr>
+          </tr>
 
         `;
   });
