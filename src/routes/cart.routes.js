@@ -78,7 +78,12 @@ cartRouter.post("/", async (req, res) => {
         .status(500)
         .send({ status: "error", msg: "No se pudo crear el carrito" });
     }
-    res.send({ status: "successful", msg: "Carrito creado correctamente" });
+    res.send({
+      status: "successful",
+      cartId: cart._id,
+      msg: "Carrito creado correctamente",
+    });
+    console.log(cart);
   } catch (error) {
     throw error;
   }
