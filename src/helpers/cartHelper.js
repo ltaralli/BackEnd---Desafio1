@@ -1,6 +1,5 @@
 import handlebars from "handlebars";
 
-// Helper para realizar la multiplicación de dos valores
 export const multiplyHelper = function (a, b) {
   return (a * b).toFixed(2);
 };
