@@ -28,7 +28,6 @@ productsRouter.get("/", async (req, res) => {
       prevLink: result.hasPrevPage ? `/products?page=${result.prevPage}` : null,
       nextLink: result.hasNextPage ? `/products?page=${result.nextPage}` : null,
     };
-    console.log(data);
     res.send(data);
   } catch (error) {
     console.error(error);

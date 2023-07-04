@@ -152,7 +152,7 @@ class CartManager {
 
   async updateProductQuantity(cid, pid, quantity) {
     try {
-      const filter = { _id: cid, "products.id": pid };
+      const filter = { _id: cid, "products._id": pid };
       const update = { $set: { "products.$.quantity": quantity } };
 
       const updatedCart = await this.model.findOneAndUpdate(filter, update, {
