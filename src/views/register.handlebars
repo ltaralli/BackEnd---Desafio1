@@ -1,0 +1,66 @@
+<div class="custom-container">
+  <div class="custom-card">
+    <div class="custom-card-header">
+      <h4>Registrarse</h4>
+    </div>
+    <div class="custom-card-body">
+      <form method="POST" action="/api/session/register">
+        <div class="mb-3">
+          <label for="first_name" class="custom-form-label">Nombre:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="first_name"
+            name="first_name"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="last_name" class="custom-form-label">Apellido:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="last_name"
+            name="last_name"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="custom-form-label">Correo electrónico:</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="custom-form-label">Contraseña:</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="age" class="custom-form-label">Edad:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="age"
+            name="age"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn custom-btn-primary"
+        >Registrarse</button>
+        <a href="/api/session/login" class="btn btn-primary">Iniciar sesion</a>
+      </form>
+    </div>
+  </div>
+</div>

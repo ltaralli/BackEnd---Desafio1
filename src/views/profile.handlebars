@@ -1,0 +1,48 @@
+<body>
+  <div class="card">
+    <h2 class="text-center mb-4">Datos personales</h2>
+    <div class="mb-3">
+      <label for="firstName" class="form-label">Nombre</label>
+      <input
+        type="text"
+        id="firstName"
+        class="form-control"
+        value="{{first_name}}"
+        disabled
+      />
+    </div>
+    <div class="mb-3">
+      <label for="lastName" class="form-label">Apellido</label>
+      <input
+        type="text"
+        id="lastName"
+        class="form-control"
+        value="{{last_name}}"
+        disabled
+      />
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        value="{{email}}"
+        disabled
+      />
+    </div>
+    <div class="mb-3">
+      <label for="age" class="form-label">Edad</label>
+      <input
+        type="number"
+        id="age"
+        class="form-control"
+        value="{{age}}"
+        disabled
+      />
+    </div>
+    <a href="/changePassword" class="btn btn-primary d-block mx-auto">Cambiar
+      Contraseña</a>
+    <a href="/products" class="btn btn-primary d-block mx-auto">Volver</a>
+  </div>
+</body>
