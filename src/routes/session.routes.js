@@ -1,4 +1,6 @@
 import express from "express";
+import userManager from "../DAO/sessionDAO.js";
+const managerSession = new userManager();
 const sessionRouter = express.Router();
 
 sessionRouter.post("/register", async (req, res) => {
@@ -6,11 +8,11 @@ sessionRouter.post("/register", async (req, res) => {
   try {
     let userFound = await managerSession.getByEmail(user.email);
     if (userFound) {
-      res.render("register-error", {});
+      res.render("register-error", userFound);
       return;
     }
     await managerSession.createUser(user);
-    res.render("login", {});
+    res.redirect("/login");
   } catch (error) {
     console.log(error);
     res.render("error", {});
@@ -26,7 +28,7 @@ sessionRouter.post("/login", async (req, res) => {
       return;
     }
     req.session.user = user.email;
-    res.render("products", {});
+    res.redirect("/products");
   } catch (error) {
     console.log(error);
     res.render("error", {});

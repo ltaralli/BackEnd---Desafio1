@@ -1,9 +1,11 @@
 import { Router } from "express";
+import express from "express";
 import ProductManager from "../DAO/productsDAO.js";
 import CartManager from "../DAO/cartsDAO.js";
 import userManager from "../DAO/sessionDAO.js";
 import { authMiddleware } from "../middlewares/auth.js";
 const viewsRouter = Router();
+const sessionRouter = express.Router();
 const manager = new ProductManager();
 const managerCart = new CartManager();
 const managerSession = new userManager();
@@ -87,55 +89,24 @@ viewsRouter.get("/carts/:cid", async (req, res) => {
   }
 });
 
+viewsRouter.get("/", async (req, res) => {
+  res.render("index", {});
+});
+
 viewsRouter.get("/login", async (req, res) => {
   res.render("login", {});
 });
 
-viewsRouter.post("/login", async (req, res) => {
-  let user = req.body;
-  let result;
-  try {
-    result = await managerSession.getByEmail(user.email);
-    if (user.password != result.password) {
-      res.render("login-error", {});
-      return;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-  req.session.user = user.email;
-  res.render("products", {});
-});
+viewsRouter.post("/login", sessionRouter);
 
 viewsRouter.get("/register", async (req, res) => {
   res.render("register", {});
 });
 
-viewsRouter.post("/register", async (req, res) => {
-  let user = req.body;
-  let result;
-  try {
-    let userFound = await managerSession.getByEmail(user.email);
-    console.log(userFound);
-    if (userFound) {
-      res.render("register-error", userFound);
-    }
-    result = await managerSession.createUser(user);
-  } catch (error) {
-    console.log(error);
-  }
-  res.render("login", {});
-});
+viewsRouter.post("/register", sessionRouter);
 
 viewsRouter.get("/profile", authMiddleware, async (req, res) => {
   let user = await managerSession.getByEmail(req.session.user);
-  res.render("profile", user);
-  console.log(user);
-});
-
-viewsRouter.get("/logout", (req, res) => {
-  req.session.destroy((error) => {
-    res.render("login", {});
-  });
+  res.render("profile", { user });
 });
 export default viewsRouter;
