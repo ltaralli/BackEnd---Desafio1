@@ -41,7 +41,7 @@ viewsRouter.get("/realtimeproducts", async (req, res) => {
   }
 });
 
-viewsRouter.get("/products", async (req, res) => {
+viewsRouter.get("/products", authMiddleware, async (req, res) => {
   const pageBody = req.query.page || 1;
   const limit = req.query.limit || 10;
   const cat = req.query.category;
@@ -54,6 +54,9 @@ viewsRouter.get("/products", async (req, res) => {
     }));
     let result = await manager.getProducts(pageBody, limit, cat, sort);
 
+    let user = await managerSession.getByEmail(req.session.user.email);
+    let role = req.session.user.role;
+    console.log(user, role);
     const data = {
       products: result.docs,
       hasPrevPage: result.hasPrevPage,
@@ -67,6 +70,8 @@ viewsRouter.get("/products", async (req, res) => {
       categories: categories,
       catSelected: cat,
       sort: sort,
+      user: user,
+      role: role,
     };
 
     res.render("products", data);
@@ -89,24 +94,27 @@ viewsRouter.get("/carts/:cid", async (req, res) => {
   }
 });
 
-viewsRouter.get("/", async (req, res) => {
-  res.render("index", {});
-});
-
 viewsRouter.get("/login", async (req, res) => {
-  res.render("login", {});
+  if (req.session.user) {
+    res.redirect("/products");
+  } else {
+    res.render("login", {});
+  }
 });
 
 viewsRouter.post("/login", sessionRouter);
 
 viewsRouter.get("/register", async (req, res) => {
+  if (req.session.user) {
+    res.redirect("/products");
+  }
   res.render("register", {});
 });
 
 viewsRouter.post("/register", sessionRouter);
 
 viewsRouter.get("/profile", authMiddleware, async (req, res) => {
-  let user = await managerSession.getByEmail(req.session.user);
-  res.render("profile", { user });
+  let user = await managerSession.getByEmail(req.session.user.email);
+  res.render("profile", user);
 });
 export default viewsRouter;

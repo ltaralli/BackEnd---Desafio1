@@ -20,14 +20,21 @@ sessionRouter.post("/register", async (req, res) => {
 });
 
 sessionRouter.post("/login", async (req, res) => {
-  let user = req.body;
+  let { email, password } = req.body;
   try {
-    let result = await managerSession.getByEmail(user.email);
-    if (!result || user.password !== result.password) {
+    let user = await managerSession.getByEmail(email);
+    if (
+      (!user || password !== user.password) &&
+      email !== "adminCoder@coder.com"
+    ) {
       res.render("login-error", {});
       return;
     }
-    req.session.user = user.email;
+    let role = "usuario"; // Por defecto, el rol es "usuario"
+    if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
+      role = "Admin"; // Si el correo y la contraseña coinciden, se asigna el rol de "admin"
+    }
+    req.session.user = { email, role }; // Guardar el correo y el rol en la sesión
     res.redirect("/products");
   } catch (error) {
     console.log(error);

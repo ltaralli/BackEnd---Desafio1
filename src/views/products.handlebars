@@ -1,6 +1,17 @@
 <div>
   <h1 class="text-center mt-4">Lista de Productos</h1>
+  <div>
+    <a href="/login"><button class="btn btn-secondary">Iniciar sesion</button></a>
+  </div>
     <h5>Carrito: <p class="cart-id"></p></h5>
+  <div>
+{{#if user.first_name}}
+  <h6>Bienvenido, {{user.first_name}}! Tu rol es: {{role}}</h6>
+{{else}}
+  <h6>Bienvenido, Administrador! Tu rol es: {{role}}</h6>
+{{/if}}
+
+</div>
   <section class="p-5">
     <div class="row">
       <form method="GET" action="/products" class="mb-3">
