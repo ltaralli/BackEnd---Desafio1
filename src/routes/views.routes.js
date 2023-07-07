@@ -117,4 +117,10 @@ viewsRouter.get("/profile", authMiddleware, async (req, res) => {
   let user = await managerSession.getByEmail(req.session.user.email);
   res.render("profile", user);
 });
+
+viewsRouter.get("/logout", (req, res) => {
+  req.session.destroy((error) => {
+    res.redirect("/login");
+  });
+});
 export default viewsRouter;
