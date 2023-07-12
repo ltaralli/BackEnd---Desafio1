@@ -1,9 +1,14 @@
 import { Router } from "express";
+import express from "express";
 import ProductManager from "../DAO/productsDAO.js";
 import CartManager from "../DAO/cartsDAO.js";
+import userManager from "../DAO/sessionDAO.js";
+import { authMiddleware } from "../middlewares/auth.js";
 const viewsRouter = Router();
+const sessionRouter = express.Router();
 const manager = new ProductManager();
 const managerCart = new CartManager();
+const managerSession = new userManager();
 
 viewsRouter.get("/", async (req, res) => {
   try {
@@ -36,7 +41,7 @@ viewsRouter.get("/realtimeproducts", async (req, res) => {
   }
 });
 
-viewsRouter.get("/products", async (req, res) => {
+viewsRouter.get("/products", authMiddleware, async (req, res) => {
   const pageBody = req.query.page || 1;
   const limit = req.query.limit || 10;
   const cat = req.query.category;
@@ -49,6 +54,9 @@ viewsRouter.get("/products", async (req, res) => {
     }));
     let result = await manager.getProducts(pageBody, limit, cat, sort);
 
+    let user = await managerSession.getByEmail(req.session.user.email);
+    let role = req.session.user.role;
+    console.log(user, role);
     const data = {
       products: result.docs,
       hasPrevPage: result.hasPrevPage,
@@ -62,6 +70,8 @@ viewsRouter.get("/products", async (req, res) => {
       categories: categories,
       catSelected: cat,
       sort: sort,
+      user: user,
+      role: role,
     };
 
     res.render("products", data);
@@ -82,5 +92,35 @@ viewsRouter.get("/carts/:cid", async (req, res) => {
     console.error(error);
     res.status(500).send("Error interno del servidor");
   }
+});
+
+viewsRouter.get("/login", async (req, res) => {
+  if (req.session.user) {
+    res.redirect("/products");
+  } else {
+    res.render("login", {});
+  }
+});
+
+viewsRouter.post("/login", sessionRouter);
+
+viewsRouter.get("/register", async (req, res) => {
+  if (req.session.user) {
+    res.redirect("/products");
+  }
+  res.render("register", {});
+});
+
+viewsRouter.post("/register", sessionRouter);
+
+viewsRouter.get("/profile", authMiddleware, async (req, res) => {
+  let user = await managerSession.getByEmail(req.session.user.email);
+  res.render("profile", user);
+});
+
+viewsRouter.get("/logout", (req, res) => {
+  req.session.destroy((error) => {
+    res.redirect("/login");
+  });
 });
 export default viewsRouter;

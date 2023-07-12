@@ -10,8 +10,13 @@ import cartRouter from "./routes/cart.routes.js";
 import productsRouter from "./routes/products.routes.js";
 import chatRouter from "./routes/chat.routes.js";
 import viewsRouter from "./routes/views.routes.js";
+import sessionRouter from "./routes/session.routes.js";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 
 const app = express();
+const mongoURL =
+  "mongodb+srv://ltaralli:coder1234@cluster0.k7b3exc.mongodb.net/ecommerce";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -30,25 +35,39 @@ app.engine(
     },
   })
 );
+app.use(
+  session({
+    store: MongoStore.create({
+      mongoUrl: mongoURL,
+      mongoOptions: {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      },
+      ttl: 250,
+    }),
+    secret: "coderSecret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 app.set("views", "./src/views");
 app.set("view engine", "handlebars");
 app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/session", sessionRouter);
 app.use("/", viewsRouter);
 app.use("/realtimeproducts", viewsRouter);
 app.use("/carts", viewsRouter);
 app.use("/chat", chatRouter);
+
 const server = app.listen(8080, () =>
   console.log("Corriendo en el puerto: 8080")
 );
 
-mongoose.connect(
-  "mongodb+srv://ltaralli:coder1234@cluster0.k7b3exc.mongodb.net/ecommerce",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(mongoURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 
