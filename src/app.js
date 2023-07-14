@@ -13,6 +13,8 @@ import viewsRouter from "./routes/views.routes.js";
 import sessionRouter from "./routes/session.routes.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
+import passport from "passport";
+import initializePassport from "./config/passport.config.js";
 
 const app = express();
 const mongoURL =
@@ -50,6 +52,11 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.set("views", "./src/views");
 app.set("view engine", "handlebars");
 app.use("/api/products", productsRouter);

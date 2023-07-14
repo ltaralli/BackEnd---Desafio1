@@ -4,6 +4,7 @@ import ProductManager from "../DAO/productsDAO.js";
 import CartManager from "../DAO/cartsDAO.js";
 import userManager from "../DAO/sessionDAO.js";
 import { authMiddleware } from "../middlewares/auth.js";
+import passport from "passport";
 const viewsRouter = Router();
 const sessionRouter = express.Router();
 const manager = new ProductManager();
@@ -56,7 +57,6 @@ viewsRouter.get("/products", authMiddleware, async (req, res) => {
 
     let user = await managerSession.getByEmail(req.session.user.email);
     let role = req.session.user.role;
-    console.log(user, role);
     const data = {
       products: result.docs,
       hasPrevPage: result.hasPrevPage,
@@ -123,4 +123,13 @@ viewsRouter.get("/logout", (req, res) => {
     res.redirect("/login");
   });
 });
+
+viewsRouter.get("/failregister", async (req, res) => {
+  res.render("register-error", {});
+});
+
+viewsRouter.get("/faillogin", async (req, res) => {
+  res.render("login-error", {});
+});
+
 export default viewsRouter;

@@ -1,45 +1,51 @@
 import express from "express";
 import userManager from "../DAO/sessionDAO.js";
+import passport from "passport";
+
 const managerSession = new userManager();
 const sessionRouter = express.Router();
 
-sessionRouter.post("/register", async (req, res) => {
-  let user = req.body;
-  try {
-    let userFound = await managerSession.getByEmail(user.email);
-    if (userFound) {
-      res.render("register-error", userFound);
-      return;
-    }
-    await managerSession.createUser(user);
+sessionRouter.post(
+  "/register",
+  passport.authenticate("register", { failureRedirect: "/failregister" }),
+  async (req, res) => {
     res.redirect("/login");
-  } catch (error) {
-    console.log(error);
-    res.render("error", {});
   }
-});
+);
 
-sessionRouter.post("/login", async (req, res) => {
-  let { email, password } = req.body;
-  try {
-    let user = await managerSession.getByEmail(email);
-    if (
-      (!user || password !== user.password) &&
-      email !== "adminCoder@coder.com"
-    ) {
-      res.render("login-error", {});
-      return;
-    }
-    let role = "usuario"; // Por defecto, el rol es "usuario"
-    if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
-      role = "Admin"; // Si el correo y la contraseña coinciden, se asigna el rol de "admin"
-    }
-    req.session.user = { email, role }; // Guardar el correo y el rol en la sesión
+sessionRouter.post(
+  "/login",
+  passport.authenticate("login", { failureRedirect: "/faillogin" }),
+  async (req, res) => {
+    if (!req.user) return res.render("login-error", {});
+    req.session.user = req.user.email;
     res.redirect("/products");
-  } catch (error) {
-    console.log(error);
-    res.render("error", {});
   }
-});
+);
+
+sessionRouter.post(
+  "/login",
+  passport.authenticate("login", { failureRedirect: "/faillogin" }),
+  async (req, res) => {
+    if (!req.user) return res.render("login-error", {});
+    req.session.user = req.user.email;
+    res.redirect("/products");
+  }
+);
+
+sessionRouter.get(
+  "/github",
+  passport.authenticate("github", { scope: ["user:email"] }),
+  async (req, res) => {}
+);
+
+sessionRouter.get(
+  "/githubcallback",
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  async (req, res) => {
+    req.session.user = req.user;
+    res.redirect("/products");
+  }
+);
 
 export default sessionRouter;
