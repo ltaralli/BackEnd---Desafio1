@@ -56,7 +56,6 @@ app.use(
 initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.set("views", "./src/views");
 app.set("view engine", "handlebars");
 app.use("/api/products", productsRouter);

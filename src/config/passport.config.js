@@ -35,13 +35,23 @@ const initializePassport = () => {
       { usernameField: "email" },
       async (username, password, done) => {
         let result = await managerSession.getByEmail(username);
-        if (!result || !isValidPassword(result, password)) {
+
+        let userAdmin = "adminCoder@coder.com";
+        let passAdmin = "adminCod3r123";
+
+        if (
+          !result ||
+          !isValidPassword(result, password) ||
+          username != userAdmin ||
+          password != passAdmin
+        ) {
           return done(null, false);
         }
         return done(null, result);
       }
     )
   );
+
   passport.use(
     "github",
     new GitHubStrategy(

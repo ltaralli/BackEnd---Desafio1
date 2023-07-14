@@ -18,17 +18,17 @@ sessionRouter.post(
   passport.authenticate("login", { failureRedirect: "/faillogin" }),
   async (req, res) => {
     if (!req.user) return res.render("login-error", {});
-    req.session.user = req.user.email;
-    res.redirect("/products");
-  }
-);
 
-sessionRouter.post(
-  "/login",
-  passport.authenticate("login", { failureRedirect: "/faillogin" }),
-  async (req, res) => {
-    if (!req.user) return res.render("login-error", {});
-    req.session.user = req.user.email;
+    // Comprobar si es el usuario administrador
+    if (
+      req.user.email == "adminCoder@coder.com" &&
+      req.user.password == "adminCod3r123"
+    ) {
+      req.session.user = { email: req.user.email, role: "admin" };
+    } else {
+      req.session.user = { email: req.user.email, role: "usuario" };
+    }
+
     res.redirect("/products");
   }
 );
