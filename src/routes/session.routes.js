@@ -18,17 +18,7 @@ sessionRouter.post(
   passport.authenticate("login", { failureRedirect: "/faillogin" }),
   async (req, res) => {
     if (!req.user) return res.render("login-error", {});
-
-    // Comprobar si es el usuario administrador
-    if (
-      req.user.email == "adminCoder@coder.com" &&
-      req.user.password == "adminCod3r123"
-    ) {
-      req.session.user = { email: req.user.email, role: "admin" };
-    } else {
-      req.session.user = { email: req.user.email, role: "usuario" };
-    }
-
+    req.session.user = { email: req.user.email };
     res.redirect("/products");
   }
 );
@@ -47,5 +37,22 @@ sessionRouter.get(
     res.redirect("/products");
   }
 );
+
+sessionRouter.get("/current", async (req, res) => {
+  let user = req.session.user;
+  let result;
+  try {
+    result = await managerSession.getUser(user.email);
+    if (!result) {
+      return res.status(400).send({
+        status: "error",
+        error: "No se encuentra el usuario en la session",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return res.send({ status: "success", payload: result });
+});
 
 export default sessionRouter;

@@ -35,16 +35,7 @@ const initializePassport = () => {
       { usernameField: "email" },
       async (username, password, done) => {
         let result = await managerSession.getByEmail(username);
-
-        let userAdmin = "adminCoder@coder.com";
-        let passAdmin = "adminCod3r123";
-
-        if (
-          !result ||
-          !isValidPassword(result, password) ||
-          username != userAdmin ||
-          password != passAdmin
-        ) {
+        if (!result || !isValidPassword(result, password)) {
           return done(null, false);
         }
         return done(null, result);
