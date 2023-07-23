@@ -18,9 +18,18 @@ class userManager {
 
   async getByEmail(email) {
     let result;
-    console.log(email);
     try {
       result = await this.model.findOne({ email: email });
+    } catch (error) {
+      console.log(error);
+    }
+    return result;
+  }
+
+  async getById(id) {
+    let result;
+    try {
+      result = await this.model.findOne({ _id: id });
     } catch (error) {
       console.log(error);
     }
