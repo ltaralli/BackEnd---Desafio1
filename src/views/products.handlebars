@@ -6,9 +6,7 @@
     <h5>Carrito: <p class="cart-id"></p></h5>
   <div>
 {{#if user.first_name}}
-  <h6>Bienvenido, {{user.first_name}}! Tu rol es: {{role}}</h6>
-{{else}}
-  <h6>Bienvenido, Administrador! Tu rol es: {{role}}</h6>
+  <h6>Bienvenido, {{user.first_name}}! Tu rol es: {{user.role}}</h6>
 {{/if}}
 
 </div>

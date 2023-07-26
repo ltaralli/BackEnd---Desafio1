@@ -26,6 +26,16 @@ class userManager {
     return result;
   }
 
+  async getUser(email) {
+    let result;
+    try {
+      result = await this.model.findOne({ email: email }).select("-password");
+    } catch (error) {
+      console.log(error);
+    }
+    return result;
+  }
+
   async getById(id) {
     let result;
     try {

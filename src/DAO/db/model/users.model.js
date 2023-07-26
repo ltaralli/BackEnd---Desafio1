@@ -6,6 +6,13 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   password: String,
   age: Number,
+  cart: {
+    _id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "cart",
+    },
+  },
+  role: { type: String, default: "user" },
 });
 
 export const userModel = mongoose.model("users", userSchema);
