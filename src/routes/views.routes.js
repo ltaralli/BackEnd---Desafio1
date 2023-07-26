@@ -4,7 +4,7 @@ import ProductManager from "../DAO/productsDAO.js";
 import CartManager from "../DAO/cartsDAO.js";
 import userManager from "../DAO/sessionDAO.js";
 import { authMiddleware } from "../middlewares/auth.js";
-import passport from "passport";
+
 const viewsRouter = Router();
 const sessionRouter = express.Router();
 const manager = new ProductManager();

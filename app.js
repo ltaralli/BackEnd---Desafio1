@@ -1,24 +1,28 @@
 import express from "express";
 import handlebars from "express-handlebars";
-import ifEqHelper from "../src/helpers/handlebars-helpers.js";
-import { multiplyHelper, calculateTotal } from "./helpers/cartHelper.js";
+import ifEqHelper from "./src/helpers/handlebars-helpers.js";
+import { multiplyHelper, calculateTotal } from "./src/helpers/cartHelper.js";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
-import ProductManager from "./DAO/productsDAO.js";
-import MessagesManager from "./DAO/messagesDAO.js";
-import cartRouter from "./routes/cart.routes.js";
-import productsRouter from "./routes/products.routes.js";
-import chatRouter from "./routes/chat.routes.js";
-import viewsRouter from "./routes/views.routes.js";
-import sessionRouter from "./routes/session.routes.js";
+import ProductManager from "./src/DAO/productsDAO.js";
+import MessagesManager from "./src/DAO/messagesDAO.js";
+import cartRouter from "./src/routes/cart.routes.js";
+import productsRouter from "./src/routes/products.routes.js";
+import chatRouter from "./src/routes/chat.routes.js";
+import viewsRouter from "./src/routes/views.routes.js";
+import sessionRouter from "./src/routes/session.routes.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import passport from "passport";
-import initializePassport from "./config/passport.config.js";
+import initializePassport from "./src/config/passport.config.js";
+import config from "./src/config/config.js";
+
+// VARIABLES DE ENTORNO
+const PORT = config.port;
+const mongoURL = config.mongoUrl;
+const sessionSecret = config.sessionSecret;
 
 const app = express();
-const mongoURL =
-  "mongodb+srv://ltaralli:coder1234@cluster0.k7b3exc.mongodb.net/ecommerce";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -47,7 +51,7 @@ app.use(
       },
       ttl: 250,
     }),
-    secret: "coderSecret",
+    secret: sessionSecret,
     resave: false,
     saveUninitialized: false,
   })
@@ -63,11 +67,10 @@ app.use("/api/cart", cartRouter);
 app.use("/api/session", sessionRouter);
 app.use("/", viewsRouter);
 app.use("/realtimeproducts", viewsRouter);
-app.use("/carts", viewsRouter);
 app.use("/chat", chatRouter);
 
-const server = app.listen(8080, () =>
-  console.log("Corriendo en el puerto: 8080")
+const server = app.listen(PORT, () =>
+  console.log(`Corriendo en el puerto: ${server.address().port}`)
 );
 
 mongoose.connect(mongoURL, {
