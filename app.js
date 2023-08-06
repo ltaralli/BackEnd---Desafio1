@@ -8,7 +8,6 @@ import ProductManager from "./src/DAO/productsDAO.js";
 import MessagesManager from "./src/DAO/messagesDAO.js";
 import cartRouter from "./src/routes/cart.routes.js";
 import productsRouter from "./src/routes/products.routes.js";
-import chatRouter from "./src/routes/chat.routes.js";
 import viewsRouter from "./src/routes/views.routes.js";
 import sessionRouter from "./src/routes/session.routes.js";
 import session from "express-session";
@@ -58,16 +57,17 @@ app.use(
 );
 
 initializePassport();
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.set("views", "./src/views");
 app.set("view engine", "handlebars");
+
 app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/session", sessionRouter);
 app.use("/", viewsRouter);
-app.use("/realtimeproducts", viewsRouter);
-app.use("/chat", chatRouter);
 
 const server = app.listen(PORT, () =>
   console.log(`Corriendo en el puerto: ${server.address().port}`)
