@@ -1,5 +1,4 @@
 import { userModel } from "./db/model/users.model.js";
-import mongoose from "mongoose";
 
 class userManager {
   constructor() {
