@@ -1,4 +1,5 @@
 import userManager from "../DAO/sessionDAO.js";
+import UserDTO from "../DAO/DTOs/userDTO.js";
 
 export default class UserServices {
   constructor() {
@@ -16,7 +17,8 @@ export default class UserServices {
   }
 
   async getUser(email) {
-    let user = await this.dao.getUser(email);
+    let result = await this.dao.getByEmail(email);
+    let user = new UserDTO(result);
     return user;
   }
 

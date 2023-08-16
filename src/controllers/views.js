@@ -108,7 +108,7 @@ export const register = async (req, res) => {
 };
 
 export const profile = async (req, res) => {
-  let user = await userServices.getByEmail(req.session.user.email);
+  let user = await userServices.getUser(req.session.user.email);
   res.render("profile", user);
 };
 

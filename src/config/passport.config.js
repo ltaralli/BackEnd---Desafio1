@@ -83,11 +83,12 @@ const initializePassport = () => {
   );
 
   passport.serializeUser((user, done) => {
-    done(null, user._id);
+    done(null, { id: user._id, role: user.role });
   });
 
-  passport.deserializeUser(async (id, done) => {
-    let user = await userServices.getById(id);
+  passport.deserializeUser(async (data, done) => {
+    let user = await userServices.getById(data.id);
+    user.role = data.role; // Agregar el rol al usuario
     done(null, user);
   });
 };

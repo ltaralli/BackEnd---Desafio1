@@ -33,6 +33,7 @@ async function addToCart(productId) {
         icon: "error",
         title: "Oops...",
         text: "Hubo un problema al agregar el producto",
+        footer: error,
       });
       console.error(error);
     });

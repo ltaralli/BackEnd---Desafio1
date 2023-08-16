@@ -15,11 +15,11 @@ import {
 
 const viewsRouter = Router();
 const sessionRouter = Router();
-import { authMiddleware } from "../middlewares/auth.js";
+import { authMiddleware, isAdmin, isUser } from "../middlewares/auth.js";
 
 viewsRouter.get("/", getProducts);
-viewsRouter.get("/chat", getChat);
-viewsRouter.get("/realtimeproducts", getProductsRealTime);
+viewsRouter.get("/chat", isUser, getChat);
+viewsRouter.get("/realtimeproducts", isAdmin, getProductsRealTime);
 viewsRouter.get("/products", authMiddleware, getProductsViews);
 viewsRouter.get("/carts/:cid", getCart);
 viewsRouter.get("/login", login);
