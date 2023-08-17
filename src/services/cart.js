@@ -44,4 +44,9 @@ export default class CartServices {
     let result = await this.dao.deleteAllProducts(cid);
     return result;
   }
+
+  async purchase(cid) {
+    let result = await this.dao.purchase(cid);
+    return result;
+  }
 }

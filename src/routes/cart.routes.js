@@ -21,5 +21,6 @@ cartRouter.put("/:cid", updateCart);
 cartRouter.put("/:cid/products/:pid", updateProductQuantity);
 cartRouter.delete("/:cid/products/:pid", deleteProductFromCart);
 cartRouter.delete("/:cid", deleteAllProducts);
+cartRouter.post("/:cid/purchase");
 
 export default cartRouter;
