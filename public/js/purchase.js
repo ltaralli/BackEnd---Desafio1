@@ -58,7 +58,7 @@ async function purchase() {
         icon: "success",
         title: "Compra finalizada",
         showConfirmButton: false,
-        timer: 1500,
+        footer: `<p>Tu numero de orden es: ${data.payload.code}.</p><a href="/carts/${cartId}/${data.payload.code}"> Hace click para ver tu compra!</a>`,
       });
       console.log(data);
     })

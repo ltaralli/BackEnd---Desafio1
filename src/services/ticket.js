@@ -9,4 +9,9 @@ export default class TicketServices {
     let result = await this.dao.createTicket(uid, productsToPurchase);
     return result;
   }
+
+  async getTicketByOrder(orderCode) {
+    let result = await this.dao.getTicketByOrder(orderCode);
+    return result;
+  }
 }

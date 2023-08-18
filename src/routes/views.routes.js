@@ -11,6 +11,7 @@ import {
   logout,
   failRegister,
   failLogin,
+  getTicketByOrder,
 } from "../controllers/views.js";
 
 const viewsRouter = Router();
@@ -27,6 +28,7 @@ viewsRouter.get(
 );
 viewsRouter.get("/products", authMiddleware, getProductsViews);
 viewsRouter.get("/carts/:cid", getCart);
+viewsRouter.get("/carts/:cid/:tcode", getTicketByOrder);
 viewsRouter.get("/login", login);
 viewsRouter.post("/login", sessionRouter);
 viewsRouter.get("/register", register);

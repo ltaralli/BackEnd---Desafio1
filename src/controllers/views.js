@@ -1,10 +1,12 @@
 import ProductServices from "../services/products.js";
 import CartServices from "../services/cart.js";
 import UserServices from "../services/session.js";
+import TicketServices from "../services/ticket.js";
 
 const productServices = new ProductServices();
 const cartServices = new CartServices();
 const userServices = new UserServices();
+const ticketServices = new TicketServices();
 
 export const getProducts = async (req, res) => {
   try {
@@ -124,4 +126,17 @@ export const failRegister = async (req, res) => {
 
 export const failLogin = async (req, res) => {
   res.render("login-error", {});
+};
+
+export const getTicketByOrder = async (req, res) => {
+  const orderCode = req.params.tcode;
+  let ticket;
+  try {
+    ticket = await ticketServices.getTicketByOrder(orderCode);
+
+    res.send(ticket);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error interno del servidor");
+  }
 };

@@ -27,6 +27,29 @@ class TicketsManager {
       };
     }
   }
+
+  async getTicketByOrder(orderCode) {
+    try {
+      const ticket = await ticketsModel.findOne({ code: orderCode });
+      if (!ticket) {
+        return {
+          success: false,
+          message: `Ticket no encontrado para el código de orden ${orderCode}`,
+        };
+      }
+      return {
+        success: true,
+        message: "Ticket encontrado exitosamente.",
+        ticket,
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        success: false,
+        message: `Ocurrió un error al obtener el ticket: ${error}`,
+      };
+    }
+  }
 }
 
 export default TicketsManager;
