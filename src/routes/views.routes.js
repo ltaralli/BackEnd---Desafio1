@@ -19,7 +19,12 @@ import { authMiddleware, isAdmin, isUser } from "../middlewares/auth.js";
 
 viewsRouter.get("/", getProducts);
 viewsRouter.get("/chat", isUser, getChat);
-viewsRouter.get("/realtimeproducts", isAdmin, getProductsRealTime);
+viewsRouter.get(
+  "/realtimeproducts",
+  authMiddleware,
+  isAdmin,
+  getProductsRealTime
+);
 viewsRouter.get("/products", authMiddleware, getProductsViews);
 viewsRouter.get("/carts/:cid", getCart);
 viewsRouter.get("/login", login);

@@ -1,5 +1,8 @@
 import CartServices from "../services/cart.js";
+import TicketServices from "../services/ticket.js";
+
 const cartServices = new CartServices();
+const ticketServices = new TicketServices();
 
 export const getCart = async (req, res) => {
   const cid = req.params.cid;
@@ -196,4 +199,40 @@ export const deleteAllProducts = async (req, res) => {
     status: "success",
     message: deleteResult.message,
   });
+};
+
+export const purchase = async (req, res) => {
+  try {
+    const cid = req.params.cid;
+    const uid = req.session.user.email;
+    const { productsToPurchase, productsNotPurchase } =
+      await cartServices.verifyPurchase(cid);
+    if (productsToPurchase.length === 0) {
+      return res.status(400).send({
+        status: "error",
+        message: productsToPurchase.message,
+      });
+    }
+
+    const resultPurchase = await cartServices.processPurchase(
+      productsToPurchase
+    );
+
+    const ticket = await ticketServices.createTicket(uid, productsToPurchase);
+
+    const resultUpdateCart = await cartServices.updateCart(
+      cid,
+      productsNotPurchase
+    );
+
+    return res.send({
+      message: "Compra realizada exitosamente.",
+      payload: ticket,
+      newCart: resultUpdateCart,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ message: `Error en el proceso de compra. ${error}` });
+  }
 };

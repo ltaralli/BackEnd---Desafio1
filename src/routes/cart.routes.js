@@ -8,6 +8,7 @@ import {
   updateProductQuantity,
   deleteProductFromCart,
   deleteAllProducts,
+  purchase,
 } from "../controllers/cart.js";
 import { isUser } from "../middlewares/auth.js";
 
@@ -21,6 +22,6 @@ cartRouter.put("/:cid", updateCart);
 cartRouter.put("/:cid/products/:pid", updateProductQuantity);
 cartRouter.delete("/:cid/products/:pid", deleteProductFromCart);
 cartRouter.delete("/:cid", deleteAllProducts);
-cartRouter.post("/:cid/purchase");
+cartRouter.post("/:cid/purchase", purchase);
 
 export default cartRouter;

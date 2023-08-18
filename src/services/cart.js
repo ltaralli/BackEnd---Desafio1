@@ -31,7 +31,7 @@ export default class CartServices {
   }
 
   async updateCart(cid, products) {
-    let result = await this.dao.updateCart();
+    let result = await this.dao.updateCart(cid, products);
     return result;
   }
 
@@ -45,8 +45,18 @@ export default class CartServices {
     return result;
   }
 
-  async purchase(cid) {
-    let result = await this.dao.purchase(cid);
+  async verifyPurchase(cid) {
+    let result = await this.dao.verifyPurchase(cid);
+    return result;
+  }
+
+  async processPurchase(productsToPurchase) {
+    let result = await this.dao.processPurchase(productsToPurchase);
+    return result;
+  }
+
+  async unprocessedProducts(productsNotPurchase) {
+    let result = await this.dao.unprocessedProducts(productsNotPurchase);
     return result;
   }
 }

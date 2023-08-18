@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+  const purchaseButtons = document.querySelectorAll(".purchase-btn");
+
   addToCartButtons.forEach(function (button) {
     button.addEventListener("click", function () {
       const productId = this.dataset.productId;

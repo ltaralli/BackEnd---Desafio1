@@ -9,4 +9,4 @@ const TicketSchema = new mongoose.Schema({
   purchaser: String,
 });
 
-export const productsModel = mongoose.model(ticketCollection, TicketSchema);
+export const ticketsModel = mongoose.model(ticketCollection, TicketSchema);
