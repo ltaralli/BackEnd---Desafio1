@@ -12,6 +12,7 @@ import {
   failRegister,
   failLogin,
   getTicketByOrder,
+  getProductsMocks,
 } from "../controllers/views.js";
 
 const viewsRouter = Router();
@@ -37,5 +38,6 @@ viewsRouter.get("/profile", authMiddleware, profile);
 viewsRouter.get("/logout", logout);
 viewsRouter.get("/failregister", failRegister);
 viewsRouter.get("/faillogin", failLogin);
+viewsRouter.get("/mockingproducts", getProductsMocks);
 
 export default viewsRouter;

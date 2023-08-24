@@ -15,6 +15,7 @@ import MongoStore from "connect-mongo";
 import passport from "passport";
 import initializePassport from "./src/config/passport.config.js";
 import config from "./src/config/config.js";
+import errorHandler from "./src/middlewares/errors/index.js";
 
 // VARIABLES DE ENTORNO
 const PORT = config.port;
@@ -68,6 +69,7 @@ app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/session", sessionRouter);
 app.use("/", viewsRouter);
+app.use(errorHandler);
 
 const server = app.listen(PORT, () =>
   console.log(`Corriendo en el puerto: ${server.address().port}`)
