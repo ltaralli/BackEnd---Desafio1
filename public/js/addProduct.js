@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+
   addToCartButtons.forEach(function (button) {
     button.addEventListener("click", function () {
       const productId = this.dataset.productId;
@@ -33,6 +34,7 @@ async function addToCart(productId) {
         icon: "error",
         title: "Oops...",
         text: "Hubo un problema al agregar el producto",
+        footer: error,
       });
       console.error(error);
     });

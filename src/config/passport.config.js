@@ -1,7 +1,7 @@
 import passport from "passport";
 import GitHubStrategy from "passport-github2";
 import local from "passport-local";
-import userManager from "../DAO/sessionDAO.js";
+import UserServices from "../services/session.js";
 import { createHash, isValidPassword } from "../utils/index.js";
 import config from "./config.js";
 
@@ -10,8 +10,7 @@ const githubClientID = config.githubClientID;
 const githubClientSecret = config.githubClientSecret;
 const githubCallbackURL = config.githubCallbackURL;
 const githubScope = config.githubScope;
-
-const managerSession = new userManager();
+const userServices = new UserServices();
 const LocalStrategy = local.Strategy;
 
 const initializePassport = () => {
@@ -22,12 +21,12 @@ const initializePassport = () => {
       async (req, username, password, done) => {
         let user = req.body;
         try {
-          let userFound = await managerSession.getByEmail(user.email);
+          let userFound = await userServices.getByEmail(user.email);
           if (userFound) {
             return done(null, false);
           }
           user.password = createHash(user.password);
-          let result = await managerSession.createUser(user);
+          let result = await userServices.createUser(user);
           return done(null, result);
         } catch (error) {
           return done("Error al registrar el usuario " + error);
@@ -41,7 +40,7 @@ const initializePassport = () => {
     new LocalStrategy(
       { usernameField: "email" },
       async (username, password, done) => {
-        let result = await managerSession.getByEmail(username);
+        let result = await userServices.getByEmail(username);
         if (!result || !isValidPassword(result, password)) {
           return done(null, false);
         }
@@ -62,7 +61,7 @@ const initializePassport = () => {
       async (accessToken, refreshToken, profile, done) => {
         try {
           let userEmail = profile.emails[0].value;
-          let user = await managerSession.getByEmail(userEmail);
+          let user = await userServices.getByEmail(userEmail);
           if (!user) {
             let newUser = {
               first_name: profile._json.login,
@@ -71,7 +70,7 @@ const initializePassport = () => {
               password: "",
               age: "",
             };
-            let result = await managerSession.createUser(newUser);
+            let result = await userServices.createUser(newUser);
             done(null, result);
           } else {
             done(null, user);
@@ -84,11 +83,12 @@ const initializePassport = () => {
   );
 
   passport.serializeUser((user, done) => {
-    done(null, user._id);
+    done(null, { id: user._id, role: user.role });
   });
 
-  passport.deserializeUser(async (id, done) => {
-    let user = await managerSession.getById(id);
+  passport.deserializeUser(async (data, done) => {
+    let user = await userServices.getById(data.id);
+    user.role = data.role; // Agregar el rol al usuario
     done(null, user);
   });
 };

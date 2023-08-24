@@ -1,5 +1,8 @@
 import { cartsModel } from "./db/model/carts.model.js";
 import { productsModel } from "./db/model/products.model.js";
+import ProductManager from "./productsDAO.js";
+
+const productManager = new ProductManager();
 
 class CartManager {
   constructor() {
@@ -119,10 +122,10 @@ class CartManager {
 
   async updateCart(cid, products) {
     try {
-      const filter = { _id: cid };
+      const filter = { cid };
       const update = { products };
       const options = { new: true };
-
+      console.log(cid);
       const updatedCart = await this.model.findByIdAndUpdate(
         cid,
         update,
@@ -207,6 +210,96 @@ class CartManager {
       };
     }
   }
-}
 
+  async verifyPurchase(cid) {
+    try {
+      const cart = await this.model.findById(cid);
+      const productsToPurchase = [];
+      const productsNotPurchase = [];
+
+      for (const product of cart.products) {
+        const productData = await productsModel.findById(product._id);
+        if (productData.stock >= product.quantity) {
+          const productToPurchase = {
+            _id: product._id,
+            price: productData.price,
+            quantity: product.quantity,
+          };
+          productsToPurchase.push(productToPurchase);
+        } else {
+          productsNotPurchase.push(product);
+        }
+      }
+
+      return { productsToPurchase, productsNotPurchase };
+    } catch (error) {
+      console.log(error);
+      return {
+        success: false,
+        message: `Ocurrió un error al verificar la compra: ${error}`,
+      };
+    }
+  }
+
+  async processPurchase(productsToPurchase) {
+    try {
+      for (const product of productsToPurchase) {
+        const productData = await productsModel.findById(product._id);
+        const newStock = productData.stock - product.quantity;
+        await productsModel.updateOne(
+          { _id: product._id },
+          { stock: newStock }
+        );
+      }
+
+      return {
+        success: true,
+        message: "Productos procesados exitosamente.",
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        success: false,
+        message: `Ocurrió un error al actualizar el stock de los productos: ${error}`,
+      };
+    }
+  }
+
+  async unprocessedProducts(cid, productsNotPurchase) {
+    try {
+      if (!productsNotPurchase || productsNotPurchase.length === 0) {
+        console.log("No hay productos no comprados para eliminar.");
+        return {
+          success: true,
+          message: "No hay productos no comprados para eliminar del carrito.",
+        };
+      }
+
+      const productIdsNotPurchase = productsNotPurchase.map(
+        (product) => product._id
+      );
+
+      const updatedCart = await this.model.findByIdAndUpdate(
+        cid,
+        { $pull: { products: { _id: { $in: productIdsNotPurchase } } } },
+        { new: true }
+      );
+
+      if (!updatedCart) {
+        console.log(`Carrito no encontrado`);
+      }
+
+      return {
+        success: true,
+        message: "Productos no comprados eliminados del carrito exitosamente.",
+      };
+    } catch (error) {
+      console.log(error);
+      return {
+        success: false,
+        message: `Ocurrió un error al actualizar el carrito con los productos no comprados: ${error}`,
+      };
+    }
+  }
+}
 export default CartManager;
