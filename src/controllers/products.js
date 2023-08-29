@@ -49,32 +49,24 @@ export const getProductById = async (req, res) => {
 
 export const addProduct = async (req, res) => {
   let product = req.body;
-  if (!validateAddProduct(product)) {
-    try {
+  try {
+    if (!validateAddProduct(product)) {
       CustomError.createError({
         name: "Error al añadir el producto",
         cause: generateProductsErrorInfo(product),
         message: "Error al intentar añadir el producto",
         code: EErrors.INVALID_TYPES_ERROR,
       });
-    } catch (error) {
-      res.status(400).send({
-        status: "error",
-        msg: error.message,
-      });
     }
-  } else {
-    try {
-      await productServices.addProduct(product);
-      res
-        .status(200)
-        .send({ status: "success", msg: "Producto agregado exitosamente" });
-    } catch (error) {
-      res.status(400).send({
-        status: "error",
-        msg: `El código ${product.code} ya fue ingresado, por favor ingresa otro diferente`,
-      });
-    }
+    await productServices.addProduct(product);
+    res
+      .status(200)
+      .send({ status: "success", msg: "Producto agregado exitosamente" });
+  } catch (error) {
+    res.status(400).send({
+      status: "error",
+      msg: `El código ${product.code} ya fue ingresado, por favor ingresa otro diferente`,
+    });
   }
 };
 
