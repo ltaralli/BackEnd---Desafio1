@@ -2,6 +2,7 @@ import ProductServices from "../services/products.js";
 import CartServices from "../services/cart.js";
 import UserServices from "../services/session.js";
 import TicketServices from "../services/ticket.js";
+import { generateproducts } from "../mocks/products.js";
 
 const productServices = new ProductServices();
 const cartServices = new CartServices();
@@ -138,5 +139,14 @@ export const getTicketByOrder = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).send("Error interno del servidor");
+  }
+};
+
+export const getProductsMocks = async (req, res) => {
+  try {
+    const products = await generateproducts(100);
+    res.send(products);
+  } catch (error) {
+    console.log(error);
   }
 };
