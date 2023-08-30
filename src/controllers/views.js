@@ -3,6 +3,7 @@ import CartServices from "../services/cart.js";
 import UserServices from "../services/session.js";
 import TicketServices from "../services/ticket.js";
 import { generateproducts } from "../mocks/products.js";
+import logger from "../utils/logger.js";
 
 const productServices = new ProductServices();
 const cartServices = new CartServices();
@@ -147,6 +148,16 @@ export const getProductsMocks = async (req, res) => {
     const products = await generateproducts(100);
     res.send(products);
   } catch (error) {
-    console.log(error);
+    logger.error(error);
   }
+};
+
+export const loggerTest = async (req, res) => {
+  req.logger.fatal("Testeo de error: fatal");
+  req.logger.error("Testeo de error: error");
+  req.logger.warning("Testeo de error: warning");
+  req.logger.info("Testeo de error: info");
+  req.logger.http("Testeo de error: http");
+  req.logger.debug("Testeo de error: debug");
+  res.send("Test de Logger Ejecutado");
 };

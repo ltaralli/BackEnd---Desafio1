@@ -1,4 +1,5 @@
 import { calculateTotalAmount, generateUniqueCode } from "../utils/index.js";
+import logger from "../utils/logger.js";
 import { ticketsModel } from "./db/model/tickets.model.js";
 
 class TicketsManager {
@@ -20,7 +21,7 @@ class TicketsManager {
       const createdTicket = await this.model.create(ticketData);
       return createdTicket;
     } catch (error) {
-      console.log(error);
+      logger.error(`${error}`);
       return {
         success: false,
         message: `Ocurrió un error al crear el ticket: ${error}`,

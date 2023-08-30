@@ -1,3 +1,5 @@
+import logger from "../../utils/logger.js";
+
 export default class CustomError {
   static createError({ name = "Error", cause, message, code = 1 }) {
     const error = new Error(message);
@@ -5,7 +7,7 @@ export default class CustomError {
     error.cause = cause;
     error.name = name;
     error.code = code;
-    console.log(error);
+    logger.error(error);
     throw error;
   }
 }
