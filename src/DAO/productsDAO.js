@@ -1,3 +1,4 @@
+import logger from "../utils/logger.js";
 import { productsModel } from "./db/model/products.model.js";
 
 class ProductManager {
@@ -27,7 +28,7 @@ class ProductManager {
         products = await this.model.paginate(query, options);
       }
     } catch (error) {
-      console.log(error);
+      logger.error(`${error}`);
     }
 
     return products;
@@ -38,10 +39,10 @@ class ProductManager {
     try {
       product = await this.model.findOne({ _id: id });
       if (!product) {
-        console.log(`No se encontró ningún producto con el id: ${id}`);
+        logger.info(`No se encontró ningún producto con el id: ${id}`);
       }
     } catch (error) {
-      console.log(error);
+      logger.error(`${error}`);
     }
     return product;
   }
@@ -57,7 +58,7 @@ class ProductManager {
       }
       producto = await this.model.create(product);
     } catch (error) {
-      console.log(error);
+      logger.error(`${error}`);
     }
     return producto;
   }
@@ -67,7 +68,7 @@ class ProductManager {
     try {
       product = await this.model.updateOne({ _id: pid }, fields);
     } catch (error) {
-      console.log(error);
+      logger.error(`${error}`);
     }
     return product;
   }
@@ -77,7 +78,7 @@ class ProductManager {
     try {
       deletedProduct = await this.model.deleteOne({ _id: pid });
     } catch (error) {
-      console.log(error);
+      logger.error(`${error}`);
     }
     return deletedProduct;
   }
@@ -91,39 +92,6 @@ class ProductManager {
       throw error;
     }
   }
-
-  // async deleteProductFromCart(pid, cid) {
-  //   try {
-  //     const filter = { _id: cid };
-  //     const update = {
-  //       $pull: {
-  //         products: { id: pid },
-  //       },
-  //     };
-
-  //     const updatedCart = await this.model.updateOne(filter, update);
-
-  //     if (updatedCart.modifiedCount === 0) {
-  //       return {
-  //         success: false,
-  //         message: "Carrito no encontrado",
-  //       };
-  //     }
-
-  //     const cart = await this.model.findById(cid);
-  //     return {
-  //       success: true,
-  //       message: "Producto eliminado del carrito",
-  //       cart,
-  //     };
-  //   } catch (error) {
-  //     console.error(error);
-  //     return {
-  //       success: false,
-  //       message: "Error al eliminar el producto del carrito",
-  //     };
-  //   }
-  // }
 }
 
 export default ProductManager;

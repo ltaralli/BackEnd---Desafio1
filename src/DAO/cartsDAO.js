@@ -1,6 +1,7 @@
 import { cartsModel } from "./db/model/carts.model.js";
 import { productsModel } from "./db/model/products.model.js";
 import ProductManager from "./productsDAO.js";
+import logger from "../utils/logger.js";
 
 const productManager = new ProductManager();
 
@@ -23,7 +24,7 @@ class CartManager {
       const cart = await this.model.findById(id).populate("products._id");
 
       if (!cart) {
-        console.log(`No se encontró ningún carrito con el id: ${id}`);
+        logger.error(`No se encontró ningún carrito con el id: ${id}`);
       }
 
       return cart;
@@ -125,7 +126,6 @@ class CartManager {
       const filter = { cid };
       const update = { products };
       const options = { new: true };
-      console.log(cid);
       const updatedCart = await this.model.findByIdAndUpdate(
         cid,
         update,
@@ -233,7 +233,7 @@ class CartManager {
 
       return { productsToPurchase, productsNotPurchase };
     } catch (error) {
-      console.log(error);
+      logger.error(`${error}`);
       return {
         success: false,
         message: `Ocurrió un error al verificar la compra: ${error}`,
@@ -257,7 +257,7 @@ class CartManager {
         message: "Productos procesados exitosamente.",
       };
     } catch (error) {
-      console.log(error);
+      logger.error(`${error}`);
       return {
         success: false,
         message: `Ocurrió un error al actualizar el stock de los productos: ${error}`,
@@ -268,7 +268,7 @@ class CartManager {
   async unprocessedProducts(cid, productsNotPurchase) {
     try {
       if (!productsNotPurchase || productsNotPurchase.length === 0) {
-        console.log("No hay productos no comprados para eliminar.");
+        logger.info("No hay productos no comprados para eliminar.");
         return {
           success: true,
           message: "No hay productos no comprados para eliminar del carrito.",
@@ -286,7 +286,7 @@ class CartManager {
       );
 
       if (!updatedCart) {
-        console.log(`Carrito no encontrado`);
+        logger.info(`Carrito no encontrado`);
       }
 
       return {
@@ -294,7 +294,7 @@ class CartManager {
         message: "Productos no comprados eliminados del carrito exitosamente.",
       };
     } catch (error) {
-      console.log(error);
+      logger.error(`${error}`);
       return {
         success: false,
         message: `Ocurrió un error al actualizar el carrito con los productos no comprados: ${error}`,

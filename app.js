@@ -16,6 +16,8 @@ import passport from "passport";
 import initializePassport from "./src/config/passport.config.js";
 import config from "./src/config/config.js";
 import errorHandler from "./src/middlewares/errors/index.js";
+import { addLogger } from "./src/utils/logger.js";
+import logger from "./src/utils/logger.js";
 
 // VARIABLES DE ENTORNO
 const PORT = config.port;
@@ -23,6 +25,7 @@ const mongoURL = config.mongoUrl;
 const sessionSecret = config.sessionSecret;
 
 const app = express();
+app.use(addLogger);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -72,7 +75,7 @@ app.use("/", viewsRouter);
 app.use(errorHandler);
 
 const server = app.listen(PORT, () =>
-  console.log(`Corriendo en el puerto: ${server.address().port}`)
+  logger.info(`Corriendo en el puerto: ${server.address().port}`)
 );
 
 mongoose.connect(mongoURL, {
@@ -87,7 +90,7 @@ db.on("error", (error) => {
 });
 
 db.once("open", () => {
-  console.log("Conexión exitosa a la base de datos.");
+  logger.info("Conexión exitosa a la base de datos.");
 });
 
 const io = new Server(server);
@@ -96,7 +99,7 @@ const managerMsg = new MessagesManager();
 const message = [];
 
 io.on("connection", async (socket) => {
-  console.log("nuevo cliente conectado");
+  logger.info("nuevo cliente conectado");
   const products = await manager.getProducts();
   io.emit("productList", products);
   socket.on("product", async (newProd) => {

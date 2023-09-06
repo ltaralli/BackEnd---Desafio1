@@ -1,3 +1,4 @@
+import logger from "../utils/logger.js";
 import { messagesModel } from "./db/model/messages.model.js";
 
 class MessagesManager {
@@ -10,7 +11,7 @@ class MessagesManager {
     try {
       msg = await this.model.create(message);
     } catch (error) {
-      console.log(error);
+      logger.error(`${error}`);
     }
     return msg;
   }

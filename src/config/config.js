@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export default {
+  env: process.env.ENV,
   port: process.env.PORT,
   mongoUrl: process.env.MONGO_URL,
   githubClientID: process.env.GITHUB_CLIENT_ID,
