@@ -12,3 +12,5 @@
 {"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
 {"level":"error","message":"No se encontró ningún carrito con el id: 6490e00b67c9c1425b6487c2"}
 {"level":"error","message":"No se encontró ningún carrito con el id: 6490e00b67c9c1425b6487c2"}
+{"level":"fatal","message":"Testeo de error: fatal"}
+{"level":"error","message":"Testeo de error: error"}

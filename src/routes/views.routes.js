@@ -15,10 +15,10 @@ import {
   getProductsMocks,
   loggerTest,
 } from "../controllers/views.js";
+import { authMiddleware, isAdmin, isUser } from "../middlewares/auth.js";
 
 const viewsRouter = Router();
 const sessionRouter = Router();
-import { authMiddleware, isAdmin, isUser } from "../middlewares/auth.js";
 
 viewsRouter.get("/", getProducts);
 viewsRouter.get("/chat", isUser, getChat);
