@@ -14,3 +14,30 @@
 {"level":"error","message":"No se encontró ningún carrito con el id: 6490e00b67c9c1425b6487c2"}
 {"level":"fatal","message":"Testeo de error: fatal"}
 {"level":"error","message":"Testeo de error: error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error","message":"CastError: Cast to string failed for value \"{}\" (type Object) at path \"email\" for model \"users\""}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'first_name')"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error","message":"CastError: Cast to string failed for value \"{ email: 'lisandrotaralli@gmail.com' }\" (type Object) at path \"email\" for model \"users\""}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'first_name')"}
+{"level":"error"}
+{"level":"error","message":"CastError: Cast to string failed for value \"{ email: 'lisandrotaralli@gmail.com' }\" (type Object) at path \"email\" for model \"users\""}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'first_name')"}
+{"level":"error","message":"TypeError: Cannot set properties of undefined (setting 'resetPasswordToken')"}
+{"level":"error","message":"TypeError: Cannot set properties of undefined (setting 'resetPasswordToken')"}
+{"level":"error","message":"TypeError: Cannot set properties of undefined (setting 'resetPasswordToken')"}
+{"level":"error","message":"ReferenceError: userParams is not defined"}
+{"level":"error","message":"Error: No recipients defined"}
+{"level":"error","message":"ReferenceError: updateUser is not defined"}
+{"level":"error","message":"Error: No recipients defined"}
+{"level":"error","message":"Error: No recipients defined"}
+{"level":"error","message":"ReferenceError: getUser is not defined"}
+{"level":"error","message":"TypeError: this.model.getUser is not a function"}
+{"level":"error","message":"Error: No recipients defined"}
+{"level":"error","message":"Error: No recipients defined"}
+{"level":"error","message":"Error: No recipients defined"}
+{"level":"error","message":"ReferenceError: token is not defined"}
+{"level":"error","message":"TypeError: Cannot read properties of null (reading 'first_name')"}
+{"level":"error","message":"CastError: Cast to string failed for value \"{\n  newPassword: '12345',\n  confirmPassword: '12345',\n  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQzNjAyNjAsImV4cCI6MTY5NDM2Mzg2MH0.XvhoYi2c0FhabfCCut9F8lJsfpYlSpRsfA4qJoNqje4'\n}\" (type Object) at path \"resetPasswordToken\" for model \"users\""}

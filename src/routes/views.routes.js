@@ -14,8 +14,11 @@ import {
   getTicketByOrder,
   getProductsMocks,
   loggerTest,
+  forgotPass,
+  resetPass,
 } from "../controllers/views.js";
 import { authMiddleware, isAdmin, isUser } from "../middlewares/auth.js";
+// import { forgotPassword, resetPaswoord } from "../controllers/session.js";
 
 const viewsRouter = Router();
 const sessionRouter = Router();
@@ -41,5 +44,7 @@ viewsRouter.get("/failregister", failRegister);
 viewsRouter.get("/faillogin", failLogin);
 viewsRouter.get("/mockingproducts", getProductsMocks);
 viewsRouter.get("/loggerTest", loggerTest);
+viewsRouter.get("/forgot-password", forgotPass);
+viewsRouter.get("/reset-password", resetPass);
 
 export default viewsRouter;

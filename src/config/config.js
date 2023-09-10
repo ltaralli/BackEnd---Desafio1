@@ -11,4 +11,7 @@ export default {
   githubCallbackURL: process.env.GITHUB_CALLBACK_URL,
   githubScope: process.env.GITHUB_SCOPE,
   sessionSecret: process.env.SESSION_SECRET,
+  private_key_JWT: process.env.PRIVATE_KEY_JWT,
+  gmail_user_auth: process.env.GMAIL_USER_AUTH,
+  gmial_pass_auth: process.env.GMAIL_PASS_AUTH,
 };

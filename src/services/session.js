@@ -31,4 +31,24 @@ export default class UserServices {
     let result = await this.dao.createUser(user);
     return result;
   }
+
+  async resetPassword(email, newPass) {
+    let result = await this.dao.resetPassword(email, newPass);
+    return result;
+  }
+
+  async updateUser(email, fields) {
+    let result = await this.dao.updateUser(email, fields);
+    return result;
+  }
+
+  async getUserByResetToken(token) {
+    let result = await this.dao.getUserByResetToken(token);
+    return result;
+  }
+
+  async sendEmailResetPassword(email) {
+    let result = await this.dao.sendEmailResetPassword(email);
+    return result;
+  }
 }

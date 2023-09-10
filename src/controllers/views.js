@@ -161,3 +161,11 @@ export const loggerTest = async (req, res) => {
   req.logger.debug("Testeo de error: debug");
   res.send("Test de Logger Ejecutado");
 };
+
+export const forgotPass = async (req, res) => {
+  res.render("forgot-password", {});
+};
+
+export const resetPass = async (req, res) => {
+  res.render("reset-password", {});
+};
