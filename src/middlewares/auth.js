@@ -1,3 +1,5 @@
+import logger from "../utils/logger.js";
+
 export const authMiddleware = (req, res, next) => {
   if (req.session.user) {
     next();

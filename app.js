@@ -18,6 +18,7 @@ import config from "./src/config/config.js";
 import errorHandler from "./src/middlewares/errors/index.js";
 import { addLogger } from "./src/utils/logger.js";
 import logger from "./src/utils/logger.js";
+import usersRouter from "./src/routes/users.routes.js";
 
 // VARIABLES DE ENTORNO
 const PORT = config.port;
@@ -71,6 +72,7 @@ app.set("view engine", "handlebars");
 app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/session", sessionRouter);
+app.use("/api/users", usersRouter);
 app.use("/", viewsRouter);
 app.use(errorHandler);
 

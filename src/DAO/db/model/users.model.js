@@ -12,7 +12,11 @@ const userSchema = new mongoose.Schema({
       ref: "cart",
     },
   },
-  role: { type: String, default: "user" },
+  role: {
+    type: String,
+    enum: ["user", "premium", "admin"],
+    default: "user",
+  },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
 });

@@ -3,6 +3,7 @@ import { validateAddProduct } from "../utils/index.js";
 import CustomError from "../services/errors/customError.js";
 import EErrors from "../services/errors/enums.js";
 import { generateProductsErrorInfo } from "../services/errors/info.js";
+import logger from "../utils/logger.js";
 
 const productServices = new ProductServices();
 
@@ -31,7 +32,7 @@ export const getProducts = async (req, res) => {
     };
     res.send(data);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(500).send("Error interno del servidor");
   }
 };
@@ -48,6 +49,7 @@ export const getProductById = async (req, res) => {
 };
 
 export const addProduct = async (req, res) => {
+  let owner = req.session.user;
   let product = req.body;
   try {
     if (!validateAddProduct(product)) {
@@ -58,6 +60,7 @@ export const addProduct = async (req, res) => {
         code: EErrors.INVALID_TYPES_ERROR,
       });
     }
+    product.owner = owner;
     await productServices.addProduct(product);
     res
       .status(200)
@@ -83,6 +86,7 @@ export const updateProduct = async (req, res) => {
       msg: "Producto modificado correctamente",
     });
   } catch (error) {
+    logger.error(error);
     throw error;
   }
 };

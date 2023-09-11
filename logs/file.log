@@ -40,4 +40,20 @@
 {"level":"error","message":"Error: No recipients defined"}
 {"level":"error","message":"ReferenceError: token is not defined"}
 {"level":"error","message":"TypeError: Cannot read properties of null (reading 'first_name')"}
-{"level":"error","message":"CastError: Cast to string failed for value \"{\n  newPassword: '12345',\n  confirmPassword: '12345',\n  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTQzNjAyNjAsImV4cCI6MTY5NDM2Mzg2MH0.XvhoYi2c0FhabfCCut9F8lJsfpYlSpRsfA4qJoNqje4'\n}\" (type Object) at path \"resetPasswordToken\" for model \"users\""}
+{"level":"error","message":"TypeError: Cannot read properties of null (reading 'first_name')"}
+{"level":"error","message":"TypeError: Cannot read properties of null (reading 'first_name')"}
+{"level":"error"}
+{"cause":"Una o mas propiedades estan incompletas o no son validas.  \n    La lista de propiedades requeridas son: \n    * Título: debe ser un string, se recibió Probando manejo de errores\n    * Descripción: debe ser un string, se recibió Sándwich de pollo a la parrilla con tomate, lechuga y mayonesa casera.\n    * Categoría: debe ser un string, se recibió comida\n    * price: debe ser un number, se recibió 320\n    * Código: debe ser un string único, se recibió undefined\n    * Stock: debe ser un number, se recibió 20","code":2,"level":"error","name":"Error al añadir el producto"}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"cause":"Una o mas propiedades estan incompletas o no son validas.  \n    La lista de propiedades requeridas son: \n    * Título: debe ser un string, se recibió Probando manejo de errores\n    * Descripción: debe ser un string, se recibió Sándwich de pollo a la parrilla con tomate, lechuga y mayonesa casera.\n    * Categoría: debe ser un string, se recibió comida\n    * price: debe ser un number, se recibió 320\n    * Código: debe ser un string único, se recibió undefined\n    * Stock: debe ser un number, se recibió 20","code":2,"level":"error","name":"Error al añadir el producto"}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
