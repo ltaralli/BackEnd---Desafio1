@@ -33,6 +33,7 @@ addProd.addEventListener("submit", (e) => {
     const code = document.getElementById("code").value;
     const stock = document.getElementById("stock").value;
     const thumbnails = document.getElementById("thumbnails").value;
+    const owner = "admin";
     const newProd = {
       title,
       description,
@@ -41,6 +42,7 @@ addProd.addEventListener("submit", (e) => {
       code,
       stock,
       thumbnails,
+      owner,
     };
     socket.emit("product", newProd);
   }
