@@ -21,7 +21,7 @@ export function isAdmin(req, res, next) {
 }
 
 export function isUser(req, res, next) {
-  if (req.user.role === "user") {
+  if (req.user.role === "user" || req.user.role === "premium") {
     next();
   } else {
     res.status(403).send({

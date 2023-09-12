@@ -1,8 +1,11 @@
 import CartServices from "../services/cart.js";
+import ProductServices from "../services/products.js";
 import TicketServices from "../services/ticket.js";
+import logger from "../utils/logger.js";
 
 const cartServices = new CartServices();
 const ticketServices = new TicketServices();
+const productServices = new ProductServices();
 
 export const getCart = async (req, res) => {
   const cid = req.params.cid;
@@ -46,8 +49,24 @@ export const getCarts = async (req, res) => {
 export const addProductToCart = async (req, res) => {
   const cid = req.params.cid;
   const pid = req.params.pid;
-
+  const user = req.session.user.email;
   try {
+    const product = await productServices.getProductById(pid);
+
+    if (!product) {
+      return res.status(404).send({
+        status: "error",
+        msg: "El producto no existe",
+      });
+    }
+
+    if (product.owner === user && req.user.role === "premium") {
+      return res.status(403).send({
+        status: "error",
+        msg: "No puedes agregar tu propio producto al carrito",
+      });
+    }
+
     const result = await cartServices.addProductToCart(pid, cid);
 
     if (!result.success) {
@@ -57,7 +76,7 @@ export const addProductToCart = async (req, res) => {
       });
     }
 
-    res.send({
+    return res.send({
       status: "successful",
       msg: result.message,
     });
