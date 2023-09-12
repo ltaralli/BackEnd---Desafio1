@@ -37,7 +37,6 @@ sessionRouter.get(
 );
 
 sessionRouter.get("/current", current);
-
 sessionRouter.post("/forgot-password", forgotPassword);
 sessionRouter.post("/reset-password", resetPassword);
 

@@ -49,7 +49,7 @@ export const getProductById = async (req, res) => {
 };
 
 export const addProduct = async (req, res) => {
-  let owner = req.session.user;
+  let owner;
   let product = req.body;
   try {
     if (!validateAddProduct(product)) {
@@ -60,7 +60,13 @@ export const addProduct = async (req, res) => {
         code: EErrors.INVALID_TYPES_ERROR,
       });
     }
-    product.owner = owner;
+
+    if (req.session.user.role === null || req.session.user.role === "admin") {
+      product.owner = "admin";
+    } else if (owner === "premium") {
+      product.owner = req.session.user.email;
+    }
+
     await productServices.addProduct(product);
     res
       .status(200)
@@ -92,11 +98,31 @@ export const updateProduct = async (req, res) => {
 };
 
 export const deletedProduct = async (req, res) => {
-  const pid = req.params.pid;
-  const deletedProduct = await productServices.deleteProduct(pid);
-  if (!deletedProduct) {
-    res.status(404).send({ status: "error", msg: "El producto no existe" });
-  } else {
+  let pid = req.params.pid;
+  let owner = req.session.user.role;
+  let deletedProduct;
+  let product;
+
+  if (owner === "admin") {
+    deletedProduct = await productServices.deleteProduct(pid);
+  } else if (owner === "premium") {
+    product = await productServices.getProductById(pid);
+    if (product && product.owner === owner) {
+      deletedProduct = await productServices.deleteProduct(pid);
+    } else {
+      return res.status(403).send({
+        status: "error",
+        msg: `El producto no fué creado por un usuario ${owner}, o el producto no existe`,
+      });
+    }
+  }
+
+  if (deletedProduct) {
     res.send({ status: "successful", msg: "Producto eliminado correctamente" });
+  } else {
+    res.status(404).send({
+      status: "error",
+      msg: "El producto no existe o no se pudo eliminar",
+    });
   }
 };

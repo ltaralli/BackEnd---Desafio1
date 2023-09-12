@@ -57,3 +57,4 @@
 {"cause":"Una o mas propiedades estan incompletas o no son validas.  \n    La lista de propiedades requeridas son: \n    * Título: debe ser un string, se recibió Probando manejo de errores\n    * Descripción: debe ser un string, se recibió Sándwich de pollo a la parrilla con tomate, lechuga y mayonesa casera.\n    * Categoría: debe ser un string, se recibió comida\n    * price: debe ser un number, se recibió 320\n    * Código: debe ser un string único, se recibió undefined\n    * Stock: debe ser un number, se recibió 20","code":2,"level":"error","name":"Error al añadir el producto"}
 {"level":"error","message":"ValidationError: owner: Path `owner` is required."}
 {"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
