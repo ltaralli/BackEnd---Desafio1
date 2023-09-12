@@ -63,3 +63,11 @@
 {"level":"error"}
 {"level":"error"}
 {"level":"error"}
+{"level":"error","message":"CastError: Cast to string failed for value \"{}\" (type Object) at path \"email\" for model \"users\""}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'first_name')"}
+{"level":"error","message":"CastError: Cast to string failed for value \"{}\" (type Object) at path \"email\" for model \"users\""}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'first_name')"}
+{"level":"error","message":"CastError: Cast to string failed for value \"{}\" (type Object) at path \"email\" for model \"users\""}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'first_name')"}
+{"level":"error","message":"CastError: Cast to string failed for value \"{ email: {} }\" (type Object) at path \"email\" for model \"users\""}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'first_name')"}
