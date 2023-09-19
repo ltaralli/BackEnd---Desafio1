@@ -19,6 +19,9 @@ import errorHandler from "./src/middlewares/errors/index.js";
 import { addLogger } from "./src/utils/logger.js";
 import logger from "./src/utils/logger.js";
 import usersRouter from "./src/routes/users.routes.js";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUiExpress from "swagger-ui-express";
+import { swaggerOptions } from "./src/utils/swagger-options.js";
 
 // VARIABLES DE ENTORNO
 const PORT = config.port;
@@ -26,8 +29,9 @@ const mongoURL = config.mongoUrl;
 const sessionSecret = config.sessionSecret;
 
 const app = express();
-app.use(addLogger);
+const specs = swaggerJSDoc(swaggerOptions);
 
+app.use(addLogger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -66,6 +70,7 @@ initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 app.set("views", "./src/views");
 app.set("view engine", "handlebars");
 
