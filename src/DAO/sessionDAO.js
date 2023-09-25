@@ -34,7 +34,7 @@ class userManager {
     try {
       result = await this.model.findOne({ email: email });
     } catch (error) {
-      logger.error(`${error}`);
+      logger.error(`LOG EN DAO: ${error}`);
     }
     return result;
   }
@@ -55,6 +55,11 @@ class userManager {
       result = this.model.create(user);
     } catch (error) {
       logger.error(`${error}`);
+      throw new error({
+        status: "error",
+        msg: "No se pudo crear el usuario",
+        error: error,
+      });
     }
     return result;
   }

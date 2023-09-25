@@ -22,6 +22,7 @@ import usersRouter from "./src/routes/users.routes.js";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express";
 import { swaggerOptions } from "./src/utils/swagger-options.js";
+import cors from "cors";
 
 // VARIABLES DE ENTORNO
 const PORT = config.port;
@@ -69,6 +70,7 @@ initializePassport();
 
 app.use(passport.initialize());
 app.use(passport.session());
+// app.use(cors);
 
 app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 app.set("views", "./src/views");
@@ -141,3 +143,5 @@ io.on("connection", async (socket) => {
     }
   });
 });
+
+export default app;

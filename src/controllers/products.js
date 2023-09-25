@@ -45,7 +45,7 @@ export const getProductById = async (req, res) => {
       .status(400)
       .send({ status: "error", error: "Producto inexistente" });
   }
-  res.send(product);
+  res.send({ status: "success", product: product });
 };
 
 export const addProduct = async (req, res) => {
@@ -61,11 +61,15 @@ export const addProduct = async (req, res) => {
       });
     }
 
-    if (req.session.user.role === null || req.session.user.role === "admin") {
-      product.owner = "admin";
-    } else if (owner === "premium") {
-      product.owner = req.session.user.email;
+    if (req.session.user.role === "admin") {
+      owner = "admin";
+    } else if (req.session.user.role === "premium") {
+      owner = req.session.user.email;
+    } else {
+      owner = "admin";
     }
+
+    product.owner = owner;
 
     await productServices.addProduct(product);
     res

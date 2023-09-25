@@ -9,7 +9,7 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  if (!req.user) return res.render("login-error", {});
+  if (!req.user) return res.render("login-error", { status: "error" });
   req.session.user = { email: req.user.email };
   res.redirect("/products");
 };

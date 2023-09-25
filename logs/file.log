@@ -72,3 +72,59 @@
 {"level":"error","message":"CastError: Cast to string failed for value \"{ email: {} }\" (type Object) at path \"email\" for model \"users\""}
 {"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'first_name')"}
 {"cause":"Una o mas propiedades estan incompletas o no son validas.  \n    La lista de propiedades requeridas son: \n    * Título: debe ser un string, se recibió undefined\n    * Descripción: debe ser un string, se recibió Zapatillas clásicas con diseño icónico, parte superior de cuero y puntera de goma distintiva.\n    * Categoría: debe ser un string, se recibió Calzado\n    * price: debe ser un number, se recibió 79.99\n    * Código: debe ser un string único, se recibió SUPERSTAR\n    * Stock: debe ser un number, se recibió 781","code":2,"level":"error","name":"Error al añadir el producto"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'email')"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"ID_DEL_USUARIO\" (type string) at path \"_id\" for model \"users\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"users\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"users\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"users\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"users\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"users\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"users\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"users\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"users\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"users\""}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"ValidationError: owner: Path `owner` is required."}
+{"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
+{"level":"error"}
