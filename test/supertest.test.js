@@ -254,6 +254,7 @@ describe("Prueba de ecommerce", () => {
       const response = await testSession.delete(
         `/api/cart/${cid}/product/${pid}`
       );
+
       // Verifica que la respuesta sea exitosa (código 200)
       expect(response.status).to.equal(200);
 

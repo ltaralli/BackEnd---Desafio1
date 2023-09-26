@@ -101,9 +101,18 @@ class CartManager {
         };
       }
 
-      cart.products = cart.products.filter(
-        (product) => product._id.toString() !== pid
+      const productIndex = cart.products.findIndex(
+        (product) => product._id.toString() === pid
       );
+
+      if (productIndex === -1) {
+        return {
+          success: false,
+          message: "El producto no está presente en el carrito",
+        };
+      }
+
+      cart.products.splice(productIndex, 1);
 
       await cart.save();
 

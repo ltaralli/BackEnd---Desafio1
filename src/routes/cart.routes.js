@@ -18,8 +18,8 @@ cartRouter.get("/", getCarts);
 cartRouter.post("/:cid/product/:pid", addProductToCart);
 cartRouter.post("/", createCart);
 cartRouter.put("/:cid", updateCart);
-cartRouter.put("/:cid/products/:pid", updateProductQuantity);
-cartRouter.delete("/:cid/products/:pid", deleteProductFromCart);
+cartRouter.put("/:cid/product/:pid", updateProductQuantity);
+cartRouter.delete("/:cid/product/:pid", deleteProductFromCart);
 cartRouter.delete("/:cid", deleteAllProducts);
 cartRouter.post("/:cid/purchase", purchase);
 

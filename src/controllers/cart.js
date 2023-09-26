@@ -135,14 +135,14 @@ export const deleteProductFromCart = async (req, res) => {
         .send({ status: "error", msg: updatedCart.message });
     }
 
-    res.send({
+    return res.send({
       status: "successful",
       msg: "Producto eliminado del carrito correctamente",
       cart: updatedCart.cart,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).send({
+    return res.status(500).send({
       status: "error",
       msg: "Error al eliminar el producto del carrito",
     });

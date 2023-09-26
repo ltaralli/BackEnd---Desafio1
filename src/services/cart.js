@@ -25,8 +25,8 @@ export default class CartServices {
     return result;
   }
 
-  async deleteProductFromCart() {
-    let result = await this.dao.deleteAllProducts();
+  async deleteProductFromCart(pid, cid) {
+    let result = await this.dao.deleteProductFromCart(pid, cid);
     return result;
   }
 
