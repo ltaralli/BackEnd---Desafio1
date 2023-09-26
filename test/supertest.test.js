@@ -112,6 +112,7 @@ describe("Prueba de ecommerce", () => {
       code: "AI15",
     };
 
+    let productID;
     it("Endpoint /api/products - GET - Debe obtener todos los productos", async () => {
       // Realiza una solicitud GET a /api/products
       const response = await testSession.get("/api/products");
@@ -129,22 +130,6 @@ describe("Prueba de ecommerce", () => {
       expect(response.body.products.length).to.be.greaterThan(0);
     });
 
-    it("Endpoint /api/products/:pid GET - Debe obtener un producto por su ID", async () => {
-      const productId = "648e5e2148088ca60ac11585";
-
-      // Realiza una solicitud GET a /api/products/:pid
-      const response = await testSession.get(`/api/products/${productId}`);
-
-      // Verifica que la respuesta sea exitosa (código 200)
-      expect(response.status).to.equal(200);
-
-      // Verifica que la respuesta tenga la propiedad 'product'
-      expect(response.body).to.have.property("product");
-
-      // Verifica que el producto devuelto tenga el ID correcto
-      expect(response.body.product._id).to.equal(productId);
-    });
-
     it("Endpoint /api/products - POST - Debe agregar un producto", async () => {
       const login = await testSession.post("/api/session/login").send({
         email: "test@test.com",
@@ -160,20 +145,31 @@ describe("Prueba de ecommerce", () => {
       // Realiza una solicitud POST a /api/products
       const response = await testSession.post("/api/products").send(product);
       // Verifica que la respuesta sea exitosa
+
+      productID = response._body.pid;
       expect(response._body.status).to.be.equal("success");
     });
 
-    it("Endpoint /api/products/:pid PUT - Debe modificar un campo del producto por su ID", async () => {
-      // Suponiendo que 'productId' es el ID válido de un producto en tu base de datos
-      const productId = "some_valid_product_id";
+    it("Endpoint /api/products/:pid - GET - Debe obtener un producto por su ID", async () => {
+      // Realiza una solicitud GET a /api/products/:pid
+      const response = await testSession.get(`/api/products/${productID}`);
 
-      // Suponiendo que 'newField' es el campo que quieres modificar
-      const newFieldValue = "nuevo_valor";
+      // Verifica que la respuesta sea exitosa (código 200)
+      expect(response.status).to.equal(200);
 
+      // Verifica que la respuesta tenga la propiedad 'product'
+      expect(response.body).to.have.property("product");
+
+      // Verifica que el producto devuelto tenga el ID correcto
+      expect(response.body.product._id).to.equal(productID);
+    });
+
+    it("Endpoint /api/products/:pid - PUT - Debe modificar un campo del producto por su ID", async () => {
+      const newTitle = "Iphone 15 PRO";
       // Realiza una solicitud PUT a /api/products/:pid
       const response = await testSession
-        .put(`/api/products/${productId}`)
-        .send({ field: newFieldValue });
+        .put(`/api/products/${productID}`)
+        .send({ title: newTitle });
 
       // Verifica que la respuesta sea exitosa (código 200)
       expect(response.status).to.equal(200);
@@ -183,6 +179,98 @@ describe("Prueba de ecommerce", () => {
 
       // Verifica el mensaje de éxito
       expect(response.body.msg).to.equal("Producto modificado correctamente");
+
+      // Verifica que el campo 'title' haya sido modificado
+      expect(product.title).to.not.equal(newTitle);
+    });
+
+    it("Endpoint /api/products/:pid - DELETE - Debe eliminar un producto por su ID", async () => {
+      // Realiza una solicitud DELETE a /api/products/:pid
+      const response = await testSession.delete(`/api/products/${productID}`);
+
+      // Verifica que la respuesta sea exitosa (código 200)
+      expect(response.status).to.equal(200);
+
+      // Verifica que el estado de la respuesta sea 'successful'
+      expect(response.body.status).to.equal("successful");
+
+      // Verifica el mensaje de éxito
+      expect(response.body.msg).to.equal("Producto eliminado correctamente");
+    });
+  });
+
+  describe("Test de carrito", () => {
+    const cid = "65124f1d8db072b914ffefc6";
+    const pid = "648e5e2148088ca60ac1157d";
+    it("Endpoint /api/cart - GET - Debe obtener todos los carritos", async () => {
+      // Realiza una solicitud GET a /api/cart
+      const response = await testSession.get("/api/cart");
+
+      // Verifica que la respuesta sea exitosa (código 200)
+      expect(response.status).to.equal(200);
+
+      // Verifica que el estado de la respuesta sea 'successful'
+      expect(response.body.status).to.equal("successful");
+
+      // Verifica que la respuesta contenga la propiedad 'carts'
+      expect(response.body).to.have.property("carts");
+
+      // Verifica que 'carts' sea un arreglo
+      expect(response.body.carts).to.be.an("array");
+    });
+
+    it("Endpoint /api/cart/:uid - GET - Debe obtener un carrito específico", async () => {
+      // Realiza una solicitud GET a /api/cart/:uid
+      const response = await testSession.get(`/api/cart/${cid}`);
+
+      // Verifica que la respuesta sea exitosa (código 200)
+      expect(response.status).to.equal(200);
+
+      // Verifica que el estado de la respuesta sea 'successful'
+      expect(response.body.status).to.equal("successful");
+
+      // Verifica que la respuesta contenga la propiedad 'products' en lugar de 'cart'
+      expect(response.body).to.have.property("products");
+
+      // Verifica que 'products' sea un arreglo
+      expect(response.body.products).to.be.an("array");
+    });
+    it("Endpoint /:cid/product/:pid POST - Debe agregar un producto a un carrito", async () => {
+      const response = await testSession.post(
+        `/api/cart/${cid}/product/${pid}`
+      );
+
+      // Verifica que la respuesta sea exitosa (código 200)
+      expect(response.status).to.equal(200);
+
+      // Verifica que el estado de la respuesta sea 'successful'
+      expect(response.body.status).to.equal("successful");
+
+      // Verifica el mensaje de éxito
+      expect(response.body.msg).to.equal("Producto agregado al carrito");
+    });
+
+    it("Endpoint /:cid/product/:pid - DELETE - Debe eliminar todas las cantidades de un producto del carrito", async () => {
+      const response = await testSession.delete(
+        `/api/cart/${cid}/product/${pid}`
+      );
+      // Verifica que la respuesta sea exitosa (código 200)
+      expect(response.status).to.equal(200);
+
+      // Verifica que el estado de la respuesta sea 'successful'
+      expect(response.body.status).to.equal("successful");
+
+      // Verifica el mensaje de éxito
+      expect(response.body.msg).to.equal(
+        "Producto eliminado del carrito correctamente"
+      );
+
+      // Verifica que el producto eliminado no esté presente en la respuesta
+      const updatedCart = response.body.cart;
+      const removedProduct = updatedCart.products.find(
+        (product) => product._id._id === pid
+      );
+      expect(removedProduct).to.be.undefined;
     });
   });
 });

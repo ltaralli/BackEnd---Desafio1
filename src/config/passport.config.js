@@ -83,7 +83,7 @@ const initializePassport = () => {
   );
 
   passport.serializeUser((user, done) => {
-    done(null, { id: user._id, role: user.role });
+    done(null, { id: user._id, role: user.role, email: user.email });
   });
 
   passport.deserializeUser(async (data, done) => {

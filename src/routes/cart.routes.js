@@ -10,13 +10,12 @@ import {
   deleteAllProducts,
   purchase,
 } from "../controllers/cart.js";
-import { isUser } from "../middlewares/auth.js";
 
 const cartRouter = Router();
 
 cartRouter.get("/:cid", getCart);
 cartRouter.get("/", getCarts);
-cartRouter.post("/:cid/product/:pid", isUser, addProductToCart);
+cartRouter.post("/:cid/product/:pid", addProductToCart);
 cartRouter.post("/", createCart);
 cartRouter.put("/:cid", updateCart);
 cartRouter.put("/:cid/products/:pid", updateProductQuantity);

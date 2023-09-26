@@ -61,22 +61,27 @@ export const addProduct = async (req, res) => {
       });
     }
 
-    if (req.session.user.role === "admin") {
+    if (req.user.role === "admin") {
       owner = "admin";
-    } else if (req.session.user.role === "premium") {
-      owner = req.session.user.email;
+    } else if (req.user.role === "premium") {
+      owner = req.user.email;
     } else {
-      owner = "admin";
+      return res.status(403).send({
+        status: "error",
+        msg: `No tenes los permisos para realizar esta operación`,
+      });
     }
 
     product.owner = owner;
 
-    await productServices.addProduct(product);
-    res
-      .status(200)
-      .send({ status: "success", msg: "Producto agregado exitosamente" });
+    let result = await productServices.addProduct(product);
+    return res.status(200).send({
+      status: "success",
+      msg: "Producto agregado exitosamente",
+      pid: result._id,
+    });
   } catch (error) {
-    res.status(400).send({
+    return res.status(400).send({
       status: "error",
       msg: `El código ${product.code} ya fue ingresado, por favor ingresa otro diferente`,
     });
@@ -103,7 +108,8 @@ export const updateProduct = async (req, res) => {
 
 export const deletedProduct = async (req, res) => {
   let pid = req.params.pid;
-  let owner = req.session.user.role;
+  let owner = req.user.role;
+  let ownerEmail = req.user.email;
   let deletedProduct;
   let product;
 
@@ -111,7 +117,7 @@ export const deletedProduct = async (req, res) => {
     deletedProduct = await productServices.deleteProduct(pid);
   } else if (owner === "premium") {
     product = await productServices.getProductById(pid);
-    if (product && product.owner === owner) {
+    if (product.owner === ownerEmail) {
       deletedProduct = await productServices.deleteProduct(pid);
     } else {
       return res.status(403).send({
@@ -122,9 +128,12 @@ export const deletedProduct = async (req, res) => {
   }
 
   if (deletedProduct) {
-    res.send({ status: "successful", msg: "Producto eliminado correctamente" });
+    return res.send({
+      status: "successful",
+      msg: "Producto eliminado correctamente",
+    });
   } else {
-    res.status(404).send({
+    return res.status(404).send({
       status: "error",
       msg: "El producto no existe o no se pudo eliminar",
     });

@@ -67,6 +67,13 @@ export const addProductToCart = async (req, res) => {
       });
     }
 
+    if (product.stock <= 0) {
+      return res.status(400).send({
+        status: "error",
+        msg: "No hay suficiente stock para este producto",
+      });
+    }
+
     const result = await cartServices.addProductToCart(pid, cid);
 
     if (!result.success) {

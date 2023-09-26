@@ -24,7 +24,7 @@ class userManager {
     try {
       result = await this.model.findOne({ email: email }).select("-password");
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
     return result;
   }

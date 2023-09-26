@@ -128,3 +128,99 @@
 {"level":"error"}
 {"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
 {"level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"some_valid_product_id\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"LOG EN DAO: MongooseError: Operation `users.findOne()` buffering timed out after 10000ms"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 649105163d927cab7d66113a"}
+{"level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}

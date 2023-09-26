@@ -70,7 +70,7 @@ initializePassport();
 
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(cors);
+// app.use(cors());
 
 app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 app.set("views", "./src/views");
