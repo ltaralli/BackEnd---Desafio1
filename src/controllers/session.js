@@ -10,6 +10,16 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   if (!req.user) return res.render("login-error", { status: "error" });
+
+  try {
+    const updatedUser = await userServices.updateLastConnection(req.user.email);
+    if (!updatedUser) {
+      logger.error("No se pudo actualizar la última conexión");
+    }
+  } catch (error) {
+    logger.error(`Error al actualizar la última conexión: ${error}`);
+  }
+
   req.session.user = { email: req.user.email };
   res.redirect("/products");
 };

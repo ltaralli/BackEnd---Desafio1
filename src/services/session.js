@@ -51,4 +51,19 @@ export default class UserServices {
     let result = await this.dao.sendEmailResetPassword(email);
     return result;
   }
+
+  async updateLastConnection(email) {
+    let result = await this.dao.updateLastConnection(email);
+    return result;
+  }
+
+  async updateDocument(uid, documentInfo) {
+    let result = await this.dao.updateDocument(uid, documentInfo);
+    return result;
+  }
+
+  async checkDocuments(uid) {
+    let result = await this.dao.checkDocuments(uid);
+    return result;
+  }
 }

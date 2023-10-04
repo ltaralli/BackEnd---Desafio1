@@ -4,6 +4,7 @@ import local from "passport-local";
 import UserServices from "../services/session.js";
 import { createHash, isValidPassword } from "../utils/index.js";
 import config from "./config.js";
+import logger from "../utils/logger.js";
 
 // VARIABLES DE ENTORNO
 const githubClientID = config.githubClientID;
@@ -71,9 +72,19 @@ const initializePassport = () => {
               age: "",
             };
             let result = await userServices.createUser(newUser);
+            let updatedUser = await userServices.updateLastConnection(
+              result.email
+            );
+            if (!updatedUser) {
+              logger.error("No se pudo actualizar la última conexión");
+            }
             done(null, result);
           } else {
             done(null, user);
+          }
+          let updatedUser = await userServices.updateLastConnection(user.email);
+          if (!updatedUser) {
+            logger.error("No se pudo actualizar la última conexión");
           }
         } catch (error) {
           done(error);

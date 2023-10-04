@@ -100,7 +100,7 @@ class userManager {
   async sendEmailResetPassword(email) {
     let result;
     try {
-      const user = await this.getUser(email);
+      const user = await this.model.getUser(email);
       const token = await generateToken();
       user.resetPasswordToken = token;
       user.resetPasswordExpires = new Date(Date.now() + 3600000);
@@ -112,6 +112,55 @@ class userManager {
       throw error;
     }
     return result;
+  }
+
+  async updateLastConnection(email) {
+    try {
+      const updatedUser = this.model.findOneAndUpdate(
+        { email },
+        { last_connection: new Date() },
+        { new: true }
+      );
+
+      return updatedUser;
+    } catch (error) {
+      throw new Error(`Error al actualizar la última conexión: ${error}`);
+    }
+  }
+
+  async updateDocument(uid, documentInfo) {
+    try {
+      const updatedUser = await this.model.findByIdAndUpdate(
+        uid,
+        { $push: { documents: documentInfo } },
+        { new: true }
+      );
+
+      return updatedUser;
+    } catch (error) {
+      throw new Error(`Error al cargar los documentos: ${error}`);
+    }
+  }
+  async checkDocuments(uid) {
+    try {
+      const user = await this.model.findById(uid);
+
+      if (!user) {
+        throw new Error(`Usuario con ID ${uid} no encontrado`);
+      }
+
+      const requiredDocuments = ["identification", "addresscomp", "countcomp"];
+      const uploadedDocuments = user.documents.map((doc) => {
+        const parts = doc.name.split("-");
+        return parts[0];
+      });
+
+      return requiredDocuments.every((docType) =>
+        uploadedDocuments.includes(docType)
+      );
+    } catch (error) {
+      throw new Error(`Error al verificar documentos: ${error.message}`);
+    }
   }
 }
 

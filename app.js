@@ -23,6 +23,11 @@ import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUiExpress from "swagger-ui-express";
 import { swaggerOptions } from "./src/utils/swagger-options.js";
 import cors from "cors";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+export const __dirname = dirname(__filename);
 
 // VARIABLES DE ENTORNO
 const PORT = config.port;
