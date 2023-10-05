@@ -3,9 +3,12 @@ import supertest from "supertest";
 import app from "../app.js";
 import session from "supertest-session";
 import { faker } from "@faker-js/faker";
+import config from "../src/config/config.js";
+
+const baseUrl = config.baseURL;
 
 const expect = chai.expect;
-const requester = supertest("localhost:8080");
+const requester = supertest(baseUrl);
 const testSession = session(app);
 
 let newUser;

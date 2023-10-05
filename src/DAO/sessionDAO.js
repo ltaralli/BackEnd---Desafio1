@@ -100,7 +100,7 @@ class userManager {
   async sendEmailResetPassword(email) {
     let result;
     try {
-      const user = await this.model.getUser(email);
+      const user = await this.model.findOne({ email: email });
       const token = await generateToken();
       user.resetPasswordToken = token;
       user.resetPasswordExpires = new Date(Date.now() + 3600000);

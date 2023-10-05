@@ -47,7 +47,7 @@ async function getCartIdFromServer() {
     });
     const data = await response.json();
     let contenedorID = document.getElementsByClassName("cart-id")[0];
-    contenedorID.innerHTML = `<a href="http://localhost:8080/carts/${data.cartId}">${data.cartId}</a>`;
+    contenedorID.innerHTML = `<a href="/carts/${data.cartId}">${data.cartId}</a>`;
     return data.cartId;
   } catch (error) {
     console.error("Error al obtener el ID del carrito:", error);
@@ -74,6 +74,6 @@ function getCartId() {
       });
   }
   let contenedorID = document.getElementsByClassName("cart-id")[0];
-  contenedorID.innerHTML = `<a href="http://localhost:8080/carts/${cartId}">${cartId}</a>`;
+  contenedorID.innerHTML = `<a href="/carts/${cartId}">${cartId}</a>`;
   return Promise.resolve(cartId);
 }

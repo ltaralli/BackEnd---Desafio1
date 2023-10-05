@@ -331,3 +331,4 @@
 {"level":"error"}
 {"level":"error"}
 {"level":"error"}
+{"level":"error","message":"TypeError: this.model.getUser is not a function"}
