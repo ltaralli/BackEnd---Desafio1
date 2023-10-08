@@ -1,5 +1,7 @@
 import userManager from "../DAO/sessionDAO.js";
 import UserDTO from "../DAO/DTOs/userDTO.js";
+import { templateDeleteAccount } from "./mailling/templates/templates.js";
+import { sendMail } from "./mailling/mailling.js";
 
 export default class UserServices {
   constructor() {
@@ -7,7 +9,8 @@ export default class UserServices {
   }
 
   async getAll() {
-    let users = await this.dao.getAll();
+    let result = await this.dao.getAll();
+    let users = result.map((user) => new UserDTO(user));
     return users;
   }
 
@@ -65,5 +68,26 @@ export default class UserServices {
   async checkDocuments(uid) {
     let result = await this.dao.checkDocuments(uid);
     return result;
+  }
+
+  async deleteAccounts(maxLastConnection) {
+    try {
+      const { result, usersToDelete } = await this.dao.deleteAccounts(
+        maxLastConnection
+      );
+
+      if (result.deletedCount > 0) {
+        for (const user of usersToDelete) {
+          const options = templateDeleteAccount(user.email);
+          const resultMail = await sendMail(options);
+        }
+      }
+
+      return { result, usersToDelete };
+    } catch (error) {
+      throw new Error(
+        `Ocurrió un error al eliminar usuarios inactivos: ${error}`
+      );
+    }
   }
 }

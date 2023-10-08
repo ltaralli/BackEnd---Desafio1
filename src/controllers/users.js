@@ -3,6 +3,19 @@ import logger from "../utils/logger.js";
 
 const userServices = new UserServices();
 
+export const getUsers = async (req, res) => {
+  try {
+    const users = await userServices.getAll();
+    res.send({ status: "successful", users });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({
+      status: "error",
+      msg: "Error al obtener los usuarios",
+    });
+  }
+};
+
 export const changeRole = async (req, res) => {
   let uid = req.params.uid;
 
@@ -50,7 +63,6 @@ export const updateDocuments = async (req, res) => {
     const documentName = req.files[0].filename;
     const documentPath = req.files[0].path;
 
-    console.log(req.files);
     const documentInfo = {
       name: documentName,
       reference: documentPath,
@@ -68,6 +80,38 @@ export const updateDocuments = async (req, res) => {
     res.status(500).send({
       status: error,
       msg: "Error al subir el documento",
+      error: error,
+    });
+    logger.error(error);
+  }
+};
+
+export const deleteAccounts = async (req, res) => {
+  try {
+    const maxLastConnection = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
+
+    const { result, usersToDelete } = await userServices.deleteAccounts(
+      maxLastConnection
+    );
+
+    if (result.deletedCount > 0) {
+      res.send({
+        status: "successful",
+        message: "usuarios eliminados correctamente",
+        payload: usersToDelete.map((user) => user.email),
+        deleted: result.deletedCount,
+      });
+    } else {
+      res.send({
+        status: "successful",
+        message: "No se encontraron usuarios a eliminar",
+        deleted: result.deletedCount,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      status: error,
+      msg: "Error al eliminar usuarios",
       error: error,
     });
     logger.error(error);

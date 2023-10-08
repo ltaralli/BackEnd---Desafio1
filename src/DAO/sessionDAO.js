@@ -109,7 +109,9 @@ class userManager {
       result = await sendMail(options);
     } catch (error) {
       logger.error(`${error}`);
-      throw error;
+      throw new Error(
+        `No existe una cuenta asociada a ese correo. Error: ${error}`
+      );
     }
     return result;
   }
@@ -159,7 +161,25 @@ class userManager {
         uploadedDocuments.includes(docType)
       );
     } catch (error) {
-      throw new Error(`Error al verificar documentos: ${error.message}`);
+      throw new Error(`Error al verificar documentos: ${error}`);
+    }
+  }
+
+  async deleteAccounts(maxLastConnection) {
+    try {
+      const usersToDelete = await this.model.find({
+        last_connection: { $lt: maxLastConnection },
+      });
+
+      const result = await this.model.deleteMany({
+        last_connection: { $lt: maxLastConnection },
+      });
+
+      return { result, usersToDelete };
+    } catch (error) {
+      throw new Error(
+        `Ocurrió un error al eliminar usuarios inactivos: ${error}`
+      );
     }
   }
 }

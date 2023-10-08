@@ -71,23 +71,23 @@ const initializePassport = () => {
               password: "",
               age: "",
             };
-            let result = await userServices.createUser(newUser);
-            let updatedUser = await userServices.updateLastConnection(
-              result.email
-            );
-            if (!updatedUser) {
-              logger.error("No se pudo actualizar la última conexión");
+            try {
+              let result = await userServices.createUser(newUser);
+              let updatedUser = await userServices.updateLastConnection(
+                result.email
+              );
+              if (!updatedUser) {
+                logger.error("No se pudo actualizar la última conexión");
+              }
+              done(null, result);
+            } catch (error) {
+              done(error); // Maneja el error al crear el nuevo usuario
             }
-            done(null, result);
           } else {
             done(null, user);
           }
-          let updatedUser = await userServices.updateLastConnection(user.email);
-          if (!updatedUser) {
-            logger.error("No se pudo actualizar la última conexión");
-          }
         } catch (error) {
-          done(error);
+          done(error); // Maneja el error al buscar el usuario por email
         }
       }
     )
@@ -99,7 +99,7 @@ const initializePassport = () => {
 
   passport.deserializeUser(async (data, done) => {
     let user = await userServices.getById(data.id);
-    user.role = data.role; // Agregar el rol al usuario
+    user.role = data.role;
     done(null, user);
   });
 };

@@ -29,3 +29,27 @@ export const templateForgotPassword = (to, token) => {
     </html>`,
   };
 };
+
+export const templateDeleteAccount = (to) => {
+  return {
+    from: GMAIL_USER_AUTH,
+    to,
+    subject: "Cuenta eliminada por inactividad",
+    html: `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cuenta Eliminada por Inactividad</title>
+    </head>
+    <body style="font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0; text-align: center;">
+        <div style="background-color: #ffffff; max-width: 600px; margin: 20px auto; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            <h1 style="color: #dc3545;">Cuenta Eliminada por Inactividad</h1>
+            <p style="font-size: 16px; line-height: 1.5;">Lamentamos informarte que tu cuenta ha sido eliminada debido a inactividad.</p>
+            <p style="font-size: 16px; line-height: 1.5;">Si crees que esto ha sido un error o deseas recuperar tu cuenta, por favor contáctanos.</p>
+            <p style="font-size: 16px; line-height: 1.5;">Muchas Gracias.</p>
+        </div>
+    </body>
+    </html>`,
+  };
+};
