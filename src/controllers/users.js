@@ -117,3 +117,23 @@ export const deleteAccounts = async (req, res) => {
     logger.error(error);
   }
 };
+
+export const deleteUser = async (req, res) => {
+  let user = req.params.uid;
+  try {
+    const result = await userServices.deleteUser(user);
+
+    if (result) {
+      res.send({
+        status: "successful",
+        msg: "Usuario eliminado correctamente",
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      status: "error",
+      msg: "No se puedo eliminar al usuario",
+      error: error,
+    });
+  }
+};

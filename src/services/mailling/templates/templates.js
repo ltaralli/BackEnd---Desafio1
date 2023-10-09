@@ -53,3 +53,29 @@ export const templateDeleteAccount = (to) => {
     </html>`,
   };
 };
+
+export const templateDeletedProduct = (to, productName) => {
+  return {
+    from: GMAIL_USER_AUTH,
+    to,
+    subject: "Producto Eliminado",
+    html: `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Producto Eliminado</title>
+      </head>
+      <body style="font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; padding: 0; text-align: center;">
+        <div style="background-color: #ffffff; max-width: 600px; margin: 20px auto; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+          <h1 style="color: #dc3545;">Producto Eliminado</h1>
+          <p style="font-size: 16px; line-height: 1.5;">Lamentamos informarte que tu producto "${productName}" ha sido eliminado.</p>
+          <p style="font-size: 16px; line-height: 1.5;">Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.</p>
+          <p style="font-size: 16px; line-height: 1.5;">Muchas Gracias.</p>
+        </div>
+      </body>
+      </html>
+    `,
+  };
+};

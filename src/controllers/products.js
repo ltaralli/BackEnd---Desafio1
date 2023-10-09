@@ -4,6 +4,8 @@ import CustomError from "../services/errors/customError.js";
 import EErrors from "../services/errors/enums.js";
 import { generateProductsErrorInfo } from "../services/errors/info.js";
 import logger from "../utils/logger.js";
+import { templateDeletedProduct } from "../services/mailling/templates/templates.js";
+import { sendMail } from "../services/mailling/mailling.js";
 
 const productServices = new ProductServices();
 
@@ -110,32 +112,51 @@ export const deletedProduct = async (req, res) => {
   let pid = req.params.pid;
   let owner = req.user.role;
   let ownerEmail = req.user.email;
-  let deletedProduct;
-  let product;
 
-  if (owner === "admin") {
-    deletedProduct = await productServices.deleteProduct(pid);
-  } else if (owner === "premium") {
-    product = await productServices.getProductById(pid);
-    if (product.owner === ownerEmail) {
+  try {
+    let deletedProduct;
+    let product = await productServices.getProductById(pid);
+    if (owner === "admin") {
       deletedProduct = await productServices.deleteProduct(pid);
+    } else if (owner === "premium") {
+      if (product.owner === ownerEmail) {
+        deletedProduct = await productServices.deleteProduct(pid);
+      } else {
+        return res.status(403).send({
+          status: "error",
+          msg: `El producto no fue creado por un usuario ${owner}, o el producto no existe`,
+        });
+      }
+    }
+    if (deletedProduct) {
+      if (product.owner === "admin") {
+        return res.send({
+          status: "successful",
+          msg: "Producto eliminado correctamente",
+        });
+      } else {
+        const productName = product.title;
+        const userEmail = product.owner;
+
+        const options = templateDeletedProduct(userEmail, productName);
+        await sendMail(options);
+
+        return res.send({
+          status: "successful",
+          msg: "Producto eliminado correctamente",
+        });
+      }
     } else {
-      return res.status(403).send({
+      return res.status(404).send({
         status: "error",
-        msg: `El producto no fué creado por un usuario ${owner}, o el producto no existe`,
+        msg: "El producto no existe o no se pudo eliminar",
       });
     }
-  }
-
-  if (deletedProduct) {
-    return res.send({
-      status: "successful",
-      msg: "Producto eliminado correctamente",
-    });
-  } else {
-    return res.status(404).send({
+  } catch (error) {
+    return res.status(500).send({
       status: "error",
-      msg: "El producto no existe o no se pudo eliminar",
+      msg: "Error al eliminar el producto",
+      error: error,
     });
   }
 };

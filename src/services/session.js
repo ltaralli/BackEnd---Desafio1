@@ -90,4 +90,9 @@ export default class UserServices {
       );
     }
   }
+
+  async deleteUser(uid) {
+    let result = await this.dao.deleteUser(uid);
+    return result;
+  }
 }

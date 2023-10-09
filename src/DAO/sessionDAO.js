@@ -182,6 +182,15 @@ class userManager {
       );
     }
   }
+
+  async deleteUser(uid) {
+    try {
+      const result = await this.model.findByIdAndDelete(uid);
+      return result;
+    } catch (error) {
+      throw new Error(`Ocurrió un error al eliminar el usuario: ${error}`);
+    }
+  }
 }
 
 export default userManager;
