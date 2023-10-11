@@ -15,4 +15,6 @@ export default {
   private_key_JWT: process.env.PRIVATE_KEY_JWT,
   gmail_user_auth: process.env.GMAIL_USER_AUTH,
   gmial_pass_auth: process.env.GMAIL_PASS_AUTH,
+  frontend_stripe_key: process.env.FRONTEND_SKYPE_KEY,
+  backend_stripe_key: process.env.BACKEND_STRIPE_KEY,
 };
