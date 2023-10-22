@@ -4,7 +4,7 @@ import CartServices from "./cart.js";
 import TicketServices from "./ticket.js";
 
 const key = config.backend_stripe_key;
-url = config.baseURL;
+const url = config.baseURL;
 
 const cartServices = new CartServices();
 const ticketServices = new TicketServices();
