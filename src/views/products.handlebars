@@ -3,10 +3,12 @@
   <div>
     <a href="/logout"><button class="btn btn-secondary">Cerrar sesion</button></a>
   </div>
-    <h5>Carrito: <p class="cart-id"></p></h5>
+    <h5>CARRITO:</h5>
+    <a href="/carts/{{cart._id}}" ><p class ="cartID">{{cart._id}}</p></a>
   <div>
 {{#if user.first_name}}
   <h6>Bienvenido, {{user.first_name}}! Tu rol es: {{user.role}}</h6>
+
 {{/if}}
 
 </div>

@@ -375,3 +375,253 @@
 {"level":"error"}
 {"level":"error"}
 {"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 65124f1d8db072b914ffefc6"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error","message":"TypeError: productsToPurchase is not iterable"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error","message":"ValidationError: amount: Cast to Number failed for value \"NaN\" (type number) at path \"amount\""}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error: Assignment to constant variable.","stack":"TypeError: Assignment to constant variable.\n    at Socket.<anonymous> (file:///C:/Users/Lisandro/OneDrive/Documentos/CoderHouse/BackEnd/desafios/app.js:166:11)\n    at Socket.emit (node:events:513:28)\n    at Socket.emitUntyped (C:\\Users\\Lisandro\\OneDrive\\Documentos\\CoderHouse\\BackEnd\\desafios\\node_modules\\socket.io\\dist\\typed-events.js:69:22)\n    at C:\\Users\\Lisandro\\OneDrive\\Documentos\\CoderHouse\\BackEnd\\desafios\\node_modules\\socket.io\\dist\\socket.js:703:39\n    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)"}
+{"level":"error","message":"Error: Assignment to constant variable.","stack":"TypeError: Assignment to constant variable.\n    at Socket.<anonymous> (file:///C:/Users/Lisandro/OneDrive/Documentos/CoderHouse/BackEnd/desafios/app.js:166:11)\n    at Socket.emit (node:events:513:28)\n    at Socket.emitUntyped (C:\\Users\\Lisandro\\OneDrive\\Documentos\\CoderHouse\\BackEnd\\desafios\\node_modules\\socket.io\\dist\\typed-events.js:69:22)\n    at C:\\Users\\Lisandro\\OneDrive\\Documentos\\CoderHouse\\BackEnd\\desafios\\node_modules\\socket.io\\dist\\socket.js:703:39\n    at process.processTicksAndRejections (node:internal/process/task_queues:77:11)"}
+{"level":"error","message":"Error: Failed to parse URL from http://localhost:8080/api/carts/652dc0eeb2a6944c445b2cfd/purchase","stack":"TypeError: Failed to parse URL from http://localhost:8080/api/carts/652dc0eeb2a6944c445b2cfd/purchase\n    at Object.fetch (node:internal/deps/undici/undici:11457:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async Socket.<anonymous> (file:///C:/Users/Lisandro/OneDrive/Documentos/CoderHouse/BackEnd/desafios/app.js:167:24)"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 652dc0eeb2a6944c445b2cfd"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 652dc0eeb2a6944c445b2cfd"}
+{"level":"error"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error"}
+{"level":"error","message":"TypeError: productsToPurchase is not iterable"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error","message":"TypeError: productsToPurchase is not iterable"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"TypeError: productsToPurchase is not iterable"}
+{"level":"error","message":"TypeError: productsToPurchase is not iterable"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'price')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'price')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'price')"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'price')"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 6532bafb136138f03f47471e"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 6532bafb136138f03f47471e"}
+{"level":"error"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'price')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'price')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'price')"}
+{"level":"error","message":"TypeError: Cannot read properties of undefined (reading 'price')"}
+{"level":"error","message":"ValidationError: amount: Cast to Number failed for value \"NaN\" (type number) at path \"amount\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"level":"error","message":"CastError: Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"products\""}
+{"code":"ERR_HTTP_HEADERS_SENT","level":"error"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error","message":"Error en la compra:"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error","message":"LOG EN DAO: MongooseError: Operation `users.findOne()` buffering timed out after 10000ms"}
+{"level":"error"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 653416b448cc4e4bc8c5bc7f"}
+{"level":"error"}
+{"level":"error","message":"No se encontró ningún carrito con el id: 653416b448cc4e4bc8c5bc7f"}
+{"level":"error"}

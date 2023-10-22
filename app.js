@@ -25,6 +25,9 @@ import { swaggerOptions } from "./src/utils/swagger-options.js";
 import cors from "cors";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import paymentsRouter from "./src/routes/payments.routes.js";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = dirname(__filename);
@@ -33,10 +36,18 @@ export const __dirname = dirname(__filename);
 const PORT = config.port;
 const mongoURL = config.mongoUrl;
 const sessionSecret = config.sessionSecret;
+const baseURL = config.baseURL;
 
 const app = express();
 const specs = swaggerJSDoc(swaggerOptions);
 
+app.use(
+  bodyParser.json({
+    verify: (req, res, buf) => {
+      req.rawBody = buf;
+    },
+  })
+);
 app.use(addLogger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -55,27 +66,27 @@ app.engine(
     },
   })
 );
-app.use(
-  session({
-    store: MongoStore.create({
-      mongoUrl: mongoURL,
-      mongoOptions: {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      },
-      ttl: 250,
-    }),
-    secret: sessionSecret,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-
+// app.use(
+//   session({
+//     store: MongoStore.create({
+//       mongoUrl: mongoURL,
+//       mongoOptions: {
+//         useNewUrlParser: true,
+//         useUnifiedTopology: true,
+//       },
+//       ttl: 250,
+//     }),
+//     secret: sessionSecret,
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// );
+app.use(cookieParser());
 initializePassport();
 
 app.use(passport.initialize());
-app.use(passport.session());
-// app.use(cors());
+// app.use(passport.session());
+app.use(cors());
 
 app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 app.set("views", "./src/views");
@@ -85,6 +96,7 @@ app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/session", sessionRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/payments", paymentsRouter);
 app.use("/", viewsRouter);
 app.use(errorHandler);
 
@@ -113,6 +125,8 @@ const managerMsg = new MessagesManager();
 const message = [];
 
 io.on("connection", async (socket) => {
+  const user = socket.request.user;
+
   logger.info("nuevo cliente conectado");
   const products = await manager.getProducts();
   io.emit("productList", products);
@@ -145,6 +159,27 @@ io.on("connection", async (socket) => {
       io.emit("messageLogs", message);
     } catch (error) {
       throw error;
+    }
+  });
+
+  socket.on("purchase", async (cid) => {
+    try {
+      const response = await fetch(`${baseURL}/api/cart/${cid}/purchase`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "same-origin",
+      });
+      if (response.ok) {
+        const data = await response.json();
+        socket.emit("purchase-success", data);
+      } else {
+        logger.error("Error en la compra:", response.statusText);
+        socket.emit("purchase-cancel");
+      }
+    } catch (error) {
+      logger.error("Error:", error);
     }
   });
 });

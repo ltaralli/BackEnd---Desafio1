@@ -24,10 +24,16 @@ export const isValidPassword = (user, password) =>
   bcrypt.compareSync(password, user.password);
 
 export const calculateTotalAmount = (productsToPurchase) => {
+  if (!Array.isArray(productsToPurchase)) {
+    productsToPurchase = [productsToPurchase];
+  }
   let totalAmount = 0;
   for (const product of productsToPurchase) {
     totalAmount += product.price * product.quantity;
   }
+
+  totalAmount = totalAmount.toFixed(2);
+
   return totalAmount;
 };
 

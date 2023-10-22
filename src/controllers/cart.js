@@ -1,15 +1,23 @@
 import CartServices from "../services/cart.js";
 import ProductServices from "../services/products.js";
 import TicketServices from "../services/ticket.js";
-import logger from "../utils/logger.js";
+import PaymentServices from "../services/payments.js";
+import Stripe from "stripe";
+import config from "../config/config.js";
+import { calculateTotalAmount } from "../utils/index.js";
+import jwt from "jsonwebtoken";
+
+const stripe = new Stripe(config.backend_stripe_key);
+const privateKey = config.private_key_JWT;
 
 const cartServices = new CartServices();
 const ticketServices = new TicketServices();
 const productServices = new ProductServices();
+const paymentServices = new PaymentServices();
 
 export const getCart = async (req, res) => {
   const cid = req.params.cid;
-
+  const uid = req.user;
   try {
     const cart = await cartServices.getCart(cid);
 
@@ -49,7 +57,7 @@ export const getCarts = async (req, res) => {
 export const addProductToCart = async (req, res) => {
   const cid = req.params.cid;
   const pid = req.params.pid;
-  const user = req.session.user.email;
+  const user = req.user.email;
   try {
     const product = await productServices.getProductById(pid);
 
@@ -227,11 +235,13 @@ export const deleteAllProducts = async (req, res) => {
 };
 
 export const purchase = async (req, res) => {
+  let intent;
   try {
     const cid = req.params.cid;
-    const uid = req.session.user.email;
-    const { productsToPurchase, productsNotPurchase } =
+    const uid = req.user.email;
+    let { productsToPurchase, productsNotPurchase } =
       await cartServices.verifyPurchase(cid);
+
     if (productsToPurchase.length === 0) {
       return res.status(400).send({
         status: "error",
@@ -243,21 +253,67 @@ export const purchase = async (req, res) => {
       productsToPurchase
     );
 
-    const ticket = await ticketServices.createTicket(uid, productsToPurchase);
-
-    const resultUpdateCart = await cartServices.updateCart(
-      cid,
-      productsNotPurchase
-    );
+    intent = await stripe.paymentIntents.create({
+      amount: calculateTotalAmount(productsToPurchase) * 100,
+      currency: "usd",
+      payment_method_types: ["card"],
+      metadata: {
+        cart_id: cid,
+        user_id: uid,
+        productsToPurchase: JSON.stringify(productsToPurchase),
+        productsNotPurchase: JSON.stringify(productsNotPurchase),
+      },
+    });
 
     return res.send({
-      message: "Compra realizada exitosamente.",
-      payload: ticket,
-      newCart: resultUpdateCart,
+      status: "success",
+      client_secret: intent.client_secret,
     });
   } catch (error) {
     return res
       .status(500)
       .send({ message: `Error en el proceso de compra. ${error}` });
   }
+};
+
+export const purchaseDEV = async (req, res) => {
+  let cid;
+  let url;
+  try {
+    cid = req.params.cid;
+    const response = await paymentServices.createCheckout(cid);
+    if (response) {
+      url = response.url;
+      res.status(200).json({ url });
+    } else {
+      res
+        .status(400)
+        .json({ status: "error", msg: "No hay productos disponibles" });
+    }
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      msg: "No se pudo procesar la compra",
+      error: error,
+    });
+  }
+};
+
+export const purchaseDEVsuccess = async (req, res) => {
+  try {
+    const uEmail = req.user.email;
+    const cid = req.params.cid;
+    const result = await paymentServices.processPurchase(cid, uEmail);
+    res.render("success-payments", result);
+  } catch (error) {
+    res.status(500).send({
+      status: "error",
+      msg: "No se pudo procesar el ticket",
+      error: error,
+    });
+  }
+};
+
+export const unprocessPurchase = async (req, res) => {
+  res.render("cancel-payments");
 };

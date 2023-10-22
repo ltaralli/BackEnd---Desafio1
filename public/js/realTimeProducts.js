@@ -1,6 +1,8 @@
+import logger from "../../src/utils/logger";
+
 const socket = io();
 socket.on("connect", () => {
-  console.log("Conexión establecida con el servidor de WebSocket");
+  logger.info("Conexión establecida con el servidor de WebSocket");
 });
 socket.on("productAddError", (error) => {
   Swal.fire({

@@ -26,7 +26,7 @@ function getCartId() {
     return getCartIdFromServer()
       .then(function (cartId) {
         localStorage.setItem("cartId", cartId);
-        return cartId; // Agrega este return
+        return cartId;
       })
       .catch(function (error) {
         Swal.fire({
@@ -38,7 +38,7 @@ function getCartId() {
         throw error;
       });
   }
-  return cartId; // Agrega este return
+  return cartId;
 }
 
 async function purchase() {
@@ -53,21 +53,12 @@ async function purchase() {
       throw new Error("Error al finalizar la compra");
     })
     .then(function (data) {
-      Swal.fire({
-        icon: "success",
-        title: "Compra finalizada",
-        showConfirmButton: false,
-        footer: `<p>Tu numero de orden es: ${data.payload.code}.</p><a href="/carts/${cartId}/${data.payload.code}"> Hace click para ver tu compra!</a>`,
-      });
-      console.log(data);
+      if (data.client_secret) {
+        window.location.href = `/api/payments/checkout?client_secret=${data.client_secret}`;
+        console.error("Error: No se recibió un client_secret");
+      }
     })
     .catch(function (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Hubo un problema al terminar la compra",
-        footer: error,
-      });
       console.error(error);
     });
 }

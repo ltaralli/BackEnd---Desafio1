@@ -22,8 +22,6 @@ export const changeRole = async (req, res) => {
   try {
     const hasRequiredDocuments = await userServices.checkDocuments(uid);
 
-    console.log(hasRequiredDocuments);
-
     if (!hasRequiredDocuments) {
       return res.status(400).send({
         status: "error",

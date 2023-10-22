@@ -1,38 +1,65 @@
 import UserServices from "../services/session.js";
 import logger from "../utils/logger.js";
 import { createHash, isValidPassword } from "../utils/index.js";
+import { generateToken } from "../utils/jwt.js";
+import CartServices from "../services/cart.js";
 
+const cartServ = new CartServices();
 const userServices = new UserServices();
 
 export const register = async (req, res) => {
-  res.redirect("/login");
+  let user = req.body;
+  try {
+    let userFound = await userServices.getByEmail(user.email);
+
+    if (userFound) {
+      return res.status(409).json({ error: "El usuario ya existe" });
+    }
+    user.password = createHash(user.password);
+    let result = await userServices.createUser(user);
+
+    if (!result) {
+      return res.redirect("/failregister");
+    }
+    res.redirect("/login");
+  } catch (error) {
+    return res.status(500).json({ error: "Error al registrar el usuario" });
+  }
 };
 
 export const login = async (req, res) => {
-  if (!req.user) return res.render("login-error", { status: "error" });
-
+  let { email, password } = req.body;
+  let user;
   try {
-    const updatedUser = await userServices.updateLastConnection(req.user.email);
-    if (!updatedUser) {
-      logger.error("No se pudo actualizar la última conexión");
+    user = await userServices.getByEmail(email);
+    if (!user || !isValidPassword(user, password)) {
+      return res.redirect("/faillogin");
     }
+    if (!user.cart._id) {
+      const cart = await cartServ.createCart();
+      user.cart = cart;
+      await user.save();
+    }
+    delete user.password;
+    const token = generateToken(user, "24h");
+    res.cookie("authToken", token, { httpOnly: true });
+    res.redirect("/products");
   } catch (error) {
-    logger.error(`Error al actualizar la última conexión: ${error}`);
+    return res.status(500).send({ error: "Error al iniciar sesión" });
   }
-
-  req.session.user = { email: req.user.email };
-  res.redirect("/products");
 };
 
 export const github = async (req, res) => {};
 
 export const githubCallback = async (req, res) => {
-  req.session.user = req.user;
+  const user = req.user;
+  const token = generateToken(user, "24h");
+  res.cookie("authToken", token, { httpOnly: true });
   res.redirect("/products");
 };
 
 export const current = async (req, res) => {
-  let user = req.session.user;
+  let user = req.user;
   let result;
   try {
     result = await userServices.getUser(user.email);

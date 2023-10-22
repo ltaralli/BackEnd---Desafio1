@@ -4,7 +4,13 @@ import UserServices from "../services/session.js";
 import TicketServices from "../services/ticket.js";
 import { generateproducts } from "../mocks/products.js";
 import logger from "../utils/logger.js";
+import config from "../config/config.js";
+import PaymentServices from "../services/payments.js";
+import jwt from "jsonwebtoken";
 
+const PRIVATE_KEY = config.private_key_JWT;
+
+const paymentServices = new PaymentServices();
 const productServices = new ProductServices();
 const cartServices = new CartServices();
 const userServices = new UserServices();
@@ -46,6 +52,7 @@ export const getProductsRealTime = async (req, res) => {
 };
 
 export const getProductsViews = async (req, res) => {
+  let user = req.user;
   const pageBody = req.query.page || 1;
   const limit = req.query.limit || 10;
   const cat = req.query.category;
@@ -57,9 +64,6 @@ export const getProductsViews = async (req, res) => {
       selected: category === cat,
     }));
     let result = await productServices.getProducts(pageBody, limit, cat, sort);
-
-    let user = await userServices.getByEmail(req.session.user.email);
-    let role = req.session.user.role;
     const data = {
       products: result.docs,
       hasPrevPage: result.hasPrevPage,
@@ -74,7 +78,7 @@ export const getProductsViews = async (req, res) => {
       catSelected: cat,
       sort: sort,
       user: user,
-      role: role,
+      cart: user.cart,
     };
 
     res.render("products", data);
@@ -96,30 +100,46 @@ export const getCart = async (req, res) => {
     res.status(500).send("Error interno del servidor");
   }
 };
+
 export const login = async (req, res) => {
-  if (req.session.user) {
-    res.redirect("/products");
-  } else {
-    res.render("login", {});
+  const token = req.cookies.authToken;
+  if (token) {
+    try {
+      const user = jwt.verify(token, PRIVATE_KEY);
+      if (user.email) {
+        return res.redirect("/products");
+      }
+    } catch (error) {
+      res.status(500).send("Error interno del servidor");
+    }
   }
+  res.render("login", {});
 };
 
 export const register = async (req, res) => {
-  if (req.session.user) {
-    res.redirect("/products");
+  const token = req.cookies.authToken;
+  if (token) {
+    try {
+      const user = jwt.verify(token, PRIVATE_KEY);
+      if (user.email) {
+        return res.redirect("/products");
+      }
+    } catch (error) {
+      res.status(500).send("Error interno del servidor");
+    }
   }
+
   res.render("register", {});
 };
 
 export const profile = async (req, res) => {
-  let user = await userServices.getUser(req.session.user.email);
+  let user = await userServices.getUser(req.user.email);
   res.render("profile", user);
 };
 
 export const logout = (req, res) => {
-  req.session.destroy((error) => {
-    res.redirect("/login");
-  });
+  res.clearCookie("authToken"); // Elimina la cookie que contiene el token
+  res.redirect("/login"); // Redirige a la página de inicio de sesión
 };
 
 export const failRegister = async (req, res) => {
@@ -168,4 +188,12 @@ export const forgotPass = async (req, res) => {
 
 export const resetPass = async (req, res) => {
   res.render("reset-password", {});
+};
+
+export const paymentsSuccess = async (req, res) => {
+  res.render("success-payments", {});
+};
+
+export const paymentsCancel = async (req, res) => {
+  res.render("cancel-payments", {});
 };

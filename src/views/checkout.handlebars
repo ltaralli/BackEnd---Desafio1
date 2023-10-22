@@ -1,0 +1,69 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Pago</title>
+    <style>
+      body { font-family: Arial, sans-serif; background-color: #f8f8f8; padding:
+      20px; } form { width: 600px; margin: 0 auto; background-color: #fff;
+      padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0,
+      0.1); } label, input { display: block; margin-bottom: 10px; } input {
+      width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+      button { background-color: #007bff; color: #fff; border: none; padding:
+      10px 20px; border-radius: 4px; cursor: pointer; font-size: 16px; }
+      button:hover { background-color: #0056b3; } .StripeElement { box-sizing:
+      border-box; height: 40px; padding: 10px 12px; border: 1px solid #ccc;
+      border-radius: 4px; background-color: white; margin-bottom: 10px;
+      box-shadow: 0 1px 3px 0 #e6ebf1; max-width: 100%; width: 100%; }
+      .StripeElement--focus { border-color: #80bdff; box-shadow: 0 1px 3px 0
+      #80bdff; } .StripeElement--invalid { border-color: #fa755a; }
+    </style>
+  </head>
+  <body>
+    <form id="payment-form">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="nombre" required /><br />
+
+      <label for="correo">Correo Electrónico</label>
+      <input type="email" id="correo" name="correo" required /><br />
+
+      <label for="direccion">Dirección de Envío</label>
+      <input type="text" id="direccion" name="direccion" required /><br />
+
+      <label for="ciudad">Ciudad</label>
+      <input type="text" id="ciudad" name="ciudad" required /><br />
+
+      <label for="estado">Estado</label>
+      <input type="text" id="estado" name="estado" required /><br />
+
+      <label for="telefono">Teléfono</label>
+      <input type="tel" id="telefono" name="telefono" required /><br />
+
+      <label>Datos de la tarjeta</label>
+      <div id="payment-element"></div>
+
+      <button id="submit">Submit</button>
+    </form>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() { var stripe =
+      Stripe('pk_test_51NzSmyCK9VcDcN97qaKj5JzEOvZtzLREMwgx0bVZLuaNx54PpzK2RczTR6WXYoqqIvLqGUw40e9n8TNeBwpt5BrS00A4AsVuHo');
+      var elements = stripe.elements(); var card = elements.create('card');
+      card.mount('#payment-element'); var form =
+      document.getElementById('payment-form'); form.addEventListener('submit',
+      function(event) { event.preventDefault(); var nombre =
+      document.getElementById('nombre').value; var correo =
+      document.getElementById('correo').value; var direccion =
+      document.getElementById('direccion').value; var ciudad =
+      document.getElementById('ciudad').value; var estado =
+      document.getElementById('estado').value;; var telefono =
+      document.getElementById('telefono').value; stripe.confirmCardPayment("{{client_secret}}",
+      { payment_method: { card: card, billing_details: { name: nombre, email:
+      correo, address: { line1: direccion, city: ciudad, state: estado, },
+      phone: telefono } } }).then(function(result) { if (result.error) {
+      alert(result.error.message); } else { alert(result.paymentIntent); } });
+      }); });
+    </script>
+  </body>
+</html>

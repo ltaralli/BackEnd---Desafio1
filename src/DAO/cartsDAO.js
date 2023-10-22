@@ -79,8 +79,9 @@ class CartManager {
   }
 
   async createCart() {
+    let newCart;
     try {
-      const newCart = {
+      newCart = {
         products: [],
       };
       const createdCart = await this.model.create(newCart);
@@ -228,15 +229,17 @@ class CartManager {
 
       for (const product of cart.products) {
         const productData = await productsModel.findById(product._id);
+        const productInfo = {
+          _id: product._id,
+          title: productData.title,
+          price: productData.price,
+          quantity: product.quantity,
+        };
+
         if (productData.stock >= product.quantity) {
-          const productToPurchase = {
-            _id: product._id,
-            price: productData.price,
-            quantity: product.quantity,
-          };
-          productsToPurchase.push(productToPurchase);
+          productsToPurchase.push(productInfo);
         } else {
-          productsNotPurchase.push(product);
+          productsNotPurchase.push(productInfo);
         }
       }
 

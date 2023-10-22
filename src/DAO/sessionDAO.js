@@ -101,7 +101,7 @@ class userManager {
     let result;
     try {
       const user = await this.model.findOne({ email: email });
-      const token = await generateToken();
+      const token = await generateToken(user, "1h");
       user.resetPasswordToken = token;
       user.resetPasswordExpires = new Date(Date.now() + 3600000);
       await this.updateUser(email, user);

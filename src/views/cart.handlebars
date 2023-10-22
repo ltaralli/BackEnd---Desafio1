@@ -1,3 +1,6 @@
+<header>
+  <script src="https://js.stripe.com/v3/"></script>
+</header>
 <div id="cart-container" class="container container-cart">
   <h1 class="cart-title">Carrito de compras</h1>
   <h5>Carrito: <p class="cart-id"></p> </h5>
@@ -45,9 +48,10 @@
 
   <div class="cart-buttons">
     <button class="btn btn-secondary"><a href="/products">Regresar</a></button>
-    <button class="btn btn-primary purchase-btn">Finalizar Compra</button>
+    <button class="btn btn-success" onclick="purchase('{{_id}}')">Finalizar
+      Compra</button>
   </div>
 </div>
-
+<script src="/socket.io/socket.io.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/js/purchase.js"></script>
+<script src="/js/payment.js"></script>

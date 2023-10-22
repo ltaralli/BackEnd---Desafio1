@@ -1,43 +1,42 @@
 document.addEventListener("DOMContentLoaded", function () {
   const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
-
+  const cidElement = document.querySelector(".cartID");
+  const cid = cidElement.textContent.trim(); // Obtiene solo el texto y elimina espacios en blanco al principio y al final
   addToCartButtons.forEach(function (button) {
     button.addEventListener("click", function () {
       const productId = this.dataset.productId;
-      addToCart(productId);
+      addToCart(productId, cid);
     });
   });
 });
 
-async function addToCart(productId) {
-  const cartId = await getCartId();
-  fetch(`api/cart/${cartId}/product/${productId}`, {
-    method: "POST",
-  })
-    .then(function (response) {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error("Error en la solicitud de agregar al carrito");
-    })
-    .then(function (data) {
+async function addToCart(productId, cid) {
+  try {
+    const response = await fetch(`api/cart/${cid}/product/${productId}`, {
+      method: "POST",
+    });
+
+    if (response.ok) {
+      const data = await response.json();
       Swal.fire({
         icon: "success",
         title: "Producto agregado al carrito",
         showConfirmButton: false,
         timer: 750,
       });
-      console.log(data);
-    })
-    .catch(function (error) {
+    } else {
+      const errorData = await response.json();
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Hubo un problema al agregar el producto",
-        footer: error,
+        footer: `<b>${errorData.msg}</b>`,
       });
-      console.error(error);
-    });
+      console.error(errorData);
+    }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 async function getCartIdFromServer() {
@@ -74,6 +73,6 @@ function getCartId() {
       });
   }
   let contenedorID = document.getElementsByClassName("cart-id")[0];
-  contenedorID.innerHTML = `<a href="/carts/${cartId}">${cartId}</a>`;
+  contenedorID.innerHTML = `<a href="/carts/${cartId}">CARRITO</a>`;
   return Promise.resolve(cartId);
 }

@@ -18,27 +18,21 @@ import {
   resetPass,
 } from "../controllers/views.js";
 import { authMiddleware, isAdmin, isUser } from "../middlewares/auth.js";
+import { auth } from "../utils/jwt.js";
 // import { forgotPassword, resetPaswoord } from "../controllers/session.js";
 
 const viewsRouter = Router();
 const sessionRouter = Router();
 
 viewsRouter.get("/", getProducts);
-viewsRouter.get("/chat", isUser, getChat);
-viewsRouter.get(
-  "/realtimeproducts",
-  authMiddleware,
-  isAdmin,
-  getProductsRealTime
-);
-viewsRouter.get("/products", authMiddleware, getProductsViews);
+viewsRouter.get("/chat", auth, isUser, getChat);
+viewsRouter.get("/realtimeproducts", auth, isAdmin, getProductsRealTime);
+viewsRouter.get("/products", auth, getProductsViews);
 viewsRouter.get("/carts/:cid", getCart);
 viewsRouter.get("/carts/:cid/:tcode", getTicketByOrder);
 viewsRouter.get("/login", login);
-viewsRouter.post("/login", sessionRouter);
 viewsRouter.get("/register", register);
-viewsRouter.post("/register", sessionRouter);
-viewsRouter.get("/profile", authMiddleware, profile);
+viewsRouter.get("/profile", auth, profile);
 viewsRouter.get("/logout", logout);
 viewsRouter.get("/failregister", failRegister);
 viewsRouter.get("/faillogin", failLogin);
@@ -46,5 +40,4 @@ viewsRouter.get("/mockingproducts", getProductsMocks);
 viewsRouter.get("/loggerTest", loggerTest);
 viewsRouter.get("/forgot-password", forgotPass);
 viewsRouter.get("/reset-password", resetPass);
-
 export default viewsRouter;

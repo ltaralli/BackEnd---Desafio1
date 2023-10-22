@@ -7,7 +7,7 @@ class TicketsManager {
     this.model = ticketsModel;
   }
 
-  async createTicket(uid, productsToPurchase) {
+  async createTicket(productsToPurchase, uid) {
     try {
       const totalAmount = calculateTotalAmount(productsToPurchase);
       const code = generateUniqueCode();
