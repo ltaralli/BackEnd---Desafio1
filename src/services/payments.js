@@ -4,6 +4,7 @@ import CartServices from "./cart.js";
 import TicketServices from "./ticket.js";
 
 const key = config.backend_stripe_key;
+url = config.baseURL;
 
 const cartServices = new CartServices();
 const ticketServices = new TicketServices();
@@ -39,8 +40,8 @@ export default class PaymentServices {
           quantity: cartItem.quantity,
         })),
         payment_intent_data: {},
-        success_url: `http://localhost:8080/api/cart/${cid}/purchase/success`,
-        cancel_url: `http://localhost:8080/api/cart/${cid}/purchase/cancel`,
+        success_url: `${url}/api/cart/${cid}/purchase/success`,
+        cancel_url: `${url}/api/cart/${cid}/purchase/cancel`,
       });
 
       return session;

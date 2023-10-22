@@ -8,6 +8,7 @@ import jwt from "passport-jwt";
 import CartServices from "../services/cart.js";
 
 // VARIABLES DE ENTORNO
+const url = config.baseURL;
 const githubClientID = config.githubClientID;
 const githubClientSecret = config.githubClientSecret;
 const githubCallbackURL = config.githubCallbackURL;
@@ -25,7 +26,7 @@ const initializePassport = () => {
       {
         clientID: githubClientID,
         clientSecret: githubClientSecret,
-        callbackURL: githubCallbackURL,
+        callbackURL: `${url}${githubCallbackURL}`,
         scope: ["user:email"],
       },
       async (accessToken, refreshToken, profile, done) => {
