@@ -1,8 +1,16 @@
-<div class="body-login-failed">
-<div class="card-login-failed">
-    <h2 class="text-center mb-4">Error de inicio de sesión</h2>
-    <div class="alert alert-danger" role="alert">
-      <strong>Error:</strong> Credenciales inválidas. Inténtalo de nuevo.
+<div class="flex items-center justify-center h-screen">
+  <div class="card-login-failed p-8 shadow-lg rounded-lg">
+    <h2 class="text-center mb-4 text-2xl font-bold">Error de inicio de sesión</h2>
+    <div
+      class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+      role="alert"
+    >
+      <strong class="font-bold">Error:</strong>
+      <span class="block sm:inline">Credenciales inválidas. Inténtalo de nuevo.</span>
     </div>
-    <a href="/login" class="btn btn-primary d-block mx-auto">Volver al inicio de sesión</a>
+    <a
+      href="/login"
+      class="block mx-auto mt-4 px-4 py-2 bg-blue-500 text-white font-semibold rounded-full text-center hover:bg-blue-600"
+    >Volver al inicio de sesión</a>
+  </div>
 </div>

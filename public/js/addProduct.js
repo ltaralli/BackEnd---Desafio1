@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
   addToCartButtons.forEach(function (button) {
     button.addEventListener("click", function () {
       const productId = this.dataset.productId;
-      addToCart(productId, cid);
+      let cartID = cidElement.value;
+      addToCart(productId, cartID);
     });
   });
 });

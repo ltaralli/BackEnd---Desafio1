@@ -1,65 +1,57 @@
-<div class="custom-container">
-  <div class="custom-card">
-    <div class="custom-card-header">
-      <h4>Registrarse</h4>
-    </div>
-    <div class="custom-card-body">
+<div class="container100vh flex justify-center items-center">
+  <div class="w-80 rounded-2xl bg-slate-900">
+    <div class="flex flex-col gap-2 p-8">
       <form method="POST" action="/api/session/register">
-        <div class="mb-3">
-          <label for="first_name" class="custom-form-label">Nombre:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="first_name"
-            name="first_name"
-            required
-          />
+        <p class="text-center text-3xl text-gray-300 mb-4">Register</p>
+        <input
+          type="text"
+          id="first_name"
+          name="first_name"
+          required
+          class="mt-4 bg-slate-900 w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:ring-offset-gray-800"
+          placeholder="Nombre"
+        />
+        <input
+          class="mt-4 bg-slate-900 w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:ring-offset-gray-800"
+          type="text"
+          id="last_name"
+          name="last_name"
+          required
+          placeholder="Apellido"
+        />
+        <input
+          class="mt-4 bg-slate-900 w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:ring-offset-gray-800"
+          type="number"
+          id="age"
+          name="age"
+          required
+          placeholder="Edad"
+        />
+        <input
+          class="mt-4 bg-slate-900 w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:ring-offset-gray-800"
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="Email"
+        />
+        <input
+          class="mt-4 bg-slate-900 w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:ring-offset-gray-800"
+          placeholder="Password"
+          type="password"
+          id="password"
+          name="password"
+          required
+        />
+        <div class="flex flex-row">
+          <a href="/login" class="mt-8 mr-4 btn btn-sm btn-primary">Iniciar
+            sesion</a>
+          <button
+            type="submit"
+            class="mt-8 btn btn-sm btn-primary"
+          >Registrarse</button>
         </div>
-        <div class="mb-3">
-          <label for="last_name" class="custom-form-label">Apellido:</label>
-          <input
-            type="text"
-            class="form-control"
-            id="last_name"
-            name="last_name"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="email" class="custom-form-label">Correo electrónico:</label>
-          <input
-            type="email"
-            class="form-control"
-            id="email"
-            name="email"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="password" class="custom-form-label">Contraseña:</label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            name="password"
-            required
-          />
-        </div>
-        <div class="mb-3">
-          <label for="age" class="custom-form-label">Edad:</label>
-          <input
-            type="number"
-            class="form-control"
-            id="age"
-            name="age"
-            required
-          />
-        </div>
-        <button
-          type="submit"
-          class="btn custom-btn-primary"
-        >Registrarse</button>
-        <a href="/login" class="btn btn-primary">Iniciar sesion</a>
+
       </form>
     </div>
   </div>

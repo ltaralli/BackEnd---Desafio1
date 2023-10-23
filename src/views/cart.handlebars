@@ -1,57 +1,74 @@
 <header>
   <script src="https://js.stripe.com/v3/"></script>
 </header>
-<div id="cart-container" class="container container-cart">
-  <h1 class="cart-title">Carrito de compras</h1>
-  <h5>Carrito: <p class="cart-id"></p> </h5>
-  <table class="cart-table">
-    <thead>
-      <tr>
-        <th class="cart-table__header">Imagen</th>
-        <th class="cart-table__header">Título</th>
-        <th class="cart-table__header">Precio</th>
-        <th class="cart-table__header">Cantidad</th>
-        <th class="cart-table__header">Subtotal</th>
-        <th class="cart-table__header"></th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each products}}
-        <tr>
-          <td class="cart-table__image">
-            <img
-              src="{{this._id.thumbnails}}"
-              alt="{{this._id.title}}"
-              width="100"
-            />
-          </td>
-          <td class="cart-table__title">{{this._id.title}}</td>
-          <td class="cart-table__price">${{this._id.price}}</td>
-          <td class="cart-table__quantity">{{this.quantity}}u.</td>
-          <td class="cart-table__subtotal">${{multiply
-              this._id.price
-              this.quantity
-            }}</td>
-          <td class="cart-table__actions">
-            <button class="btn btn-danger btn-sm">
-              <i class="bi bi-trash">X</i>
-            </button>
-          </td>
-        </tr>
-      {{/each}}
-      <tr>
-        <td colspan="5"></td>
-        <td class="cart-table__total">Total: ${{calculateTotal products}}</td>
-      </tr>
-    </tbody>
-  </table>
 
-  <div class="cart-buttons">
+<div class="flex justify-center">
+<div
+  id="cart-container "
+  class="container mx-auto p-6 rounded-lg shadow-lg"
+>
+  <h1 class="text-2xl font-bold mb-4">Carrito de compras</h1>
+    <span class="font-bold cart-id"></span></h5>
+
+{{#if products.length}}
+  <div class="overflow-x-auto">
+    <table class="table-auto w-full">
+      <thead>
+        <tr class="bg-100">
+          <th class="px-4 py-2">Imagen</th>
+          <th class="px-4 py-2">Título</th>
+          <th class="px-4 py-2">Precio</th>
+          <th class="px-4 py-2">Cantidad</th>
+          <th class="px-4 py-2">Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each products}}
+          <tr>
+            <td class="px-4 py-2">
+              <img
+                src="{{this._id.thumbnails}}"
+                alt="{{this._id.title}}"
+                width="100"
+                class="rounded"
+              />
+            </td>
+            <td class="px-4 py-2">{{this._id.title}}</td>
+            <td class="px-4 py-2">${{this._id.price}}</td>
+            <td class="px-4 py-2">{{this.quantity}}u.</td>
+            <td class="px-4 py-2">${{multiply
+                this._id.price
+                this.quantity
+              }}</td>
+            <td class="px-20 py-2">
+              <button onclick="deleteProduct('{{this._id._id}}')" class="btn btn-square btn-delete-product btn-sm btn-error">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </td>
+          </tr>
+        {{/each}}
+        <tr>
+          <td colspan="5"></td>
+          <td class="px-4 py-2 font-bold text-right">Total: ${{calculateTotal
+              products
+            }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="flex justify-between mt-4">
     <button class="btn btn-secondary"><a href="/products">Regresar</a></button>
     <button class="btn btn-success" onclick="purchase('{{_id}}')">Finalizar
       Compra</button>
   </div>
+      {{else}}
+      <p class="text-center font-bold mt-4">El carrito está vacío.</p>
+    {{/if}}
 </div>
+
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/payment.js"></script>

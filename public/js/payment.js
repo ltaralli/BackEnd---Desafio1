@@ -26,3 +26,40 @@ socket.on("purchase-cancel", (data) => {
     icon: "cancel",
   });
 });
+
+function getCIDFromURL() {
+  const path = window.location.pathname;
+  const parts = path.split("/");
+  return parts[2];
+}
+
+const cid = getCIDFromURL();
+
+function deleteProduct(pid) {
+  fetch(`/api/cart/${cid}/product/${pid}`, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error al eliminar el producto");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      Swal.fire({
+        icon: "success",
+        title: "Producto eliminado",
+        text: data.message,
+      }).then(() => {
+        window.location.reload();
+      });
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error al eliminar el producto",
+        text: error.message,
+      });
+    });
+}
