@@ -6,6 +6,7 @@ const PRIVATE_KEY = config.private_key_JWT;
 export const generateToken = (user, expiresIn) => {
   const token = jwt.sign(
     {
+      id: user._id,
       email: user.email,
       first_name: user.first_name,
       last_name: user.last_name,

@@ -1,5 +1,5 @@
-<body class="bg-gray-100 p-10 flex justify-center items-center h-screen">
-  <div class="bg-white shadow-lg rounded p-8 max-w-md w-full space-y-6">
+<body class="bg-100 p-10 flex justify-center items-center h-screen">
+  <div class="bg shadow-lg rounded p-8 max-w-md w-full space-y-6">
     <h2 class="text-center text-2xl font-bold">Datos personales</h2>
     <div>
       <label
@@ -46,10 +46,23 @@
         class="block text-gray-700 text-sm font-bold mb-2"
       >Edad</label>
       <input
-        type="number"
+        type="text"
         id="age"
         class="form-input rounded w-full py-2 px-3 border border-gray-300 focus:outline-none focus:ring focus:border-blue-500"
         value="{{age}}"
+        disabled
+      />
+    </div>
+    <div>
+      <label
+        for="age"
+        class="block text-gray-700 text-sm font-bold mb-2"
+      >Rol</label>
+      <input
+        type="text"
+        id="role"
+        class="form-input rounded w-full py-2 px-3 border border-gray-300 focus:outline-none focus:ring focus:border-blue-500"
+        value="{{role}}"
         disabled
       />
     </div>
@@ -57,6 +70,6 @@
       href="/forgot-password"
       class="btn btn-primary w-full text-center"
     >Cambiar Contraseña</a>
-    <a href="/products" class="btn btn-primary w-full text-center">Volver</a>
+    <a href="/products" class="btn btn-accent w-full text-center">Volver</a>
   </div>
 </body>

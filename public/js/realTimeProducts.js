@@ -1,7 +1,5 @@
 const socket = io();
-socket.on("connect", () => {
-  console.log("Conexión establecida con el servidor de WebSocket");
-});
+socket.on("connect", () => {});
 socket.on("productAddError", (error) => {
   Swal.fire({
     icon: "error",
@@ -44,7 +42,6 @@ addProd.addEventListener("click", (e) => {
       thumbnails,
       owner,
     };
-    console.log(newProd);
     socket.emit("product", newProd);
   }
 });

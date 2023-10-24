@@ -1,0 +1,54 @@
+<div
+  class="container mx-auto p-8 flex flex-col justify-center items-center h-screen"
+>
+  <div class="bg rounded-lg shadow p-6 max-w-md w-full">
+    <h1 class="text-3xl font-bold mb-4">Carga de Documentos de Validación</h1>
+    <form
+      id="documentUploadForm"
+      enctype="multipart/form-data"
+      class="space-y-4"
+    >
+      <div class="flex flex-col">
+        <label for="countcomp" class="text-lg font-medium mb-2">Documento
+          Countcomp:</label>
+        <input
+          type="file"
+          id="countcomp"
+          name="countcomp"
+          accept=".pdf"
+          required
+          class="file-input file-input-bordered file-input-primary"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="addresscomp" class="text-lg font-medium mb-2">Documento
+          Addresscomp:</label>
+        <input
+          type="file"
+          id="addresscomp"
+          name="addresscomp"
+          accept=".pdf"
+          required
+          class="file-input file-input-bordered file-input-primary"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="identification" class="text-lg font-medium mb-2">Documento
+          de Identificación:</label>
+        <input
+          type="file"
+          id="identification"
+          name="identification"
+          accept=".pdf"
+          required
+          class="file-input file-input-bordered file-input-primary"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary w-full">Cargar Documentos</button>
+      <input type="hidden" id="uid" name="uid" value="{{uid}}" />
+      <a href="/register" class="btn btn-accent w-full">Volver al registro</a>
+    </form>
+  </div>
+</div>
+
+<script src="/js/uploadFiles.js"></script>

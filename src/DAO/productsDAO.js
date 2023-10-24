@@ -47,7 +47,6 @@ class ProductManager {
     return product;
   }
   async addProduct(product) {
-    console.log(product);
     let existingProduct;
     let producto;
     try {

@@ -17,6 +17,8 @@ import {
   forgotPass,
   resetPass,
   home,
+  uploadDocuments,
+  getUsers,
 } from "../controllers/views.js";
 import { isAdmin, isUser } from "../middlewares/auth.js";
 import { auth } from "../utils/jwt.js";
@@ -40,4 +42,6 @@ viewsRouter.get("/mockingproducts", getProductsMocks);
 viewsRouter.get("/loggerTest", loggerTest);
 viewsRouter.get("/forgot-password", forgotPass);
 viewsRouter.get("/reset-password", resetPass);
+viewsRouter.get("/documents", auth, uploadDocuments);
+viewsRouter.get("/usersadmin", auth, isAdmin, getUsers);
 export default viewsRouter;

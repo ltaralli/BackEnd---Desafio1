@@ -156,7 +156,6 @@ class userManager {
         const parts = doc.name.split("-");
         return parts[0];
       });
-
       return requiredDocuments.every((docType) =>
         uploadedDocuments.includes(docType)
       );

@@ -201,3 +201,27 @@ export const paymentsSuccess = async (req, res) => {
 export const paymentsCancel = async (req, res) => {
   res.render("cancel-payments", {});
 };
+
+export const uploadDocuments = (req, res) => {
+  const uid = req.user.id;
+  res.render("update-documents", { uid });
+};
+
+export const getUsers = async (req, res) => {
+  try {
+    let users = await userServices.getAll();
+    users = await Promise.all(
+      users.map(async (user) => {
+        user.isEligibleForRoleChange = await userServices.checkDocuments(
+          user._id
+        );
+        return user;
+      })
+    );
+
+    res.render("users", { users });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error interno del servidor");
+  }
+};

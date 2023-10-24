@@ -23,30 +23,30 @@ export const changeRole = async (req, res) => {
     const hasRequiredDocuments = await userServices.checkDocuments(uid);
 
     if (!hasRequiredDocuments) {
-      return res.status(400).send({
+      return res.status(400).json({
         status: "error",
-        error: "El usuario no ha subido todos los documentos requeridos",
+        msg: "El usuario no ha subido todos los documentos requeridos",
       });
     }
 
     // Continuar con el cambio de rol
     let user = await userServices.getById(uid);
     if (!user) {
-      return res.status(400).send({
+      return res.status(400).json({
         status: "error",
-        error: `No existe un usuario con el id ${uid}`,
+        msg: `No existe un usuario con el id ${uid}`,
       });
     }
 
     user.role === "user" ? (user.role = "premium") : (user.role = "user");
     await user.save();
 
-    return res.send({
+    return res.json({
       status: "successful",
       msg: `Se cambió el rol del usuario ${user.email} a ${user.role}`,
     });
   } catch (error) {
-    res.status(500).send({
+    res.status(500).json({
       status: "error",
       msg: "Error al cambiar de rol del usuario",
       error: error.message,
@@ -58,26 +58,32 @@ export const changeRole = async (req, res) => {
 export const updateDocuments = async (req, res) => {
   try {
     const uid = req.params.uid;
-    const documentName = req.files[0].filename;
-    const documentPath = req.files[0].path;
 
-    const documentInfo = {
-      name: documentName,
-      reference: documentPath,
-    };
+    // Obtener todos los documentos adjuntos
+    const documents = req.files;
 
-    const updatedUser = await userServices.updateDocument(uid, documentInfo);
-    if (updatedUser) {
-      res.send({
-        status: "successful",
-        message: "Documento subido correctamente",
-        user: updatedUser,
-      });
+    // Procesar cada documento
+    for (let i = 0; i < documents.length; i++) {
+      const document = documents[i];
+      const documentName = document.filename;
+      const documentPath = document.path;
+
+      const documentInfo = {
+        name: documentName,
+        reference: documentPath,
+      };
+
+      await userServices.updateDocument(uid, documentInfo);
     }
+
+    res.send({
+      status: "successful",
+      message: "Documentos subidos correctamente",
+    });
   } catch (error) {
     res.status(500).send({
-      status: error,
-      msg: "Error al subir el documento",
+      status: "error",
+      msg: "Error al subir los documentos",
       error: error,
     });
     logger.error(error);

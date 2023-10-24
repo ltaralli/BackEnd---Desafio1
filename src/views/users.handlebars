@@ -1,0 +1,37 @@
+<div class="container mx-auto p-8">
+  <h1 class="text-3xl font-bold mb-4">Lista de Usuarios</h1>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Nombre Completo</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+        <tr>
+          <td>{{this.full_name}}</td>
+          <td>{{this.email}}</td>
+          <td>{{this.role}}</td>
+          <td>
+            {{#if isEligibleForRoleChange}}
+              <button
+                onclick="changeUserRole('{{this._id}}')"
+                class="btn btn-primary w-full"
+              >
+                Cambiar de rol
+              </button>
+            {{else}}
+              <p class="alert text-center">No cuenta con la Documentación</p>
+            {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<script src="/js/userAdmin.js">
+</script>

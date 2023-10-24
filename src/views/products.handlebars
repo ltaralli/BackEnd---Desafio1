@@ -14,7 +14,14 @@
             <li><a>Submenu 2</a></li>
           </ul>
         </li>
-        <li><a>Item 3</a></li>
+        <li>
+          <a>Parent2</a>
+          <ul class="p-2">
+            <li><a>Submenu 1</a></li>
+            <li><a>Submenu 2</a></li>
+            <li><a>Submenu 3</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
     <a href="/logout"><button class="btn btn-secondary">Cerrar sesion</button></a>
@@ -24,14 +31,23 @@
       <li><a href="/products">Productos</a></li>
       <li tabindex="0">
         <details>
-          <summary>Paneles ADMIN</summary>
+          <summary>Administrador</summary>
           <ul class="p-2">
             <li><a href="/realtimeproducts">Real Time Products</a></li>
-            <li><a>Submenu 2</a></li>
+            <li><a href="/usersadmin">Roles de Usuarios</a></li>
           </ul>
         </details>
       </li>
-      <li><a href="/profile">Profile</a></li>
+      <li tabindex="0">
+        <details>
+          <summary>Usuario</summary>
+          <ul class="p-2">
+            <li><a href="/profile">Datos Personales</a></li>
+            <li><a href="/documents">Carga de documentos</a></li>
+            <li><a href="/chat">Chat</a></li>
+          </ul>
+        </details>
+      </li>
     </ul>
   </div>
   <div class="navbar-end">
@@ -90,7 +106,7 @@
               <figure class="px-15"><img src="{{this.thumbnails}}" alt={{this.category}} /></figure>
               <div class="card-body">
                 <h2 class="card-title">{{this.title}}</h2>
-                <div class="badge badge-secondary">Orwer: {{this.owner}}</div>
+                <div class="badge badge-secondary">Owner: {{this.owner}}</div>
                 <p>{{this.description}}</p>
                 <div class="card-actions justify-end">
                   <div class="badge badge-outline">{{this.category}}</div> 
@@ -116,4 +132,4 @@
 </div>
 
 <script src="/js/addProduct.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
