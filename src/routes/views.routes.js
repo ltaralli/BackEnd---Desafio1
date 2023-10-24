@@ -16,14 +16,15 @@ import {
   loggerTest,
   forgotPass,
   resetPass,
+  home,
 } from "../controllers/views.js";
 import { isAdmin, isUser } from "../middlewares/auth.js";
 import { auth } from "../utils/jwt.js";
-// import { forgotPassword, resetPaswoord } from "../controllers/session.js";
 
 const viewsRouter = Router();
 
-viewsRouter.get("/", getProducts);
+viewsRouter.get("/", home);
+viewsRouter.get("/productList", getProducts);
 viewsRouter.get("/chat", auth, isUser, getChat);
 viewsRouter.get("/realtimeproducts", auth, isAdmin, getProductsRealTime);
 viewsRouter.get("/products", auth, getProductsViews);

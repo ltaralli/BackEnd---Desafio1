@@ -26,6 +26,10 @@ export const getProducts = async (req, res) => {
   }
 };
 
+export const home = (req, res) => {
+  res.redirect("/products");
+};
+
 export const getChat = (req, res) => {
   res.render("chat", {});
 };
