@@ -28,7 +28,14 @@
             <li><a>Submenu 2</a></li>
           </ul>
         </li>
-        <li><a>Item 3</a></li>
+        <li>
+          <a>Parent2</a>
+          <ul class="p-2">
+            <li><a>Submenu 1</a></li>
+            <li><a>Submenu 2</a></li>
+            <li><a>Submenu 3</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
     <a href="/logout"><button class="btn btn-secondary">Cerrar sesion</button></a>
@@ -38,23 +45,29 @@
       <li><a href="/products">Productos</a></li>
       <li tabindex="0">
         <details>
-          <summary>Paneles ADMIN</summary>
+          <summary>Administrador</summary>
           <ul class="p-2">
             <li><a href="/realtimeproducts">Real Time Products</a></li>
-            <li><a>Submenu 2</a></li>
+            <li><a href="/usersadmin">Roles de Usuarios</a></li>
           </ul>
         </details>
       </li>
-      <li><a href="/profile">Profile</a></li>
+      <li tabindex="0">
+        <details>
+          <summary>Usuario</summary>
+          <ul class="p-2">
+            <li><a href="/profile">Datos Personales</a></li>
+            <li><a href="/documents">Carga de documentos</a></li>
+            <li><a href="/chat">Chat</a></li>
+          </ul>
+        </details>
+      </li>
     </ul>
   </div>
   <div class="navbar-end">
-    <a href="/carts/{{cart._id}}"><button
-        value="{{cart._id}}"
-        class="cartID btn btn-primary"
-      >CARRITO</button></a>
   </div>
 </div>
+
 <div class="collapse collapse-arrow bg-base-200 mt-10">
   <input type="radio" name="my-accordion-2" checked="checked" />
   <div class="collapse-title text-xl font-medium">

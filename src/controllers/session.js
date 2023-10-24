@@ -41,6 +41,11 @@ export const login = async (req, res) => {
       await user.save();
     }
     delete user.password;
+
+    let updatedUser = await userServices.updateLastConnection(user.email);
+    if (!updatedUser) {
+      logger.error("No se pudo actualizar la última conexión");
+    }
     const token = generateToken(user, "24h");
     res.cookie("authToken", token, { httpOnly: true });
     res.redirect("/products");

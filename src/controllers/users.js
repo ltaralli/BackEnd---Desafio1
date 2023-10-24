@@ -131,6 +131,7 @@ export const deleteUser = async (req, res) => {
       res.send({
         status: "successful",
         msg: "Usuario eliminado correctamente",
+        payload: result.email,
       });
     }
   } catch (error) {
