@@ -1,8 +1,6 @@
-import logger from "../../src/utils/logger";
-
 const socket = io();
 socket.on("connect", () => {
-  logger.info("Conexión establecida con el servidor de WebSocket");
+  console.log("Conexión establecida con el servidor de WebSocket");
 });
 socket.on("productAddError", (error) => {
   Swal.fire({
@@ -25,7 +23,7 @@ socket.on("productAddSuccess", () => {
 let log = document.getElementById("productList");
 
 const addProd = document.getElementById("addProduct");
-addProd.addEventListener("submit", (e) => {
+addProd.addEventListener("click", (e) => {
   e.preventDefault();
   if (e) {
     const title = document.getElementById("title").value;
@@ -46,6 +44,7 @@ addProd.addEventListener("submit", (e) => {
       thumbnails,
       owner,
     };
+    console.log(newProd);
     socket.emit("product", newProd);
   }
 });

@@ -17,12 +17,11 @@ import {
   forgotPass,
   resetPass,
 } from "../controllers/views.js";
-import { authMiddleware, isAdmin, isUser } from "../middlewares/auth.js";
+import { isAdmin, isUser } from "../middlewares/auth.js";
 import { auth } from "../utils/jwt.js";
 // import { forgotPassword, resetPaswoord } from "../controllers/session.js";
 
 const viewsRouter = Router();
-const sessionRouter = Router();
 
 viewsRouter.get("/", getProducts);
 viewsRouter.get("/chat", auth, isUser, getChat);

@@ -1,48 +1,62 @@
-<body>
-  <div class="card">
-    <h2 class="text-center mb-4">Datos personales</h2>
-    <div class="mb-3">
-      <label for="firstName" class="form-label">Nombre</label>
+<body class="bg-gray-100 p-10 flex justify-center items-center h-screen">
+  <div class="bg-white shadow-lg rounded p-8 max-w-md w-full space-y-6">
+    <h2 class="text-center text-2xl font-bold">Datos personales</h2>
+    <div>
+      <label
+        for="firstName"
+        class="block text-gray-700 text-sm font-bold mb-2"
+      >Nombre</label>
       <input
         type="text"
         id="firstName"
-        class="form-control"
+        class="form-input rounded w-full py-2 px-3 border border-gray-300 focus:outline-none focus:ring focus:border-blue-500"
         value="{{first_name}}"
         disabled
       />
     </div>
-    <div class="mb-3">
-      <label for="lastName" class="form-label">Apellido</label>
+    <div>
+      <label
+        for="lastName"
+        class="block text-gray-700 text-sm font-bold mb-2"
+      >Apellido</label>
       <input
         type="text"
         id="lastName"
-        class="form-control"
+        class="form-input rounded w-full py-2 px-3 border border-gray-300 focus:outline-none focus:ring focus:border-blue-500"
         value="{{last_name}}"
         disabled
       />
     </div>
-    <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
+    <div>
+      <label
+        for="email"
+        class="block text-gray-700 text-sm font-bold mb-2"
+      >Email</label>
       <input
         type="email"
         id="email"
-        class="form-control"
+        class="form-input rounded w-full py-2 px-3 border border-gray-300 focus:outline-none focus:ring focus:border-blue-500"
         value="{{email}}"
         disabled
       />
     </div>
-    <div class="mb-3">
-      <label for="age" class="form-label">Edad</label>
+    <div>
+      <label
+        for="age"
+        class="block text-gray-700 text-sm font-bold mb-2"
+      >Edad</label>
       <input
         type="number"
         id="age"
-        class="form-control"
+        class="form-input rounded w-full py-2 px-3 border border-gray-300 focus:outline-none focus:ring focus:border-blue-500"
         value="{{age}}"
         disabled
       />
     </div>
-    <a href="/forgot-password" class="btn btn-primary d-block mx-auto">Cambiar
-      Contraseña</a>
-    <a href="/products" class="btn btn-primary d-block mx-auto">Volver</a>
+    <a
+      href="/forgot-password"
+      class="btn btn-primary w-full text-center"
+    >Cambiar Contraseña</a>
+    <a href="/products" class="btn btn-primary w-full text-center">Volver</a>
   </div>
 </body>

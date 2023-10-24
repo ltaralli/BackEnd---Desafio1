@@ -130,7 +130,9 @@ io.on("connection", async (socket) => {
   logger.info("nuevo cliente conectado");
   const products = await manager.getProducts();
   io.emit("productList", products);
+
   socket.on("product", async (newProd) => {
+    logger.info(newProd);
     const resultAdd = await manager.addProduct(newProd);
     if (resultAdd.error) {
       socket.emit("productAddError", resultAdd.error);

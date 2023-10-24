@@ -21,17 +21,17 @@
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
-      <li><a>Item 1</a></li>
+      <li><a href="/products">Productos</a></li>
       <li tabindex="0">
         <details>
-          <summary>Parent</summary>
+          <summary>Paneles ADMIN</summary>
           <ul class="p-2">
-            <li><a>Submenu 1</a></li>
+            <li><a href="/realtimeproducts">Real Time Products</a></li>
             <li><a>Submenu 2</a></li>
           </ul>
         </details>
       </li>
-      <li><a>Item 3</a></li>
+      <li><a href="/profile">Profile</a></li>
     </ul>
   </div>
   <div class="navbar-end">
@@ -40,7 +40,7 @@
 </div>
 
 {{#if user.first_name}}
-  <div class="chat chat-start p-4 w-full md:w-1/4 px-2 mb-4">
+  <div class="chat chat-start self-start p-4 w-full md:w-1/4 px-2 mb-4">
     <div class="chat-bubble">
       <h6>Bienvenido, <b>{{user.first_name}}</b>! Tu rol es: <b>{{user.role}}</b></h6>
     </div>

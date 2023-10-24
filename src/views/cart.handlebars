@@ -59,12 +59,15 @@
   </div>
 
   <div class="flex justify-between mt-4">
-    <button class="btn btn-secondary"><a href="/products">Regresar</a></button>
+          <a href="/products"><button class="btn btn-secondary">Regresar</button></a>
     <button class="btn btn-success" onclick="purchase('{{_id}}')">Finalizar
       Compra</button>
   </div>
       {{else}}
       <p class="text-center font-bold mt-4">El carrito está vacío.</p>
+        <div class="flex justify-center mt-4">
+          <a href="/products"><button class="btn btn-secondary">Regresar</button></a>
+        </div>
     {{/if}}
 </div>
 
