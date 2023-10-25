@@ -73,7 +73,7 @@ Para poder ejecutar el proyecto, debes tener instalado [Node.js](https://nodejs.
 
 1. Clonar el repositorio con el comando:
 
-> `git clone https://github.com/ltaralli/SegundaPreEntrega-LTarlli.git`
+> `git clone https://github.com/ltaralli/EntregaFinal-Backend51400.git`
 
 2. Abre el proyecto en la carpeta raíz y ejecutar en la terminal:
 
