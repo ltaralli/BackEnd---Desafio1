@@ -91,7 +91,6 @@ app.use(cors());
 app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 app.set("views", "./src/views");
 app.set("view engine", "handlebars");
-
 app.use("/api/products", productsRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/session", sessionRouter);
@@ -132,7 +131,6 @@ io.on("connection", async (socket) => {
   io.emit("productList", products);
 
   socket.on("product", async (newProd) => {
-    logger.info(newProd);
     const resultAdd = await manager.addProduct(newProd);
     if (resultAdd.error) {
       socket.emit("productAddError", resultAdd.error);

@@ -103,7 +103,7 @@
     <!-- ... Contenido de la lista de productos ... -->
      {{#each data.products}}
             <div class="card card-compact w-72  shadow-xl">
-              <figure class="px-15"><img src="{{this.thumbnails}}" alt={{this.category}} /></figure>
+              <figure class="px-15 max-h-80"><img src="{{this.thumbnails}}" alt={{this.category}} /></figure>
               <div class="card-body">
                 <h2 class="card-title">{{this.title}}</h2>
                 <div class="badge badge-secondary">Owner: {{this.owner}}</div>
@@ -120,13 +120,13 @@
 
   <div class="flex justify-center mt-8">
     {{#if data.hasPrevPage}}
-      <button class="btn mr-2"><a class="page-link" href="{{data.prevLink}}">Anterior</a></button>
+      <a class="page-link" href="{{data.prevLink}}"><Anterior class="btn mr-2">Anterior</button></a>
     {{/if}}
     {{#if data.page}}
       <button class="btn">{{data.page}}</button>
     {{/if}}
     {{#if data.hasNextPage}}
-      <button class="btn ml-2"><a class="page-link" href="{{data.nextLink}}">Siguiente</a></button>
+     <a class="page-link" href="{{data.nextLink}}"> <Siguiente class="btn ml-2">Siguiente</button></a>
     {{/if}}
   </div>
 </div>

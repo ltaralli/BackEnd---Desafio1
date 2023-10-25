@@ -91,4 +91,11 @@ socket.on("productList", (data) => {
   });
   const productListContainer = document.getElementById("productList");
   productListContainer.innerHTML = productListHTML;
+
+  Swal.fire({
+    icon: "success",
+    title: "Productos actualizados correctamente",
+    showConfirmButton: false,
+    timer: 1500,
+  });
 });
