@@ -79,6 +79,23 @@ Para poder ejecutar el proyecto, debes tener instalado [Node.js](https://nodejs.
 
 > `npm i`
 
-3. Para iniciar el servidor local y ver el proyecto
+## Comandos del Proyecto
 
+En este proyecto, se proporcionan varios comandos para gestionar y ejecutar la aplicación. Puedes utilizar estos comandos desde la línea de comandos utilizando `npm` o `yarn` según tu preferencia. A continuación, se describen los comandos disponibles:
+
+- **Iniciar la Aplicación en Producción:**
 > `npm start`
+>Este comando inicia la aplicación en un entorno de producción utilizando Node.js.
+
+
+- **Iniciar la Aplicación en Modo de Desarrollo (con Nodemon):**
+>  `npm run dev`
+Utiliza este comando para iniciar la aplicación en modo de desarrollo con Nodemon. Este permite la recarga automática de la aplicación cuando se realizan cambios en el código fuente, lo que es útil durante el desarrollo.
+
+- **Ejecutar Pruebas Unitarias:**
+>`npm test`
+Ejecuta este comando para realizar pruebas unitarias utilizando Mocha en el archivo `usersDAO.test.js`. El comando incluye un límite de tiempo de 10 segundos por prueba.
+
+- **Ejecutar Pruebas de Integración (con límite de tiempo extendido):**
+> `npm run supertest`
+> Este comando se utiliza para ejecutar pruebas de integración utilizando Mocha en el archivo `supertest.test.js`. En este caso, se ha establecido un límite de tiempo extendido de 50 segundos por prueba. 
