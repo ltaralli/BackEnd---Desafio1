@@ -88,7 +88,7 @@ class ProductManager {
       const categories = await this.model.distinct("category");
       return categories;
     } catch (error) {
-      console.error("Error al obtener las categorías:", error);
+      logger.error("Error al obtener las categorías:", error);
       throw error;
     }
   }

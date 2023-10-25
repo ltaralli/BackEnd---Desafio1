@@ -5,13 +5,11 @@ import PaymentServices from "../services/payments.js";
 import Stripe from "stripe";
 import config from "../config/config.js";
 import { calculateTotalAmount } from "../utils/index.js";
-import jwt from "jsonwebtoken";
+import logger from "../utils/logger.js";
 
 const stripe = new Stripe(config.backend_stripe_key);
-const privateKey = config.private_key_JWT;
 
 const cartServices = new CartServices();
-const ticketServices = new TicketServices();
 const productServices = new ProductServices();
 const paymentServices = new PaymentServices();
 
@@ -33,7 +31,7 @@ export const getCart = async (req, res) => {
       products: cart.products,
     });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(500).send({
       status: "error",
       msg: "Error al obtener el carrito",
@@ -46,7 +44,7 @@ export const getCarts = async (req, res) => {
     const carts = await cartServices.getCarts();
     res.send({ status: "successful", carts });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(500).send({
       status: "error",
       msg: "Error al obtener los carritos",
@@ -75,6 +73,13 @@ export const addProductToCart = async (req, res) => {
       });
     }
 
+    if (req.user.role === "admin") {
+      return res.status(403).send({
+        status: "error",
+        msg: "No puedes comprar siendo admin",
+      });
+    }
+
     if (product.stock <= 0) {
       return res.status(400).send({
         status: "error",
@@ -96,7 +101,7 @@ export const addProductToCart = async (req, res) => {
       msg: result.message,
     });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(500).send({
       status: "error",
       msg: "Error al agregar el producto al carrito",
@@ -149,7 +154,7 @@ export const deleteProductFromCart = async (req, res) => {
       cart: updatedCart.cart,
     });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     return res.status(500).send({
       status: "error",
       msg: "Error al eliminar el producto del carrito",
@@ -184,7 +189,7 @@ export const updateCart = async (req, res) => {
       cart: updatedCart.cart,
     });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res
       .status(500)
       .send({ status: "error", msg: "Error al actualizar el carrito" });

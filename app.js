@@ -112,7 +112,7 @@ mongoose.connect(mongoURL, {
 const db = mongoose.connection;
 
 db.on("error", (error) => {
-  console.error("Error de conexión:", error);
+  logger.error("Error de conexión:", error);
 });
 
 db.once("open", () => {

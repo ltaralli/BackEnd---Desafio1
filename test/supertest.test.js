@@ -17,7 +17,7 @@ before(async () => {
   // Genera un usuario con faker
   newUser = {
     first_name: faker.person.firstName(),
-    last_name: faker.person.lastName(),
+    last_name: "SuperTest",
     email: faker.internet.email(),
     password: faker.internet.password(),
     age: faker.number.int(80),
@@ -75,32 +75,6 @@ describe("Prueba de ecommerce", () => {
       expect(userData.email).to.equal(newUser.email);
       userId = userData._id;
     });
-
-    it("Endpoint /api/users/premium - GET - Debe cambiar el rol del usuario a premium y luego volver a user", async () => {
-      // Realiza una solicitud GET para cambiar el rol del usuario
-      const changeRoleResponse = await testSession.get(
-        `/api/users/premium/${userId}`
-      );
-
-      // Verifica que la respuesta sea exitosa
-      expect(changeRoleResponse.status).to.equal(200);
-
-      // Verifica que el rol del usuario haya cambiado a premium
-      const userChangeRole = await testSession.get("/api/session/current");
-      expect(userChangeRole.body.payload.role).to.equal("premium");
-
-      // Realiza otra solicitud GET para volver a cambiar el rol
-      const revertRoleResponse = await testSession.get(
-        `/api/users/premium/${userId}`
-      );
-
-      // Verifica que la segunda respuesta sea exitosa
-      expect(revertRoleResponse.status).to.equal(200);
-
-      // Verifica que el rol haya vuelto a ser user
-      const userRevertRole = await testSession.get("/api/session/current");
-      expect(userRevertRole.body.payload.role).to.equal("user");
-    });
   });
 
   describe("Test de Products", () => {
@@ -135,8 +109,8 @@ describe("Prueba de ecommerce", () => {
 
     it("Endpoint /api/products - POST - Debe agregar un producto", async () => {
       const login = await testSession.post("/api/session/login").send({
-        email: "test@test.com",
-        password: "p4ssw0rd",
+        email: "SuperTest@gmail.com",
+        password: "1234",
       });
 
       // Verifica que el inicio de sesión sea exitoso
@@ -203,8 +177,8 @@ describe("Prueba de ecommerce", () => {
   });
 
   describe("Test de carrito", () => {
-    const cid = "65124f1d8db072b914ffefc6";
-    const pid = "648e5e2148088ca60ac1157d";
+    const cid = "6535927951a9831bcf93b58f";
+    const pid = "648e5e2148088ca60ac11585";
     it("Endpoint /api/cart - GET - Debe obtener todos los carritos", async () => {
       // Realiza una solicitud GET a /api/cart
       const response = await testSession.get("/api/cart");

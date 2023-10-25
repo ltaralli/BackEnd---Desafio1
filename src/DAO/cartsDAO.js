@@ -70,7 +70,7 @@ class CartManager {
         message: "Producto agregado al carrito",
       };
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return {
         success: false,
         message: "Error al agregar el producto al carrito",
@@ -123,7 +123,7 @@ class CartManager {
         cart,
       };
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return {
         success: false,
         message: "Error al eliminar el producto del carrito",
@@ -155,7 +155,7 @@ class CartManager {
         cart: updatedCart,
       };
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return {
         success: false,
         message: "Error al actualizar el carrito",
@@ -186,7 +186,7 @@ class CartManager {
         cart: updatedCart,
       };
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return {
         success: false,
         message: "Error al actualizar la cantidad de producto en el carrito",
@@ -213,7 +213,7 @@ class CartManager {
         message: "Productos eliminados del carrito correctamente",
       };
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return {
         success: false,
         message: "Error al eliminar los productos del carrito",

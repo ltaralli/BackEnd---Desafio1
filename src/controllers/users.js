@@ -8,7 +8,7 @@ export const getUsers = async (req, res) => {
     const users = await userServices.getAll();
     res.send({ status: "successful", users });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(500).send({
       status: "error",
       msg: "Error al obtener los usuarios",

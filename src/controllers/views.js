@@ -21,7 +21,7 @@ export const getProducts = async (req, res) => {
     let result = await productServices.getProducts();
     res.render("index", { products: result });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(500).send("Error interno del servidor");
   }
 };
@@ -50,7 +50,7 @@ export const getProductsRealTime = async (req, res) => {
     };
     res.render("realtimeproducts", { data, title: "Real Time Products" });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(500).send("Error interno del servidor");
   }
 };
@@ -87,7 +87,7 @@ export const getProductsViews = async (req, res) => {
 
     res.render("products", { data, title: "Productos" });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(500).send("Error interno del servidor");
   }
 };
@@ -100,7 +100,7 @@ export const getCart = async (req, res) => {
 
     res.render("cart", { cart, title: "Carrito" });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(500).send("Error interno del servidor");
   }
 };
@@ -162,7 +162,7 @@ export const getTicketByOrder = async (req, res) => {
 
     res.send(ticket);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(500).send("Error interno del servidor");
   }
 };
@@ -221,7 +221,7 @@ export const getUsers = async (req, res) => {
 
     res.render("users", { users, title: "Gestión de usuarios" });
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     res.status(500).send("Error interno del servidor");
   }
 };

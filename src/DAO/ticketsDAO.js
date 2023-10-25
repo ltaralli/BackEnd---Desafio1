@@ -44,7 +44,7 @@ class TicketsManager {
         ticket,
       };
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       return {
         success: false,
         message: `Ocurrió un error al obtener el ticket: ${error}`,
