@@ -49,7 +49,7 @@
             <summary>Administrador</summary>
             <ul class="p-2">
               <li><a href="/realtimeproducts">Real Time Products</a></li>
-              <li><a href="/usersadmin">Roles de Usuarios</a></li>
+              <li><a href="/usersadmin">Gestión de Usuarios</a></li>
             </ul>
           </details>
         </li>
@@ -66,8 +66,8 @@
       </ul>
     </div>
     <div class="navbar-end">
-      <a href="/carts/{{cart._id}}"><button
-          value="{{cart._id}}"
+      <a href="/carts/{{user.cart._id}}"><button
+          value="{{user.cart._id}}"
           class="cartID btn btn-primary"
         >CARRITO</button></a>
     </div>
@@ -83,7 +83,7 @@
         type="text"
         id="firstName"
         class="form-input rounded w-full py-2 px-3 border border-gray-300 focus:outline-none focus:ring focus:border-blue-500"
-        value="{{first_name}}"
+        value="{{user.first_name}}"
         disabled
       />
     </div>
@@ -96,7 +96,7 @@
         type="text"
         id="lastName"
         class="form-input rounded w-full py-2 px-3 border border-gray-300 focus:outline-none focus:ring focus:border-blue-500"
-        value="{{last_name}}"
+        value="{{user.last_name}}"
         disabled
       />
     </div>
@@ -109,7 +109,7 @@
         type="email"
         id="email"
         class="form-input rounded w-full py-2 px-3 border border-gray-300 focus:outline-none focus:ring focus:border-blue-500"
-        value="{{email}}"
+        value="{{user.email}}"
         disabled
       />
     </div>
@@ -122,7 +122,7 @@
         type="text"
         id="age"
         class="form-input rounded w-full py-2 px-3 border border-gray-300 focus:outline-none focus:ring focus:border-blue-500"
-        value="{{age}}"
+        value="{{user.age}}"
         disabled
       />
     </div>
@@ -135,7 +135,7 @@
         type="text"
         id="role"
         class="form-input rounded w-full py-2 px-3 border border-gray-300 focus:outline-none focus:ring focus:border-blue-500"
-        value="{{role}}"
+        value="{{user.role}}"
         disabled
       />
     </div>

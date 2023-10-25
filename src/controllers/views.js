@@ -31,7 +31,7 @@ export const home = (req, res) => {
 };
 
 export const getChat = (req, res) => {
-  res.render("chat", {});
+  res.render("chat", { title: "Chat" });
 };
 
 export const getProductsRealTime = async (req, res) => {
@@ -48,7 +48,7 @@ export const getProductsRealTime = async (req, res) => {
       nextPage: result.nextPage,
       page: result.page,
     };
-    res.render("realtimeproducts", data);
+    res.render("realtimeproducts", { data, title: "Real Time Products" });
   } catch (error) {
     console.error(error);
     res.status(500).send("Error interno del servidor");
@@ -85,7 +85,7 @@ export const getProductsViews = async (req, res) => {
       cart: user.cart,
     };
 
-    res.render("products", data);
+    res.render("products", { data, title: "Productos" });
   } catch (error) {
     console.error(error);
     res.status(500).send("Error interno del servidor");
@@ -98,7 +98,7 @@ export const getCart = async (req, res) => {
   try {
     cart = await cartServices.getCart(cid);
 
-    res.render("cart", cart);
+    res.render("cart", { cart, title: "Carrito" });
   } catch (error) {
     console.error(error);
     res.status(500).send("Error interno del servidor");
@@ -117,7 +117,7 @@ export const login = async (req, res) => {
       res.status(500).send("Error interno del servidor");
     }
   }
-  res.render("login", {});
+  res.render("login", { title: "Login" });
 };
 
 export const register = async (req, res) => {
@@ -133,12 +133,12 @@ export const register = async (req, res) => {
     }
   }
 
-  res.render("register", {});
+  res.render("register", { title: "Registro" });
 };
 
 export const profile = async (req, res) => {
   let user = await userServices.getUser(req.user.email);
-  res.render("profile", user);
+  res.render("profile", { user, title: "Perfil" });
 };
 
 export const logout = (req, res) => {
@@ -147,11 +147,11 @@ export const logout = (req, res) => {
 };
 
 export const failRegister = async (req, res) => {
-  res.render("register-error", {});
+  res.render("register-error", { title: "Error de registro" });
 };
 
 export const failLogin = async (req, res) => {
-  res.render("login-error", {});
+  res.render("login-error", { title: "Error de logeo" });
 };
 
 export const getTicketByOrder = async (req, res) => {
@@ -187,24 +187,24 @@ export const loggerTest = async (req, res) => {
 };
 
 export const forgotPass = async (req, res) => {
-  res.render("forgot-password", {});
+  res.render("forgot-password", { title: "Recuperar Contraseña" });
 };
 
 export const resetPass = async (req, res) => {
-  res.render("reset-password", {});
+  res.render("reset-password", { title: "Cambio de contraseña" });
 };
 
 export const paymentsSuccess = async (req, res) => {
-  res.render("success-payments", {});
+  res.render("success-payments", { title: "Pago satisfactorio" });
 };
 
 export const paymentsCancel = async (req, res) => {
-  res.render("cancel-payments", {});
+  res.render("cancel-payments", { tilte: "Pago cancelado" });
 };
 
 export const uploadDocuments = (req, res) => {
   const uid = req.user.id;
-  res.render("update-documents", { uid });
+  res.render("update-documents", { uid, title: "Carga de documentación" });
 };
 
 export const getUsers = async (req, res) => {
@@ -219,7 +219,7 @@ export const getUsers = async (req, res) => {
       })
     );
 
-    res.render("users", { users });
+    res.render("users", { users, title: "Gestión de usuarios" });
   } catch (error) {
     console.error(error);
     res.status(500).send("Error interno del servidor");

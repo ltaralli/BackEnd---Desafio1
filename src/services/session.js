@@ -93,8 +93,8 @@ export default class UserServices {
 
   async deleteUser(uid) {
     let result = await this.dao.deleteUser(uid);
-    // const options = templateDeleteAccount(result.email);
-    // const resultMail = await sendMail(options);
+    const options = templateDeleteAccount(result.email);
+    const resultMail = await sendMail(options);
     return result;
   }
 }

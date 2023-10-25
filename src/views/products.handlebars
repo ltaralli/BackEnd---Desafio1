@@ -34,7 +34,7 @@
           <summary>Administrador</summary>
           <ul class="p-2">
             <li><a href="/realtimeproducts">Real Time Products</a></li>
-            <li><a href="/usersadmin">Roles de Usuarios</a></li>
+            <li><a href="/usersadmin">Gestión de Usuarios</a></li>
           </ul>
         </details>
       </li>
@@ -51,14 +51,14 @@
     </ul>
   </div>
   <div class="navbar-end">
-    <a href="/carts/{{cart._id}}" ><button value="{{cart._id}}" class="cartID btn btn-primary">CARRITO</button></a>
+    <a href="/carts/{{data.cart._id}}" ><button value="{{data.cart._id}}" class="cartID btn btn-primary">CARRITO</button></a>
   </div>
 </div>
 
 {{#if user.first_name}}
   <div class="chat chat-start self-start p-4 w-full md:w-1/4 px-2 mb-4">
     <div class="chat-bubble">
-      <h6>Bienvenido, <b>{{user.first_name}}</b>! Tu rol es: <b>{{user.role}}</b></h6>
+      <h6>Bienvenido, <b>{{data.user.first_name}}</b>! Tu rol es: <b>{{data.user.role}}</b></h6>
     </div>
   </div>
 {{/if}}
@@ -79,7 +79,7 @@
               <label for="category" class="block text-sm font-medium text-white-700">Categoría:</label>
               <select name="category" id="category" class="select select-primary w-full max-w-xs">
                 <option value="">Todas</option>
-                {{#each categories}}
+                {{#each data.categories}}
                   <option value="{{name}}"{{#if selected}} selected{{/if}}>{{name}}</option>
                 {{/each}}
               </select>
@@ -101,7 +101,7 @@
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
     <!-- ... Contenido de la lista de productos ... -->
-     {{#each products}}
+     {{#each data.products}}
             <div class="card card-compact w-72  shadow-xl">
               <figure class="px-15"><img src="{{this.thumbnails}}" alt={{this.category}} /></figure>
               <div class="card-body">
@@ -119,14 +119,14 @@
   </div>
 
   <div class="flex justify-center mt-8">
-    {{#if hasPrevPage}}
-      <button class="btn mr-2"><a class="page-link" href="{{prevLink}}">Anterior</a></button>
+    {{#if data.hasPrevPage}}
+      <button class="btn mr-2"><a class="page-link" href="{{data.prevLink}}">Anterior</a></button>
     {{/if}}
-    {{#if page}}
-      <button class="btn">{{page}}</button>
+    {{#if data.page}}
+      <button class="btn">{{data.page}}</button>
     {{/if}}
-    {{#if hasNextPage}}
-      <button class="btn ml-2"><a class="page-link" href="{{nextLink}}">Siguiente</a></button>
+    {{#if data.hasNextPage}}
+      <button class="btn ml-2"><a class="page-link" href="{{data.nextLink}}">Siguiente</a></button>
     {{/if}}
   </div>
 </div>

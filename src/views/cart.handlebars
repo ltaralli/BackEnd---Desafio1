@@ -38,7 +38,7 @@
           <summary>Administrador</summary>
           <ul class="p-2">
             <li><a href="/realtimeproducts">Real Time Products</a></li>
-            <li><a href="/usersadmin">Roles de Usuarios</a></li>
+            <li><a href="/usersadmin">Gestión de Usuarios</a></li>
           </ul>
         </details>
       </li>
@@ -66,7 +66,7 @@
   <h1 class="text-2xl font-bold mb-4">Carrito de compras</h1>
     <span class="font-bold cart-id"></span></h5>
 
-{{#if products.length}}
+{{#if cart.products.length}}
   <div class="overflow-x-auto">
     <table class="table-auto w-full">
       <thead>
@@ -80,7 +80,7 @@
         </tr>
       </thead>
       <tbody>
-        {{#each products}}
+        {{#each cart.products}}
           <tr>
             <td class="px-4 py-2">
               <img
@@ -107,7 +107,7 @@
         <tr>
           <td colspan="5"></td>
           <td class="px-4 py-2 font-bold text-right">Total: ${{calculateTotal
-              products
+              cart.products
             }}</td>
         </tr>
       </tbody>
@@ -116,7 +116,7 @@
 
   <div class="flex justify-between mt-4">
           <a href="/products"><button class="btn btn-secondary">Regresar</button></a>
-    <button class="btn btn-success" onclick="purchase('{{_id}}')">Finalizar
+    <button class="btn btn-success" onclick="purchase('{{cart._id}}')">Finalizar
       Compra</button>
   </div>
       {{else}}
