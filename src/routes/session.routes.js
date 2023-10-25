@@ -27,7 +27,7 @@ sessionRouter.get(
   "/githubcallback",
   passport.authenticate("github", {
     failureRedirect: "/login",
-    session: false, // Asegúrate de deshabilitar la sesión aquí
+    session: false,
   }),
   githubCallback
 );
